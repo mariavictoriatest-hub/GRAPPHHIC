@@ -7,28 +7,31 @@ destination: instagram-reels
 aspect: 1080x1920
 language: es
 length: 30s
-angle: footage-remix
+angle: audio-driven stop-motion collage
 ---
 
 ## Intent
 
-Remix con motion graphics, estilo collage, del reel de Abuchalja "¿Qué son los
-registros?". La voz y la imagen original se mantienen; alrededor de ella se
-construye una página de collage de papel cálido/místico (kraft, crema, terracota,
-dorado — eco de la lámpara de sal del video): recortes, cinta adhesiva, estrellas,
-lunas, garabatos a mano.
+Motion graphic de "¿Qué son los registros?" para @abuchaljacoach, hecho SOLO con el
+audio del reel original (sin la imagen de Elena). Se construye como un stop motion
+de recortes reales: papel, letras de nota de rescate, luna, mariposa, libros, reloj de
+arena, estrellas, flores secas y periódico, en semitono, siguiendo la estética de la
+marca.
 
 ## Assets
 
-- assets/reel.mp4 — reel original 1080x1920, 29.9 s, voz incluida; es la base del video.
+- assets/reel.mp4 — reel original; solo se usa su audio (extraído a assets/voice.m4a).
 - assets/transcript-segments.json — transcripción por frases (es), marca los tiempos de las palabras clave.
+- assets/cutouts/*.png — recortes tomados de la referencia gráfica de la marca enviada por la usuaria (luna, mariposa, libro abierto, pila de libros, reloj de arena, letras S y C, flores con periódico, estrella), re-tramados en semitono a alta resolución.
 
 ## Customizations
 
-- Estética: papel cálido/místico (elección del usuario).
-- Texto: solo palabras clave en recortes (MAGIA, ENTENDER, COACH, HERRAMIENTAS, CAMINO, ALIVIADA), sincronizadas con la voz; sin subtítulos completos.
-- Persona recortada del fondo (remove-background) y montada sobre el collage con borde tipo sticker.
+- Colores de marca: #fff6d2, #5e3c79, #f7dbff y blanco.
+- Tipografía: Noto Serif Display Extra Condensed (instancias estáticas wdth 62.5 en assets/fonts).
+- Stop motion a 12 fps con "boil" (temblor de recorte) cada 2 cuadros.
+- Texto: solo palabras clave impresas en tiras de papel recortado, sincronizadas con la voz.
 
 ## Notes
 
-- Revisión con storyboard antes de construir (elección del usuario).
+- Revisión con storyboard antes de animar el detalle (elección de la usuaria).
+- Sin acceso a bancos de imágenes en este entorno: los recortes salen de la referencia de la marca.

@@ -25,6 +25,11 @@
       "name": "freeze-frame-dressing",
       "type": "hyperframes:block",
       "target": "compositions/freeze-frame-dressing.html"
+    },
+    {
+      "name": "stop-motion-cadence",
+      "type": "hyperframes:component",
+      "target": "compositions/components/stop-motion-cadence.html"
     }
   ]
 }

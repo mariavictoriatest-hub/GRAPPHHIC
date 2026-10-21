@@ -6,24 +6,27 @@
     <script src="vendor/gsap.min.js"></script>
     <style>
       @font-face {
-        font-family: "Caveat";
-        src: url("assets/fonts/caveat-latin-700-normal.woff2") format("woff2");
-        font-weight: 700;
-      }
-      @font-face {
-        font-family: "Permanent Marker";
-        src: url("assets/fonts/permanent-marker-latin-400-normal.woff2") format("woff2");
+        font-family: "Abu Serif Condensed";
+        src: url("assets/fonts/noto-serif-display-xcond-400.woff2") format("woff2");
         font-weight: 400;
       }
+      @font-face {
+        font-family: "Abu Serif Condensed";
+        src: url("assets/fonts/noto-serif-display-xcond-600.woff2") format("woff2");
+        font-weight: 600;
+      }
+      @font-face {
+        font-family: "Abu Serif Condensed";
+        src: url("assets/fonts/noto-serif-display-xcond-800.woff2") format("woff2");
+        font-weight: 800;
+      }
       :root {
-        --kraft: #c49a6b;
-        --kraft-dark: #9c7247;
-        --cream: #f3e8d2;
-        --ink: #2a1c14;
-        --terra: #b4502b;
-        --gold: #d9a441;
-        --night: #2b2236;
-        --gray: #b9b2a8;
+        --cream: #fff6d2;
+        --purple: #5e3c79;
+        --lilac: #f7dbff;
+        --white: #ffffff;
+        --ink: #2b1d36;
+        --gray: #dcd8de;
       }
       * {
         margin: 0;
@@ -35,248 +38,138 @@
         width: 1080px;
         height: 1920px;
         overflow: hidden;
-        background: var(--kraft);
+        background: var(--cream);
       }
       #root {
         position: relative;
         width: 100%;
         height: 100%;
         overflow: hidden;
-        background: var(--kraft);
-        font-family: "Archivo Black", sans-serif;
-        color: var(--ink);
-      }
-      .layer {
-        position: absolute;
-        inset: 0;
+        background: var(--cream);
+        font-family: "Abu Serif Condensed", serif;
+        font-stretch: 62.5%;
+        color: var(--purple);
       }
 
-      /* ---------- background collage ---------- */
-      #bg-fibers {
-        position: absolute;
-        inset: 0;
-        filter: url(#grain);
-        mix-blend-mode: multiply;
-        opacity: 0.55;
-      }
-      #halo {
-        position: absolute;
-        left: 230px;
-        top: 560px;
-        width: 620px;
-        height: 620px;
-        border-radius: 50%;
-        background: radial-gradient(circle at 50% 50%, #f4c45f 0%, #e5a243 55%, #c9782f 100%);
-        filter: url(#deckle);
-      }
-      .sheet {
-        position: absolute;
-        filter: drop-shadow(0 6px 10px rgba(50, 28, 10, 0.35));
-      }
-      .sheet > .fill {
-        position: absolute;
-        inset: 0;
-        filter: url(#deckle);
-      }
-      .sheet > .fill > div {
-        position: absolute;
-        inset: 0;
-      }
-      #sheet-cream {
-        left: 40px;
-        top: 1060px;
-        width: 1000px;
-        height: 900px;
-      }
-      #sheet-terra {
-        left: -60px;
-        top: 1360px;
-        width: 520px;
-        height: 200px;
-      }
-      #sheet-night {
-        left: 700px;
-        top: 1250px;
-        width: 460px;
-        height: 170px;
-      }
-      .tape {
-        position: absolute;
-        width: 190px;
-        height: 54px;
-        background: rgba(245, 226, 170, 0.78);
-        border-left: 3px dashed rgba(140, 110, 60, 0.25);
-        border-right: 3px dashed rgba(140, 110, 60, 0.25);
-        box-shadow: 0 3px 6px rgba(40, 20, 5, 0.18);
-      }
-      .star {
-        position: absolute;
-        width: 70px;
-        height: 70px;
-      }
-      .star svg {
-        width: 100%;
-        height: 100%;
-        display: block;
-      }
-
-      /* ---------- subject ---------- */
-      #her-wrap {
-        position: absolute;
-        left: 108px;
-        top: 384px;
-        width: 864px;
-        height: 1536px;
-        filter: drop-shadow(5px 0 0 #fffaf0) drop-shadow(-5px 0 0 #fffaf0)
-          drop-shadow(0 5px 0 #fffaf0) drop-shadow(0 -5px 0 #fffaf0)
-          drop-shadow(0 22px 26px rgba(40, 20, 5, 0.4));
-      }
-      #her {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      /* ---------- scraps (torn paper labels) ---------- */
-      .scrap {
+      /* every element is a paper piece: .piece (scene motion) > .boil (stop-motion jitter) */
+      .piece {
         position: absolute;
         opacity: 0;
-        filter: drop-shadow(0 8px 10px rgba(40, 20, 5, 0.38));
       }
-      .scrap > .paper {
+      .boil {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+      .cut {
+        display: block;
+        width: 100%;
+        height: auto;
+        filter: drop-shadow(0 7px 8px rgba(43, 29, 54, 0.32));
+      }
+      /* torn paper strip carrying printed type */
+      .strip {
+        filter: drop-shadow(0 7px 9px rgba(43, 29, 54, 0.3));
+      }
+      .strip .paper {
         position: absolute;
         inset: 0;
-        filter: url(#deckle);
+        background: var(--p, var(--white));
       }
-      .scrap > .paper > div {
-        position: absolute;
-        inset: 0;
-        background: var(--p, var(--cream));
-      }
-      .scrap > .txt {
+      .strip .txt {
         position: absolute;
         inset: 0;
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
         text-align: center;
-        line-height: 1;
+        line-height: 0.9;
+        color: var(--c, var(--purple));
+        white-space: nowrap;
       }
-      .scrap .tape {
-        z-index: 2;
+      .big {
+        font-weight: 600;
+        letter-spacing: -0.01em;
       }
-      .hand {
-        font-family: "Caveat", cursive;
-        font-weight: 700;
+      .small {
+        font-weight: 400;
+        font-style: normal;
+        letter-spacing: 0.01em;
       }
-      .marker {
-        font-family: "Permanent Marker", cursive;
-      }
-      .mono {
+      .label {
         font-family: "Space Mono", monospace;
+        font-stretch: 100%;
         font-weight: 700;
-        letter-spacing: 0.08em;
+        letter-spacing: 0.12em;
         text-transform: uppercase;
       }
 
-      /* ransom title */
-      #title {
-        position: absolute;
-        left: 0;
-        top: 170px;
-        width: 1080px;
-        height: 420px;
-      }
+      /* ransom-note letter cards */
       .rline {
         position: absolute;
         left: 0;
         width: 1080px;
         display: flex;
         justify-content: center;
-        gap: 6px;
+        align-items: center;
+        gap: 4px;
       }
-      #rline-a {
-        top: 0;
-      }
-      #rline-b {
-        top: 150px;
-      }
-      .rl {
-        display: block;
+      .card {
+        position: relative;
         opacity: 0;
-        padding: 6px 10px 2px;
-        line-height: 1;
-        box-shadow: 0 5px 8px rgba(40, 20, 5, 0.35);
+        filter: drop-shadow(0 6px 7px rgba(43, 29, 54, 0.32));
       }
-      #rline-a .rl {
-        font-size: 80px;
-      }
-      #rline-b .rl {
-        font-size: 128px;
-        padding: 10px 8px 4px;
-      }
-      .rl.sp {
-        box-shadow: none;
-        background: none;
-        width: 22px;
-      }
-
-      /* lined index card */
-      .lined > .paper > div {
-        background:
-          linear-gradient(90deg, transparent 70px, rgba(196, 70, 60, 0.55) 70px 74px, transparent 74px),
-          repeating-linear-gradient(180deg, transparent 0 46px, rgba(70, 110, 170, 0.35) 46px 49px),
-          var(--cream);
-      }
-      /* ticket */
-      .ticket > .paper > div {
-        background:
-          radial-gradient(circle at 0 50%, var(--kraft) 0 26px, transparent 27px),
-          radial-gradient(circle at 100% 50%, var(--kraft) 0 26px, transparent 27px),
-          var(--terra);
-      }
-      .ticket .perf {
-        position: absolute;
-        top: 22px;
-        bottom: 22px;
-        left: 150px;
-        border-left: 5px dotted rgba(243, 232, 210, 0.7);
-      }
-      /* hang tag */
-      .tag .hole {
-        position: absolute;
-        left: 38px;
-        top: 50%;
-        width: 34px;
-        height: 34px;
-        margin-top: -17px;
-        border-radius: 50%;
-        background: var(--kraft-dark);
-        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
-        z-index: 2;
-      }
-      /* crumpled note */
-      .crumpled > .paper > div {
-        background:
-          linear-gradient(130deg, rgba(255, 255, 255, 0.25) 0 18%, transparent 18% 40%, rgba(0, 0, 0, 0.08) 40% 55%, transparent 55%),
-          linear-gradient(40deg, transparent 0 30%, rgba(0, 0, 0, 0.1) 30% 33%, transparent 33% 70%, rgba(255, 255, 255, 0.2) 70%),
-          var(--gray);
-      }
-
-      svg.doodle {
-        position: absolute;
-        overflow: visible;
-        pointer-events: none;
-      }
-      #grain-top {
+      .card > .paper {
         position: absolute;
         inset: 0;
-        filter: url(#grain);
+      }
+      .card > .ch {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+      }
+      .card > img {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* newsprint scraps */
+      .news .paper {
+        position: absolute;
+        inset: 0;
+        background: #f4f1ea;
+        overflow: hidden;
+      }
+      .news .cols {
+        position: absolute;
+        inset: 14px 16px;
+        column-count: 3;
+        column-gap: 14px;
+        font-family: "Abu Serif Condensed", serif;
+        font-size: 17px;
+        line-height: 1.12;
+        color: #3a3640;
+        text-align: justify;
+      }
+
+      #dots {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: visible;
+      }
+      #grain {
+        position: absolute;
+        inset: 0;
+        filter: url(#grain-f);
         mix-blend-mode: multiply;
-        opacity: 0.22;
+        opacity: 0.32;
         pointer-events: none;
       }
     </style>
@@ -292,235 +185,127 @@
     >
       <svg width="0" height="0" style="position: absolute" aria-hidden="true">
         <defs>
-          <filter id="grain" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
-            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" seed="11" stitchTiles="stitch" />
+          <filter id="grain-f" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" seed="23" stitchTiles="stitch" />
             <feColorMatrix type="matrix" values="0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0 0 0 0 1" />
             <feComponentTransfer>
-              <feFuncR type="linear" slope="0.6" intercept="0.55" />
-              <feFuncG type="linear" slope="0.6" intercept="0.55" />
-              <feFuncB type="linear" slope="0.6" intercept="0.55" />
+              <feFuncR type="linear" slope="0.5" intercept="0.6" />
+              <feFuncG type="linear" slope="0.5" intercept="0.6" />
+              <feFuncB type="linear" slope="0.5" intercept="0.6" />
             </feComponentTransfer>
           </filter>
-          <filter id="deckle" x="-5%" y="-5%" width="110%" height="110%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="4" seed="7" />
-            <feDisplacementMap in="SourceGraphic" scale="14" xChannelSelector="R" yChannelSelector="G" />
-          </filter>
-          <symbol id="star5" viewBox="0 0 100 100">
-            <path d="M50 4 L62 38 L98 40 L69 61 L80 96 L50 75 L20 96 L31 61 L2 40 L38 38 Z" />
-          </symbol>
-          <symbol id="spark" viewBox="0 0 100 100">
-            <path d="M50 0 C54 36 64 46 100 50 C64 54 54 64 50 100 C46 64 36 54 0 50 C36 46 46 36 50 0 Z" />
-          </symbol>
-          <symbol id="moon" viewBox="0 0 100 100">
-            <path d="M62 6 A46 46 0 1 0 94 70 A38 38 0 1 1 62 6 Z" />
-          </symbol>
         </defs>
       </svg>
 
-      <!-- background collage -->
-      <div id="bg-fibers" aria-hidden="true"></div>
-      <div id="halo" aria-hidden="true"></div>
-      <div class="sheet" id="sheet-cream" aria-hidden="true">
-        <div class="fill"><div class="torn" style="background: var(--cream)"></div></div>
+      <audio id="voice" src="assets/voice.m4a" data-start="0" data-duration="29.9" data-track-index="1" data-volume="1"></audio>
+
+      <!-- background paper patches -->
+      <div class="piece strip" id="bg-lilac-a" style="left: -80px; top: 160px; width: 560px; height: 420px; --p: var(--lilac)">
+        <div class="boil"><div class="paper torn"></div></div>
       </div>
-      <div class="sheet" id="sheet-terra" aria-hidden="true">
-        <div class="fill"><div class="torn" style="background: var(--terra)"></div></div>
+      <div class="piece strip" id="bg-lilac-b" style="left: 620px; top: 1320px; width: 560px; height: 520px; --p: var(--lilac)">
+        <div class="boil"><div class="paper torn"></div></div>
       </div>
-      <div class="sheet" id="sheet-night" aria-hidden="true">
-        <div class="fill"><div class="torn" style="background: var(--night)"></div></div>
-      </div>
-      <div class="tape" id="tape-bg-a" style="left: 20px; top: 1040px" aria-hidden="true"></div>
-      <div class="tape" id="tape-bg-b" style="left: 880px; top: 1050px" aria-hidden="true"></div>
-      <div class="star" id="bgstar-a" style="left: 60px; top: 620px; color: var(--gold)">
-        <svg><use href="#star5" fill="currentColor" /></svg>
-      </div>
-      <div class="star" id="bgstar-b" style="left: 950px; top: 690px; width: 52px; height: 52px; color: var(--cream)">
-        <svg><use href="#spark" fill="currentColor" /></svg>
-      </div>
-      <div class="star" id="bgstar-c" style="left: 900px; top: 560px; width: 40px; height: 40px; color: var(--gold)">
-        <svg><use href="#star5" fill="currentColor" /></svg>
-      </div>
-      <div class="star" id="bgstar-d" style="left: 150px; top: 540px; width: 44px; height: 44px; color: var(--cream)">
-        <svg><use href="#spark" fill="currentColor" /></svg>
+      <div class="piece strip news" id="bg-news" style="left: 690px; top: 120px; width: 420px; height: 300px">
+        <div class="boil"><div class="paper torn"><div class="cols"></div></div></div>
       </div>
 
-      <!-- subject: background-removed cutout with sticker border -->
-      <div id="her-wrap">
-        <video
-          id="her"
-          class="clip"
-          src="assets/reel-cutout.webm"
-          muted
-          playsinline
-          data-start="0"
-          data-duration="29.9"
-          data-track-index="0"
-        ></video>
-      </div>
-      <audio id="voice" src="assets/reel.mp4" data-start="0" data-duration="29.9" data-track-index="1" data-volume="1"></audio>
-
-      <!-- ransom-note title (becomes the page header) -->
-      <div id="title">
-        <div class="rline" id="rline-a"></div>
-        <div class="rline" id="rline-b"></div>
-      </div>
-
-      <!-- F2: magia -->
-      <div class="scrap" id="note-some" data-rot="-5" style="left: 30px; top: 760px; width: 330px; height: 130px">
-        <div class="paper"><div></div></div>
-        <div class="txt hand" style="font-size: 62px">para algunos…</div>
-      </div>
-      <div class="scrap" id="kw-magia" data-rot="-4" style="left: 150px; top: 390px; width: 780px; height: 250px; --p: var(--night)">
-        <div class="paper"><div></div></div>
-        <div class="txt" style="font-size: 170px; color: var(--gold); letter-spacing: 0.02em">MAGIA</div>
-      </div>
-      <div class="star" id="mg-moon" style="left: 70px; top: 330px; width: 150px; height: 150px; color: var(--gold); opacity: 0">
-        <svg><use href="#moon" fill="currentColor" /></svg>
-      </div>
-      <div class="star" id="mg-s1" style="left: 880px; top: 340px; width: 110px; height: 110px; color: var(--gold); opacity: 0">
-        <svg><use href="#spark" fill="currentColor" /></svg>
-      </div>
-      <div class="star" id="mg-s2" style="left: 930px; top: 610px; width: 70px; height: 70px; color: var(--cream); opacity: 0">
-        <svg><use href="#star5" fill="currentColor" /></svg>
-      </div>
-      <div class="star" id="mg-s3" style="left: 210px; top: 640px; width: 60px; height: 60px; color: var(--cream); opacity: 0">
-        <svg><use href="#spark" fill="currentColor" /></svg>
-      </div>
-      <div class="scrap" id="note-others" data-rot="6" style="left: 730px; top: 800px; width: 320px; height: 130px">
-        <div class="paper"><div></div></div>
-        <div class="txt hand" style="font-size: 62px">para otros…</div>
-      </div>
-
-      <!-- F3: entender -->
-      <div class="scrap lined" id="kw-entender" data-rot="3" style="left: 110px; top: 380px; width: 860px; height: 270px">
-        <div class="paper"><div></div></div>
-        <div class="tape" style="left: 335px; top: -26px; transform: rotate(-4deg)"></div>
-        <div class="txt marker" style="font-size: 132px; padding-left: 40px">ENTENDER</div>
-        <svg class="doodle" id="ent-underline" viewBox="0 0 700 60" style="left: 120px; top: 200px; width: 680px; height: 60px">
-          <path d="M5 35 C 120 10, 240 55, 360 28 S 600 15, 695 32" fill="none" stroke="#b4502b" stroke-width="12" stroke-linecap="round" />
-        </svg>
-      </div>
-
-      <!-- F4: coach + herramientas -->
-      <div class="scrap ticket" id="kw-coach" data-rot="-3" style="left: 110px; top: 390px; width: 860px; height: 250px">
-        <div class="paper"><div></div></div>
-        <div class="perf"></div>
-        <div class="txt" style="flex-direction: row; gap: 54px; color: var(--cream); padding-left: 40px">
-          <span class="mono" style="font-size: 40px; width: 110px; line-height: 1.1">como un</span>
-          <span style="font-size: 150px">COACH</span>
-        </div>
-      </div>
-      <div class="scrap tag" id="kw-tools" data-rot="2" style="left: 40px; top: 400px; width: 1000px; height: 230px; --p: var(--cream)">
-        <div class="paper"><div></div></div>
-        <div class="hole"></div>
-        <div class="txt" style="font-size: 98px; padding-left: 70px; color: var(--terra)">HERRAMIENTAS</div>
-      </div>
-      <svg class="doodle" id="tag-string" viewBox="0 0 200 300" style="left: -20px; top: 230px; width: 200px; height: 300px; opacity: 0">
-        <path d="M80 280 C 40 200, 140 140, 60 10" fill="none" stroke="#f3e8d2" stroke-width="6" stroke-linecap="round" />
-      </svg>
-      <div class="scrap" id="note-problem" data-rot="-4" style="left: 30px; top: 760px; width: 360px; height: 190px">
-        <div class="paper"><div></div></div>
-        <div class="txt hand" style="font-size: 58px; line-height: 0.95; padding: 0 22px">para resolver un problema</div>
-      </div>
-
-      <!-- F5: el camino -->
-      <svg class="doodle" id="path-svg" viewBox="0 0 1080 1920" style="left: 0; top: 0; width: 1080px; height: 1920px">
-        <defs>
-          <mask id="path-mask" maskUnits="userSpaceOnUse">
-            <path id="path-reveal" d="M70 1560 C 40 1260, 260 1180, 150 960 S 110 690, 380 700 S 760 760, 850 640" fill="none" stroke="#fff" stroke-width="40" stroke-linecap="round" />
-          </mask>
-        </defs>
-        <path d="M70 1560 C 40 1260, 260 1180, 150 960 S 110 690, 380 700 S 760 760, 850 640" fill="none" stroke="#fffaf0" stroke-width="13" stroke-linecap="round" stroke-dasharray="2 30" mask="url(#path-mask)" />
-      </svg>
-      <div class="scrap" id="note-path" data-rot="-6" style="left: 30px; top: 1180px; width: 380px; height: 130px">
-        <div class="paper"><div></div></div>
-        <div class="txt hand" style="font-size: 58px">nos van llevando…</div>
-      </div>
-      <div class="scrap" id="kw-camino" data-rot="4" style="left: 300px; top: 400px; width: 720px; height: 230px; --p: var(--terra)">
-        <div class="paper"><div></div></div>
-        <div class="txt" style="flex-direction: row; gap: 18px; color: var(--cream)">
-          <span class="hand" style="font-size: 80px">el</span>
-          <span style="font-size: 140px">CAMINO</span>
+      <!-- ransom title (becomes header) -->
+      <div class="piece" id="title" style="left: 0; top: 300px; width: 1080px; height: 420px">
+        <div class="boil">
+          <div class="strip" id="q-strip" style="position: absolute; left: 330px; top: 0; width: 420px; height: 110px">
+            <div class="paper torn" style="background: var(--purple)"></div>
+            <div class="txt small" style="font-size: 78px; color: var(--cream)">¿qué son los</div>
+          </div>
+          <div class="rline" id="rline" style="top: 140px; height: 230px"></div>
         </div>
       </div>
 
-      <!-- F6: llega así → se va aliviada -->
-      <div class="scrap crumpled" id="note-arrive" data-rot="-7" style="left: 30px; top: 770px; width: 330px; height: 150px">
-        <div class="paper"><div></div></div>
-        <div class="txt hand" style="font-size: 62px; color: #3b342f">llega así…</div>
-      </div>
-      <svg class="doodle" id="cloud" viewBox="0 0 160 100" style="left: 250px; top: 690px; width: 150px; height: 95px; opacity: 0">
-        <path d="M30 80 C 5 80, 5 50, 30 48 C 30 20, 70 15, 80 38 C 95 20, 135 28, 130 55 C 155 58, 150 82, 128 82 Z" fill="#8d877f" stroke="#3b342f" stroke-width="5" />
-        <path d="M40 92 L34 100 M70 92 L64 100 M100 92 L94 100" stroke="#3b342f" stroke-width="5" stroke-linecap="round" />
-      </svg>
-      <div class="scrap" id="kw-relief" data-rot="-3" style="left: 90px; top: 360px; width: 900px; height: 300px">
-        <div class="paper"><div></div></div>
-        <div class="txt">
-          <span class="hand" style="font-size: 76px; color: var(--ink)">se va</span>
-          <span style="font-size: 140px; color: var(--terra)">ALIVIADA</span>
-        </div>
-      </div>
-      <svg class="doodle" id="sun" viewBox="0 0 200 200" style="left: 880px; top: 280px; width: 170px; height: 170px; opacity: 0">
-        <circle cx="100" cy="100" r="44" fill="#d9a441" />
-        <g stroke="#d9a441" stroke-width="12" stroke-linecap="round">
-          <path d="M100 8 V36 M100 164 V192 M8 100 H36 M164 100 H192 M35 35 L55 55 M145 145 L165 165 M165 35 L145 55 M35 165 L55 145" />
-        </g>
+      <!-- cutouts -->
+      <div class="piece" id="book-open" style="left: 150px; top: 1080px; width: 780px"><div class="boil"><img class="cut" src="assets/cutouts/book-open.png" alt="" /></div></div>
+      <div class="piece" id="moon" style="left: 690px; top: -60px; width: 460px"><div class="boil"><img class="cut" src="assets/cutouts/moon.png" alt="" /></div></div>
+      <div class="piece" id="star-a" style="left: 60px; top: 820px; width: 230px"><div class="boil"><img class="cut" src="assets/cutouts/star.png" alt="" /></div></div>
+      <div class="piece" id="star-b" style="left: 820px; top: 1180px; width: 170px"><div class="boil"><img class="cut" src="assets/cutouts/star.png" alt="" /></div></div>
+      <div class="piece" id="star-c" style="left: 830px; top: 620px; width: 120px"><div class="boil"><img class="cut" src="assets/cutouts/star.png" alt="" /></div></div>
+      <div class="piece" id="butterfly" style="left: 620px; top: 640px; width: 300px"><div class="boil"><img class="cut" src="assets/cutouts/butterfly.png" alt="" /></div></div>
+      <div class="piece" id="books" style="left: 140px; top: 1000px; width: 820px"><div class="boil"><img class="cut" src="assets/cutouts/books-stack.png" alt="" /></div></div>
+      <div class="piece" id="hourglass" style="left: 370px; top: 640px; width: 340px"><div class="boil"><img class="cut" src="assets/cutouts/hourglass.png" alt="" /></div></div>
+      <div class="piece" id="flowers" style="left: -40px; top: 1260px; width: 700px"><div class="boil"><img class="cut" src="assets/cutouts/flowers-news.png" alt="" /></div></div>
+
+      <svg id="dots" viewBox="0 0 1080 1920" aria-hidden="true">
+        <path id="trail" d="M60 1640 C 260 1560, 160 1300, 380 1240 S 760 1300, 820 1060 S 520 820, 700 600" fill="none" stroke="#5e3c79" stroke-width="10" stroke-linecap="round" stroke-dasharray="1 26" />
       </svg>
 
-      <!-- F7: cierre -->
-      <div class="scrap" id="end-magia" data-rot="-8" style="left: 30px; top: 400px; width: 300px; height: 110px; --p: var(--night)">
-        <div class="paper"><div></div></div>
-        <div class="txt" style="font-size: 66px; color: var(--gold)">MAGIA</div>
+      <!-- text strips -->
+      <div class="piece strip" id="t-algunos" style="left: 120px; top: 470px; width: 560px; height: 120px">
+        <div class="boil"><div class="paper torn"></div><div class="txt small" style="font-size: 82px">para algunos es</div></div>
       </div>
-      <div class="scrap lined" id="end-entender" data-rot="5" style="left: 690px; top: 390px; width: 360px; height: 110px">
-        <div class="paper"><div></div></div>
-        <div class="txt marker" style="font-size: 56px; padding-left: 24px">ENTENDER</div>
+      <div class="piece strip" id="t-magia" style="left: 130px; top: 1230px; width: 820px; height: 330px; --p: var(--purple)">
+        <div class="boil"><div class="paper torn"></div><div class="txt big" style="font-size: 303px; color: var(--cream)">magia</div></div>
       </div>
-      <div class="scrap ticket" id="end-coach" data-rot="6" style="left: 40px; top: 560px; width: 280px; height: 100px">
-        <div class="paper"><div></div></div>
-        <div class="txt" style="font-size: 56px; color: var(--cream)">COACH</div>
+      <div class="piece strip" id="t-otros" style="left: 520px; top: 1610px; width: 470px; height: 120px; --p: var(--lilac)">
+        <div class="boil"><div class="paper torn"></div><div class="txt small" style="font-size: 87px">para otros…</div></div>
       </div>
-      <div class="scrap" id="end-camino" data-rot="-5" style="left: 760px; top: 560px; width: 290px; height: 100px; --p: var(--terra)">
-        <div class="paper"><div></div></div>
-        <div class="txt" style="font-size: 56px; color: var(--cream)">CAMINO</div>
+      <div class="piece strip" id="t-entender" style="left: 90px; top: 560px; width: 900px; height: 250px">
+        <div class="boil"><div class="paper torn"></div><div class="txt big" style="font-size: 225px">entender</div></div>
       </div>
-      <div class="scrap" id="end-tools" data-rot="-4" style="left: 30px; top: 1000px; width: 420px; height: 100px">
-        <div class="paper"><div></div></div>
-        <div class="txt" style="font-size: 40px; color: var(--terra)">HERRAMIENTAS</div>
+      <div class="piece strip" id="t-comoun" style="left: 360px; top: 520px; width: 360px; height: 120px; --p: var(--lilac)">
+        <div class="boil"><div class="paper torn"></div><div class="txt small" style="font-size: 88px">como un</div></div>
       </div>
-      <div class="scrap" id="end-relief" data-rot="5" style="left: 720px; top: 980px; width: 330px; height: 100px">
-        <div class="paper"><div></div></div>
-        <div class="txt" style="font-size: 54px; color: var(--terra)">ALIVIADA</div>
+      <div class="piece" id="coach" style="left: 0; top: 680px; width: 1080px; height: 300px">
+        <div class="boil"><div class="rline" id="rline-coach" style="top: 0; height: 300px"></div></div>
       </div>
-      <div class="scrap" id="end-note" data-rot="-2" style="left: 90px; top: 1430px; width: 900px; height: 190px">
-        <div class="paper"><div></div></div>
-        <div class="tape" style="left: 360px; top: -24px; transform: rotate(3deg)"></div>
-        <div class="txt hand" style="font-size: 76px; line-height: 0.95; padding: 0 40px">lo que te espera está bueno ✦</div>
+      <div class="piece strip" id="t-herr" style="left: 40px; top: 620px; width: 1000px; height: 200px; --p: var(--purple)">
+        <div class="boil"><div class="paper torn"></div><div class="txt big" style="font-size: 168px; color: var(--cream)">herramientas</div></div>
       </div>
-      <svg class="doodle" id="stamp" viewBox="0 0 300 300" style="left: 780px; top: 1180px; width: 260px; height: 260px; opacity: 0">
-        <defs>
-          <path id="stamp-ring" d="M150 150 m -105 0 a 105 105 0 1 1 210 0 a 105 105 0 1 1 -210 0" />
-        </defs>
-        <g fill="none" stroke="#b4502b" stroke-width="8" opacity="0.92">
-          <circle cx="150" cy="150" r="140" />
-          <circle cx="150" cy="150" r="72" />
-        </g>
-        <text font-family="Space Mono" font-weight="700" font-size="34" fill="#b4502b" letter-spacing="6">
-          <textPath href="#stamp-ring">REGISTROS ✦ REGISTROS ✦</textPath>
-        </text>
-        <use href="#star5" x="105" y="105" width="90" height="90" fill="#b4502b" />
-      </svg>
+      <div class="piece strip" id="t-resolver" style="left: 110px; top: 1000px; width: 860px; height: 120px; --p: var(--white)">
+        <div class="boil"><div class="paper torn"></div><div class="txt label" style="font-size: 44px">para resolver un problema</div></div>
+      </div>
+      <div class="piece strip news" id="news-a" style="left: 600px; top: 1160px; width: 420px; height: 360px">
+        <div class="boil"><div class="paper torn"><div class="cols"></div></div></div>
+      </div>
+      <div class="piece strip news" id="news-b" style="left: 50px; top: 360px; width: 360px; height: 240px">
+        <div class="boil"><div class="paper torn"><div class="cols"></div></div></div>
+      </div>
+      <div class="piece strip" id="t-llevando" style="left: 80px; top: 1470px; width: 600px; height: 120px">
+        <div class="boil"><div class="paper torn"></div><div class="txt small" style="font-size: 74px">nos van llevando…</div></div>
+      </div>
+      <div class="piece strip" id="t-camino" style="left: 90px; top: 380px; width: 900px; height: 290px; --p: var(--purple)">
+        <div class="boil"><div class="paper torn"></div><div class="txt big" style="flex-direction: row; gap: 30px; color: var(--cream)"><span class="small" style="font-size: 110px">el</span><span style="font-size: 270px">camino</span></div></div>
+      </div>
+      <div class="piece strip" id="t-llega" style="left: 140px; top: 400px; width: 800px; height: 130px; --p: var(--gray)">
+        <div class="boil"><div class="paper torn"></div><div class="txt small" style="font-size: 86px; color: var(--ink)">llega de una manera…</div></div>
+      </div>
+      <div class="piece strip" id="t-seva" style="left: 400px; top: 1180px; width: 280px; height: 120px; --p: var(--lilac)">
+        <div class="boil"><div class="paper torn"></div><div class="txt small" style="font-size: 92px">se va</div></div>
+      </div>
+      <div class="piece strip" id="t-aliviada" style="left: 70px; top: 1310px; width: 940px; height: 290px">
+        <div class="boil"><div class="paper torn"></div><div class="txt big" style="font-size: 266px">aliviada</div></div>
+      </div>
+      <div class="piece strip" id="t-espera" style="left: 150px; top: 800px; width: 780px; height: 150px">
+        <div class="boil"><div class="paper torn"></div><div class="txt small" style="font-size: 119px">lo que te espera</div></div>
+      </div>
+      <div class="piece strip" id="t-bueno" style="left: 60px; top: 970px; width: 960px; height: 240px; --p: var(--purple)">
+        <div class="boil"><div class="paper torn"></div><div class="txt big" style="font-size: 205px; color: var(--cream)">está bueno</div></div>
+      </div>
+      <div class="piece strip" id="t-handle" style="left: 560px; top: 1560px; width: 440px; height: 84px; --p: var(--white)">
+        <div class="boil"><div class="paper torn"></div><div class="txt label" style="font-size: 32px">@abuchaljacoach</div></div>
+      </div>
 
-      <div id="grain-top" aria-hidden="true"></div>
+      <div id="grain" aria-hidden="true"></div>
     </div>
 
     <script>
       (function () {
-        // ---- deterministic torn-paper silhouettes ----
-        var seed = 0x51ed2701;
+        var FPS = 12;
+        var seed = 0x2f6a91c3;
         function rnd() {
           seed = (Math.imul(1664525, seed) + 1013904223) >>> 0;
           return seed / 4294967296;
+        }
+        function hash(n) {
+          var x = Math.sin(n * 127.1 + 311.7) * 43758.5453;
+          return x - Math.floor(x);
         }
         function torn(w, h, amp) {
           var pts = [];
@@ -531,10 +316,10 @@
             [0, 100, 0, 0, 1, 0],
           ];
           sides.forEach(function (s) {
-            var steps = Math.max(5, Math.round((s[4] === 0 ? w : h) / 45));
+            var steps = Math.max(5, Math.round((s[4] === 0 ? w : h) / 28));
             for (var k = 0; k < steps; k++) {
-              var t = (k === 0 ? 0 : k + (rnd() - 0.5) * 0.6) / steps;
-              var d = (rnd() * 2 - 1) * amp;
+              var t = (k === 0 ? 0 : k + (rnd() - 0.5) * 0.7) / steps;
+              var d = rnd() * amp;
               var px = s[0] + (s[2] - s[0]) * t + (s[4] * d * 100) / w;
               var py = s[1] + (s[3] - s[1]) * t + (s[5] * d * 100) / h;
               pts.push(px.toFixed(2) + "% " + py.toFixed(2) + "%");
@@ -542,134 +327,226 @@
           });
           return "polygon(" + pts.join(",") + ")";
         }
-        document.querySelectorAll(".scrap > .paper > div, .sheet .torn").forEach(function (el) {
-          var box = el.closest(".scrap, .sheet");
-          el.style.clipPath = torn(box.offsetWidth, box.offsetHeight, 9);
+
+        // newsprint filler text
+        var NEWS =
+          "El registro de cada alma guarda memoria de su camino. Quienes llegan a una sesión buscan comprender lo que viven, ordenar lo que sienten y encontrar herramientas para seguir. La consulta se realiza con calma, en un espacio de escucha, y cada encuentro es distinto. Muchas personas describen la experiencia como un alivio, una luz que permite mirar con otros ojos aquello que parecía un problema. ";
+        document.querySelectorAll(".news .cols").forEach(function (c) {
+          c.textContent = NEWS + NEWS + NEWS;
         });
 
-        // ---- ransom-note title ----
-        var paperBgs = ["#f3e8d2", "#2a1c14", "#b4502b", "#fffaf0", "#d9a441", "#2b2236"];
-        var inkFor = { "#f3e8d2": "#2a1c14", "#2a1c14": "#f3e8d2", "#b4502b": "#f3e8d2", "#fffaf0": "#b4502b", "#d9a441": "#2a1c14", "#2b2236": "#d9a441" };
-        var fonts = ['"Archivo Black"', '"Permanent Marker"', '"Space Mono"', '"Archivo Black"', "Oswald"];
-        function ransom(lineId, text) {
+        // ransom cards
+        var cardPapers = [
+          ["#f7dbff", "#2b1d36"],
+          ["#ffffff", "#5e3c79"],
+          ["#dcd8de", "#2b1d36"],
+          ["#5e3c79", "#fff6d2"],
+          ["#fff6d2", "#5e3c79"],
+          ["#f4f1ea", "#2b1d36"],
+        ];
+        function ransom(lineId, text, size, realMap) {
           var line = document.getElementById(lineId);
-          text.split("").forEach(function (ch) {
-            var s = document.createElement("span");
-            s.className = "rl" + (ch === " " ? " sp" : "");
-            if (ch !== " ") {
-              s.textContent = ch;
-              var bg = paperBgs[Math.floor(rnd() * paperBgs.length)];
-              s.style.background = bg;
-              s.style.color = inkFor[bg];
-              s.style.fontFamily = fonts[Math.floor(rnd() * fonts.length)];
-              s.style.fontWeight = "700";
-              s.dataset.rot = ((rnd() * 2 - 1) * 9).toFixed(1);
-              s.dataset.dy = ((rnd() * 2 - 1) * 10).toFixed(1);
+          var used = {};
+          text.split("").forEach(function (ch, i) {
+            var card = document.createElement("div");
+            card.className = "card";
+            var real = realMap && realMap[ch] && !used[ch];
+            var w = Math.round(size * (real ? 0.78 : 0.62 + rnd() * 0.18));
+            var h = Math.round(size * (0.92 + rnd() * 0.16));
+            card.style.width = w + "px";
+            card.style.height = h + "px";
+            if (real) {
+              used[ch] = true;
+              var img = document.createElement("img");
+              img.src = realMap[ch];
+              img.alt = "";
+              card.appendChild(img);
+            } else {
+              var pp = cardPapers[Math.floor(rnd() * cardPapers.length)];
+              var paper = document.createElement("div");
+              paper.className = "paper";
+              paper.style.background = pp[0];
+              paper.style.clipPath = torn(w, h, 2.2);
+              var c = document.createElement("div");
+              c.className = "ch";
+              c.textContent = ch;
+              c.style.color = pp[1];
+              c.style.fontSize = Math.round(size * (0.7 + rnd() * 0.18)) + "px";
+              c.style.fontWeight = String([400, 600, 800][Math.floor(rnd() * 3)]);
+              
+              card.appendChild(paper);
+              card.appendChild(c);
             }
-            line.appendChild(s);
+            card.dataset.rot = ((rnd() * 2 - 1) * 8).toFixed(1);
+            card.dataset.dy = ((rnd() * 2 - 1) * 12).toFixed(1);
+            line.appendChild(card);
+          });
+          return line.querySelectorAll(".card");
+        }
+        var titleCards = ransom("rline", "REGISTROS?", 200, { S: "assets/cutouts/letter-s.png" });
+        var coachCards = ransom("rline-coach", "COACH", 270, { C: "assets/cutouts/letter-c.png" });
+
+        document.querySelectorAll(".torn").forEach(function (el) {
+          var box = el.closest(".piece, .strip");
+          el.style.clipPath = torn(box.offsetWidth, box.offsetHeight, 2.4);
+        });
+
+        // ---- authored choreography (continuous time; sampled on the 12 fps grid below) ----
+        var inner = gsap.timeline({ paused: true });
+        function rot(el) {
+          return parseFloat((el.dataset && el.dataset.rot) || "0");
+        }
+        // slap: a hand drops the paper on the table
+        function slap(sel, t, r) {
+          gsap.utils.toArray(sel).forEach(function (el) {
+            var rr = r === undefined ? rot(el) : r;
+            inner.fromTo(el, { opacity: 0, scale: 1.18, rotation: rr - 6, y: -40 }, { opacity: 1, scale: 1, rotation: rr, y: 0, duration: 0.25, ease: "power2.out", immediateRender: false }, t);
           });
         }
-        ransom("rline-a", "¿QUÉ SON LOS");
-        ransom("rline-b", "REGISTROS?");
+        // slide: the paper is pushed off the table
+        function slide(sel, t, dx, dy) {
+          inner.to(sel, { x: dx, y: dy, rotation: "+=" + (dx > 0 ? 14 : -14), duration: 0.5, ease: "power1.in" }, t);
+          inner.set(sel, { opacity: 0 }, t + 0.5);
+        }
+        function enter(sel, t, fx, fy, r) {
+          inner.fromTo(sel, { opacity: 1, x: fx, y: fy, rotation: (r || 0) - 10 }, { x: 0, y: 0, rotation: r || 0, duration: 0.6, ease: "power2.out", immediateRender: false }, t);
+        }
+        gsap.set(".piece", { opacity: 0 });
+        gsap.set(".card", { opacity: 0 });
 
-        var tl = gsap.timeline({ paused: true });
+        // F0 background
+        slap("#bg-lilac-a", 0, -4);
+        slap("#bg-lilac-b", 0.08, 5);
+        slap("#bg-news", 0.16, 7);
 
-        // ---- helpers ----
-        function rotOf(el) {
-          return parseFloat(el.dataset.rot || "0");
-        }
-        function slap(sel, t) {
-          var el = document.querySelector(sel);
-          var r = rotOf(el);
-          tl.fromTo(el, { opacity: 0, scale: 1.3, rotation: r + 9 }, { opacity: 1, scale: 1, rotation: r, duration: 0.32, ease: "back.out(2.2)" }, t);
-        }
-        function rip(sel, t, dir) {
-          var el = document.querySelector(sel);
-          var r = rotOf(el);
-          tl.to(el, { opacity: 0, y: -90 * (dir || 1), x: 60 * (dir || 1), rotation: r - 14, duration: 0.28, ease: "power2.in" }, t);
-        }
-        function pop(sel, t, to) {
-          tl.fromTo(sel, { opacity: 0, scale: 0.2, rotation: -40 }, Object.assign({ opacity: 1, scale: 1, rotation: 0, duration: 0.4, ease: "back.out(3)" }, to || {}), t);
-        }
-        function out(sel, t) {
-          tl.to(sel, { opacity: 0, scale: 0.6, duration: 0.25, ease: "power2.in" }, t);
-        }
-
-        // ---- F1: la pregunta (0 - 3.15) ----
-        var letters = document.querySelectorAll(".rl:not(.sp)");
-        letters.forEach(function (s, i) {
-          var r = parseFloat(s.dataset.rot);
-          var dy = parseFloat(s.dataset.dy);
-          tl.fromTo(s, { opacity: 0, scale: 1.8, rotation: r * 3, y: dy - 30 }, { opacity: 1, scale: 1, rotation: r, y: dy, duration: 0.18, ease: "steps(3)" }, 0.15 + i * 0.075);
+        // F1 ¿qué son los registros? (0 - 3.15)
+        slap("#title", 0.2, 0);
+        inner.fromTo("#q-strip", { opacity: 0 }, { opacity: 1, duration: 0.01 }, 0.25);
+        titleCards.forEach(function (c, i) {
+          inner.fromTo(c, { opacity: 0, scale: 1.5, rotation: rot(c) * 3, y: -60 }, { opacity: 1, scale: 1, rotation: rot(c), y: parseFloat(c.dataset.dy), duration: 0.17, ease: "power2.out", immediateRender: false }, 0.45 + i * 0.11);
         });
-        tl.fromTo("#her-wrap", { opacity: 0, scale: 0.9, rotation: -3, transformOrigin: "50% 100%" }, { opacity: 1, scale: 1, rotation: 0, duration: 0.45, ease: "back.out(1.8)" }, 0);
-        tl.fromTo("#halo", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.7, ease: "power3.out" }, 0.05);
-        tl.fromTo(["#sheet-cream", "#sheet-terra", "#sheet-night"], { opacity: 0, y: 160 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out", stagger: 0.08 }, 0);
-        tl.fromTo(["#tape-bg-a", "#tape-bg-b"], { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.2, ease: "power2.out", stagger: 0.1 }, 0.45);
-        pop(["#bgstar-a", "#bgstar-b", "#bgstar-c", "#bgstar-d"], 0.6);
-        // title shrinks into the page header
-        tl.to("#title", { scale: 0.52, y: -128, transformOrigin: "50% 0%", duration: 0.5, ease: "power3.inOut" }, 3.0);
+        enter("#book-open", 1.6, 0, 900, -3);
+        enter("#moon", 2.0, 500, -300, 0);
+        // title becomes the page header
+        inner.to("#title", { y: -235, scale: 0.5, transformOrigin: "50% 0%", duration: 0.5, ease: "power2.inOut" }, 3.0);
+        inner.to("#bg-news", { y: -500, duration: 0.5, ease: "power1.in" }, 3.0);
 
-        // ---- F2: magia (3.15 - 8.4) ----
-        slap("#note-some", 3.3);
-        slap("#kw-magia", 5.15);
-        pop("#mg-moon", 5.3);
-        pop("#mg-s1", 5.4);
-        pop("#mg-s2", 5.5);
-        pop("#mg-s3", 5.6);
-        slap("#note-others", 6.6);
-        rip("#kw-magia", 8.25);
-        out(["#mg-moon", "#mg-s1", "#mg-s2", "#mg-s3"], 8.25);
-        rip("#note-some", 8.3, -1);
-        rip("#note-others", 10.75);
+        // F2 magia (3.15 - 8.4)
+        slide("#book-open", 3.1, 0, 1000);
+        slap("#t-algunos", 3.3, -3);
+        inner.to("#moon", { x: -380, y: 710, scale: 1.5, rotation: -8, duration: 1.4, ease: "power2.inOut" }, 3.4);
+        slap("#t-magia", 5.1, -4);
+        slap("#star-a", 5.25, -12);
+        slap("#star-b", 5.4, 18);
+        slap("#star-c", 5.55, 4);
+        enter("#butterfly", 5.9, 600, -200, 12);
+        slap("#t-otros", 6.6, 5);
+        slide(["#t-magia", "#star-a", "#star-b", "#star-c"], 8.2, -1200, 0);
+        slide(["#moon", "#butterfly"], 8.25, 1200, -300);
+        slide("#t-algunos", 8.3, -1200, 0);
 
-        // ---- F3: entender (8.4 - 10.8) ----
-        slap("#kw-entender", 8.5);
-        tl.fromTo("#ent-underline path", { strokeDasharray: 800, strokeDashoffset: 800 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out" }, 8.95);
-        rip("#kw-entender", 10.7);
+        // F3 entender (8.4 - 10.8)
+        enter("#books", 8.45, 0, 1000, 2);
+        slap("#t-entender", 8.6, 3);
+        slide("#t-otros", 10.6, 1200, 0);
+        slide(["#t-entender", "#books"], 10.65, 0, 1300);
 
-        // ---- F4: coach + herramientas (10.8 - 16.87) ----
-        slap("#kw-coach", 10.9);
-        rip("#kw-coach", 12.25);
-        slap("#kw-tools", 12.4);
-        tl.fromTo("#tag-string", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 12.55);
-        slap("#note-problem", 15.0);
-        rip("#kw-tools", 16.75);
-        out("#tag-string", 16.75);
-        rip("#note-problem", 16.85, -1);
-
-        // ---- F5: el camino (16.87 - 21.5) ----
-        var reveal = document.getElementById("path-reveal");
-        var len = reveal.getTotalLength();
-        tl.fromTo(reveal, { strokeDasharray: len, strokeDashoffset: len }, { strokeDashoffset: 0, duration: 3.0, ease: "power1.inOut" }, 17.0);
-        slap("#note-path", 17.6);
-        slap("#kw-camino", 19.95);
-        rip("#kw-camino", 21.35);
-        rip("#note-path", 21.35, -1);
-        tl.to("#path-svg", { opacity: 0, duration: 0.3 }, 21.35);
-
-        // ---- F6: llega así → aliviada (21.5 - 25.5) ----
-        slap("#note-arrive", 21.9);
-        tl.fromTo("#cloud", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 22.1);
-        slap("#kw-relief", 23.7);
-        pop("#sun", 23.9);
-        tl.to("#sun", { rotation: 90, duration: 1.6, ease: "none" }, 24.3);
-        rip("#kw-relief", 25.4);
-        out(["#sun", "#cloud"], 25.4);
-        rip("#note-arrive", 25.4, -1);
-
-        // ---- F7: cierre (25.5 - 29.9) ----
-        ["#end-magia", "#end-entender", "#end-coach", "#end-camino", "#end-tools", "#end-relief"].forEach(function (sel, i) {
-          slap(sel, 25.6 + i * 0.12);
+        // F4 coach + herramientas (10.8 - 16.87)
+        slap("#t-comoun", 10.85, -2);
+        inner.set("#coach", { opacity: 1 }, 10.9);
+        coachCards.forEach(function (c, i) {
+          inner.fromTo(c, { opacity: 0, scale: 1.5, rotation: rot(c) * 3, y: -60 }, { opacity: 1, scale: 1, rotation: rot(c), y: parseFloat(c.dataset.dy), duration: 0.17, ease: "power2.out", immediateRender: false }, 11.0 + i * 0.12);
         });
-        slap("#end-note", 26.6);
-        tl.fromTo("#stamp", { opacity: 0, scale: 1.8, rotation: -30 }, { opacity: 1, scale: 1, rotation: -12, duration: 0.22, ease: "power4.in" }, 28.3);
+        slide(["#coach", "#t-comoun"], 12.2, 1200, 0);
+        slap("#news-b", 12.35, -6);
+        slap("#news-a", 12.45, 8);
+        slap("#t-herr", 12.55, -2);
+        slap("#t-resolver", 15.0, 2);
+        slide(["#t-herr", "#news-b"], 16.7, -1200, 0);
+        slide(["#t-resolver", "#news-a"], 16.75, 1200, 0);
 
-        // ---- ambient: halo breath + stepped twinkle (stop-motion feel) ----
-        tl.fromTo("#halo", { scale: 1 }, { scale: 1.06, duration: 2.4, ease: "sine.inOut", yoyo: true, repeat: 10, immediateRender: false }, 0.75);
-        tl.fromTo(["#bgstar-a", "#bgstar-c"], { rotation: 0 }, { rotation: 72, duration: 6, ease: "steps(12)", repeat: 3, immediateRender: false }, 1.0);
+        // F5 el camino (16.87 - 21.5)
+        var trail = document.getElementById("trail");
+        var L = trail.getTotalLength();
+        // dotted path is revealed by growing a dash window; dots stay crisp
+        var prog = { p: 0 };
+        gsap.set("#dots", { opacity: 0 });
+        inner.set("#dots", { opacity: 1 }, 16.95);
+        inner.fromTo(
+          prog,
+          { p: 0 },
+          {
+            p: 1,
+            duration: 3.0,
+            ease: "power1.inOut",
+            immediateRender: false,
+            onUpdate: function () {
+              var len = L * prog.p;
+              trail.style.strokeDasharray = len > 0 ? buildDash(len) : "0 " + (L + 1);
+              var pt = trail.getPointAtLength(Math.max(0.01, len));
+              var pt2 = trail.getPointAtLength(Math.min(L, len + 12));
+              var ang = (Math.atan2(pt2.y - pt.y, pt2.x - pt.x) * 180) / Math.PI;
+              gsap.set("#butterfly", { x: pt.x - 770, y: pt.y - 740, rotation: ang * 0.25, scale: 0.8 });
+            },
+          },
+          17.0,
+        );
+        function buildDash(len) {
+          var n = Math.floor(len / 27);
+          var arr = [];
+          for (var i = 0; i < n; i++) arr.push(1, 26);
+          arr.push(0, L + 50);
+          return arr.join(" ");
+        }
+        inner.set("#butterfly", { opacity: 1 }, 17.0);
+        slap("#t-llevando", 17.6, -3);
+        slap("#t-camino", 19.95, 3);
+        slide(["#t-camino", "#t-llevando"], 21.3, -1200, 0);
+        inner.to(["#dots", "#butterfly"], { opacity: 0, duration: 0.2 }, 21.35);
 
-        tl.set({}, {}, 29.9);
+        // F6 llega así → aliviada (21.5 - 25.5)
+        enter("#hourglass", 21.55, 0, -1100, 0);
+        slap("#t-llega", 21.9, -2);
+        inner.to("#hourglass", { rotation: 180, duration: 0.6, ease: "power2.inOut" }, 23.2);
+        slap("#t-seva", 23.6, -5);
+        slap("#t-aliviada", 23.75, 2);
+        inner.fromTo("#flowers", { opacity: 1, scale: 0.2, transformOrigin: "0% 100%" }, { scale: 1, duration: 0.9, ease: "back.out(1.6)", immediateRender: false }, 23.9);
+        slide(["#t-llega", "#hourglass"], 25.3, 1200, 0);
+        slide(["#t-seva", "#t-aliviada"], 25.35, -1200, 0);
+
+        // F7 lo que te espera está bueno (25.5 - 29.9)
+        inner.fromTo("#moon", { opacity: 1, x: 0, y: -400, scale: 1, rotation: 0 }, { y: 300, duration: 0.6, ease: "power2.out", immediateRender: false }, 25.5);
+        inner.fromTo("#butterfly", { opacity: 1, x: -900, y: -600, scale: 0.75, rotation: 0 }, { x: -520, y: -310, rotation: -10, duration: 0.6, ease: "power2.out", immediateRender: false }, 25.7);
+        slap("#t-espera", 25.8, -2);
+        inner.fromTo("#star-a", { opacity: 1, x: 760, y: -560, rotation: 0, scale: 0.7 }, { opacity: 1, duration: 0.01, immediateRender: false }, 26.2);
+        inner.fromTo("#books", { opacity: 1, x: 300, y: 1000, rotation: -6, scale: 0.6 }, { y: 520, duration: 0.5, ease: "power2.out", immediateRender: false }, 26.4);
+        slap("#t-bueno", 27.9, -3);
+        slap("#t-handle", 28.6, 3);
+
+        // ---- stop-motion law: quantize to the 12 fps grid, then boil every piece on 2s ----
+        var boils = Array.prototype.slice.call(document.querySelectorAll(".boil"));
+        function applyTime(t) {
+          var step = Math.floor(t * FPS + 1e-6);
+          inner.seek(step / FPS, false);
+          var b = Math.floor(step / 2);
+          for (var i = 0; i < boils.length; i++) {
+            var amp = 1;
+            gsap.set(boils[i], {
+              x: (hash(b * 13 + i * 101) - 0.5) * 5 * amp,
+              y: (hash(b * 29 + i * 211) - 0.5) * 5 * amp,
+              rotation: (hash(b * 47 + i * 331) - 0.5) * 1.4 * amp,
+            });
+          }
+        }
+        var tl = gsap.timeline({
+          paused: true,
+          onUpdate: function () {
+            applyTime(tl.time());
+          },
+        });
+        tl.to({ p: 0 }, { p: 1, duration: 29.9, ease: "none" }, 0);
+        tl.seek(0);
+        applyTime(0);
         window.__timelines["main"] = tl;
       })();
     </script>
