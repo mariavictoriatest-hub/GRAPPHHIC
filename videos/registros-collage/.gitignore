@@ -1,0 +1,5 @@
+.hyperframes/artifacts/
+.hyperframes/verify/
+.hyperframes/render-outputs.json
+renders/.*
+renders/**/tmp*

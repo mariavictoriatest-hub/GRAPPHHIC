@@ -164,6 +164,9 @@
         height: 1920px;
         overflow: visible;
       }
+      #butterfly {
+        z-index: 5;
+      }
       #grain {
         position: absolute;
         inset: 0;
@@ -211,7 +214,7 @@
       </div>
 
       <!-- ransom title (becomes header) -->
-      <div class="piece" id="title" style="left: 0; top: 300px; width: 1080px; height: 420px">
+      <div class="piece" id="title" data-layout-allow-occlusion data-layout-allow-overflow style="left: 0; top: 300px; width: 1080px; height: 420px">
         <div class="boil">
           <div class="strip" id="q-strip" style="position: absolute; left: 330px; top: 0; width: 420px; height: 110px">
             <div class="paper torn" style="background: var(--purple)"></div>
@@ -233,7 +236,7 @@
       <div class="piece" id="flowers" style="left: -40px; top: 1260px; width: 700px"><div class="boil"><img class="cut" src="assets/cutouts/flowers-news.png" alt="" /></div></div>
 
       <svg id="dots" viewBox="0 0 1080 1920" aria-hidden="true">
-        <path id="trail" d="M60 1640 C 260 1560, 160 1300, 380 1240 S 760 1300, 820 1060 S 520 820, 700 600" fill="none" stroke="#5e3c79" stroke-width="10" stroke-linecap="round" stroke-dasharray="1 26" />
+        <path id="trail" d="M60 1640 C 260 1560, 160 1300, 380 1240 S 760 1300, 820 1060 S 560 900, 800 720" fill="none" stroke="#5e3c79" stroke-width="10" stroke-linecap="round" stroke-dasharray="1 26" />
       </svg>
 
       <!-- text strips -->
@@ -252,7 +255,7 @@
       <div class="piece strip" id="t-comoun" style="left: 360px; top: 520px; width: 360px; height: 120px; --p: var(--lilac)">
         <div class="boil"><div class="paper torn"></div><div class="txt small" style="font-size: 88px">como un</div></div>
       </div>
-      <div class="piece" id="coach" style="left: 0; top: 680px; width: 1080px; height: 300px">
+      <div class="piece" id="coach" data-layout-allow-occlusion style="left: 0; top: 680px; width: 1080px; height: 300px">
         <div class="boil"><div class="rline" id="rline-coach" style="top: 0; height: 300px"></div></div>
       </div>
       <div class="piece strip" id="t-herr" style="left: 40px; top: 620px; width: 1000px; height: 200px; --p: var(--purple)">
@@ -383,7 +386,7 @@
           });
           return line.querySelectorAll(".card");
         }
-        var titleCards = ransom("rline", "REGISTROS?", 200, { S: "assets/cutouts/letter-s.png" });
+        var titleCards = ransom("rline", "REGISTROS?", 182, { S: "assets/cutouts/letter-s.png" });
         var coachCards = ransom("rline-coach", "COACH", 270, { C: "assets/cutouts/letter-c.png" });
 
         document.querySelectorAll(".torn").forEach(function (el) {
@@ -461,8 +464,9 @@
         slap("#news-b", 12.35, -6);
         slap("#news-a", 12.45, 8);
         slap("#t-herr", 12.55, -2);
+        enter("#book-open", 12.7, -900, 300, 4);
         slap("#t-resolver", 15.0, 2);
-        slide(["#t-herr", "#news-b"], 16.7, -1200, 0);
+        slide(["#t-herr", "#news-b", "#book-open"], 16.7, -1200, 0);
         slide(["#t-resolver", "#news-a"], 16.75, 1200, 0);
 
         // F5 el camino (16.87 - 21.5)
@@ -500,9 +504,14 @@
         }
         inner.set("#butterfly", { opacity: 1 }, 17.0);
         slap("#t-llevando", 17.6, -3);
+        inner.fromTo("#star-b", { opacity: 1, x: -720, y: -500, scale: 0.8, rotation: 0 }, { rotation: 20, duration: 0.3, immediateRender: false }, 18.2);
+        inner.fromTo("#star-c", { opacity: 1, x: -650, y: 640, scale: 1, rotation: 0 }, { rotation: -15, duration: 0.3, immediateRender: false }, 18.6);
+        inner.fromTo("#moon", { opacity: 1, x: 120, y: 1350, scale: 1.1, rotation: 0 }, { y: 1180, duration: 0.6, ease: "power2.out", immediateRender: false }, 18.9);
         slap("#t-camino", 19.95, 3);
         slide(["#t-camino", "#t-llevando"], 21.3, -1200, 0);
         inner.to(["#dots", "#butterfly"], { opacity: 0, duration: 0.2 }, 21.35);
+        slide(["#star-b", "#star-c"], 21.3, 1200, 0);
+        slide("#moon", 21.35, 1200, 200);
 
         // F6 llega así → aliviada (21.5 - 25.5)
         enter("#hourglass", 21.55, 0, -1100, 0);
