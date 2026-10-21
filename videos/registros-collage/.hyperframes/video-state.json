@@ -1,7 +1,7 @@
 {
   "version": 1,
   "historyId": "1c563d75-e000-414b-bd20-29fd17d7b55c",
-  "currentRevision": "fe6788c4-05ee-4c5c-a7c5-96adf5e53452",
+  "currentRevision": "a39d6e22-a26f-4131-b60a-868c29226aca",
   "pendingChanges": false,
   "files": {
     "AGENTS.md": {
@@ -45,8 +45,8 @@
       "content": "/root/.cache/hyperframes/history/1c563d75-e000-414b-bd20-29fd17d7b55c/blobs/c9/c9d9030e19b51a842ea7f02b9b69d0f1b308773a6ba21ac912f690f712f20b68"
     },
     "index.html": {
-      "hash": "b7f8928d966832c9d1b6ef8b98e5d187ce19dafdbf962965dbdcdbde38ce73dc",
-      "content": "/root/.cache/hyperframes/history/1c563d75-e000-414b-bd20-29fd17d7b55c/blobs/b7/b7f8928d966832c9d1b6ef8b98e5d187ce19dafdbf962965dbdcdbde38ce73dc"
+      "hash": "fafc0e3927918e13e577ca240ac310cb260a285fbdd4a00e09e100ab6732506d",
+      "content": "/root/.cache/hyperframes/history/1c563d75-e000-414b-bd20-29fd17d7b55c/blobs/fa/fafc0e3927918e13e577ca240ac310cb260a285fbdd4a00e09e100ab6732506d"
     },
     "meta.json": {
       "hash": "73814743d7a4f35d173fd7068bdf81cbfb05bf34eabdf93ce01d9693c52cbf93",
@@ -736,12 +736,27 @@
           "after": "/root/.cache/hyperframes/history/1c563d75-e000-414b-bd20-29fd17d7b55c/blobs/b7/b7f8928d966832c9d1b6ef8b98e5d187ce19dafdbf962965dbdcdbde38ce73dc"
         }
       }
+    },
+    "a39d6e22-a26f-4131-b60a-868c29226aca": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792590787365,
+      "endedAt": 1792590787367,
+      "files": {
+        "index.html": {
+          "before": "/root/.cache/hyperframes/history/1c563d75-e000-414b-bd20-29fd17d7b55c/blobs/b7/b7f8928d966832c9d1b6ef8b98e5d187ce19dafdbf962965dbdcdbde38ce73dc",
+          "after": "/root/.cache/hyperframes/history/1c563d75-e000-414b-bd20-29fd17d7b55c/blobs/fa/fafc0e3927918e13e577ca240ac310cb260a285fbdd4a00e09e100ab6732506d"
+        }
+      }
     }
   },
   "checks": {
     "latest": {
-      "revision": "fe6788c4-05ee-4c5c-a7c5-96adf5e53452",
-      "id": "be0fa24c-e767-4af8-85ef-9e336eb36ecc"
+      "revision": "a39d6e22-a26f-4131-b60a-868c29226aca",
+      "id": "285bf0ac-721f-41f6-babb-d4d10fcfb152"
     },
     "revisions": {
       "0908efe9-23c4-4512-80fe-4dfbfcaaf135": [
@@ -887,6 +902,35 @@
           "contentHash": "4f3a04444a1ed464c514182aa00a86671cba1bc4728d1627e08aba1d108ded18",
           "revision": "fe6788c4-05ee-4c5c-a7c5-96adf5e53452",
           "inputFingerprint": "c10ad5e60b0a799071aafe047ef216445b5e2e63f1960a8cab4ff72f87f5108a",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "a39d6e22-a26f-4131-b60a-868c29226aca": [
+        {
+          "id": "285bf0ac-721f-41f6-babb-d4d10fcfb152",
+          "scope": "project",
+          "report": "/home/user/GRAPPHHIC/videos/registros-collage/.hyperframes/artifacts/checks/285bf0ac-721f-41f6-babb-d4d10fcfb152.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 3000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1792590812901,
+          "contentHash": "316c120e641e39675f26e680d34c5c761de10e4d891677900d2cadc9e54b2235",
+          "revision": "a39d6e22-a26f-4131-b60a-868c29226aca",
+          "inputFingerprint": "c5b6501d9faae7ce61ec30e4ec8ecd59bb6d4db26c09c4d858541ca49ca03282",
           "inputScope": "local-project-files",
           "attribution": "recorded-revision"
         }
@@ -1249,13 +1293,14 @@
   },
   "renders": {
     "latest": {
-      "id": "0ed25900-9bc5-49d7-ad52-ead5fce0710a",
-      "completedAt": 1792589790165,
+      "id": "60c5da2d-69f5-4faf-b18e-dd254d3e768d",
+      "completedAt": 1792591027479,
       "output": "/home/user/GRAPPHHIC/videos/registros-collage/renders/registros-elena-collage.mp4",
       "status": "completed",
-      "revision": "fe6788c4-05ee-4c5c-a7c5-96adf5e53452"
+      "revision": "a39d6e22-a26f-4131-b60a-868c29226aca"
     },
     "retainedRevisions": [
+      "a39d6e22-a26f-4131-b60a-868c29226aca",
       "fe6788c4-05ee-4c5c-a7c5-96adf5e53452"
     ]
   },
