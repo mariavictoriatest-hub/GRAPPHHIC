@@ -748,7 +748,6 @@
         {
           "id": "f20e48c0-7780-4475-8f3b-7e6132aba694",
           "scope": "project",
-          "report": "/home/user/GRAPPHHIC/videos/registros-collage/.hyperframes/artifacts/checks/f20e48c0-7780-4475-8f3b-7e6132aba694.json",
           "metadata": {
             "ok": false,
             "browserSkipped": false,
@@ -770,12 +769,13 @@
           "revision": "0908efe9-23c4-4512-80fe-4dfbfcaaf135",
           "inputFingerprint": "ebab0a4ec05f233315f766edff9f836f0044100b1ee55bea80038cedaf174892",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "0ed25900-9bc5-49d7-ad52-ead5fce0710a"
         },
         {
           "id": "ad1e0724-5816-49b4-b531-3ffafbe07c13",
           "scope": "project",
-          "report": "/home/user/GRAPPHHIC/videos/registros-collage/.hyperframes/artifacts/checks/ad1e0724-5816-49b4-b531-3ffafbe07c13.json",
           "metadata": {
             "ok": false,
             "browserSkipped": false,
@@ -797,14 +797,15 @@
           "revision": "0908efe9-23c4-4512-80fe-4dfbfcaaf135",
           "inputFingerprint": "ebab0a4ec05f233315f766edff9f836f0044100b1ee55bea80038cedaf174892",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "0ed25900-9bc5-49d7-ad52-ead5fce0710a"
         }
       ],
       "809b41cb-300c-4881-9667-d36ff3cf8b79": [
         {
           "id": "8155f664-0304-483e-9aa8-8841c3c16643",
           "scope": "project",
-          "report": "/home/user/GRAPPHHIC/videos/registros-collage/.hyperframes/artifacts/checks/8155f664-0304-483e-9aa8-8841c3c16643.json",
           "metadata": {
             "ok": true,
             "browserSkipped": false,
@@ -826,14 +827,15 @@
           "revision": "809b41cb-300c-4881-9667-d36ff3cf8b79",
           "inputFingerprint": "7c5e0f401dadd65f44a23c787de36ef3669563e2a74322849de91d836e09e52a",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "0ed25900-9bc5-49d7-ad52-ead5fce0710a"
         }
       ],
       "5ee442a4-286e-43a0-a17f-509fa733057c": [
         {
           "id": "e07e814f-6937-40fc-a822-5b40bbfee24b",
           "scope": "project",
-          "report": "/home/user/GRAPPHHIC/videos/registros-collage/.hyperframes/artifacts/checks/e07e814f-6937-40fc-a822-5b40bbfee24b.json",
           "metadata": {
             "ok": false,
             "browserSkipped": false,
@@ -855,7 +857,9 @@
           "revision": "5ee442a4-286e-43a0-a17f-509fa733057c",
           "inputFingerprint": "761199ec9cf2ebcafa4b61d28333daae881232da119dd9f7a3c61e1d63ae695e",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "0ed25900-9bc5-49d7-ad52-ead5fce0710a"
         }
       ],
       "fe6788c4-05ee-4c5c-a7c5-96adf5e53452": [
@@ -1245,13 +1249,15 @@
   },
   "renders": {
     "latest": {
-      "id": "254b638d-aa7f-4269-88af-fed9631bc1e6",
-      "completedAt": 1792586754370,
-      "output": "/home/user/GRAPPHHIC/videos/registros-collage/renders/registros-collage-stopmotion.mp4",
+      "id": "0ed25900-9bc5-49d7-ad52-ead5fce0710a",
+      "completedAt": 1792589790165,
+      "output": "/home/user/GRAPPHHIC/videos/registros-collage/renders/registros-elena-collage.mp4",
       "status": "completed",
-      "revision": null
+      "revision": "fe6788c4-05ee-4c5c-a7c5-96adf5e53452"
     },
-    "retainedRevisions": []
+    "retainedRevisions": [
+      "fe6788c4-05ee-4c5c-a7c5-96adf5e53452"
+    ]
   },
   "pendingArtifactCleanup": []
 }
