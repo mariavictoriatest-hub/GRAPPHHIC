@@ -3,3 +3,4 @@
 .hyperframes/render-outputs.json
 renders/.*
 renders/**/tmp*
+renders/work-*/
