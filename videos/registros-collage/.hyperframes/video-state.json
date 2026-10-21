@@ -1070,5 +1070,16 @@
         "attribution": "inputs-changed"
       }
     ]
-  }
+  },
+  "renders": {
+    "latest": {
+      "id": "254b638d-aa7f-4269-88af-fed9631bc1e6",
+      "completedAt": 1792586754370,
+      "output": "/home/user/GRAPPHHIC/videos/registros-collage/renders/registros-collage-stopmotion.mp4",
+      "status": "completed",
+      "revision": null
+    },
+    "retainedRevisions": []
+  },
+  "pendingArtifactCleanup": []
 }
