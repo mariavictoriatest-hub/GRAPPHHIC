@@ -45,7 +45,7 @@
         width: 100%;
         height: 100%;
         overflow: hidden;
-        background: var(--cream);
+        background: #000;
         font-family: "Abu Serif Condensed", serif;
         font-stretch: 62.5%;
         color: var(--purple);
@@ -164,6 +164,13 @@
         height: 1920px;
         overflow: visible;
       }
+      #elena {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
       #butterfly {
         z-index: 5;
       }
@@ -182,7 +189,7 @@
       id="root"
       data-composition-id="main"
       data-start="0"
-      data-duration="29.9"
+      data-duration="29.19"
       data-width="1080"
       data-height="1920"
     >
@@ -200,21 +207,10 @@
         </defs>
       </svg>
 
-      <audio id="voice" src="assets/voice.m4a" data-start="0" data-duration="29.9" data-track-index="1" data-volume="1"></audio>
-
-      <!-- background paper patches -->
-      <div class="piece strip" id="bg-lilac-a" style="left: -80px; top: 160px; width: 560px; height: 420px; --p: var(--lilac)">
-        <div class="boil"><div class="paper torn"></div></div>
-      </div>
-      <div class="piece strip" id="bg-lilac-b" style="left: 620px; top: 1320px; width: 560px; height: 520px; --p: var(--lilac)">
-        <div class="boil"><div class="paper torn"></div></div>
-      </div>
-      <div class="piece strip news" id="bg-news" style="left: 690px; top: 120px; width: 420px; height: 300px">
-        <div class="boil"><div class="paper torn"><div class="cols"></div></div></div>
-      </div>
+      <video id="elena" class="clip" src="assets/elena.mp4" playsinline data-has-audio="true" data-start="0" data-duration="29.19" data-track-index="0" data-volume="1"></video>
 
       <!-- ransom title (becomes header) -->
-      <div class="piece" id="title" data-layout-allow-occlusion data-layout-allow-overflow style="left: 0; top: 300px; width: 1080px; height: 420px">
+      <div class="piece" id="title" data-layout-allow-occlusion data-layout-allow-overflow style="left: 0; top: 70px; width: 1080px; height: 420px">
         <div class="boil">
           <div class="strip" id="q-strip" style="position: absolute; left: 330px; top: 0; width: 420px; height: 110px">
             <div class="paper torn" style="background: var(--purple)"></div>
@@ -225,77 +221,76 @@
       </div>
 
       <!-- cutouts -->
-      <div class="piece" id="book-open" style="left: 150px; top: 1080px; width: 780px"><div class="boil"><img class="cut" src="assets/cutouts/book-open.png" alt="" /></div></div>
-      <div class="piece" id="moon" style="left: 690px; top: -60px; width: 460px"><div class="boil"><img class="cut" src="assets/cutouts/moon.png" alt="" /></div></div>
-      <div class="piece" id="star-a" style="left: 60px; top: 820px; width: 230px"><div class="boil"><img class="cut" src="assets/cutouts/star.png" alt="" /></div></div>
-      <div class="piece" id="star-b" style="left: 820px; top: 1180px; width: 170px"><div class="boil"><img class="cut" src="assets/cutouts/star.png" alt="" /></div></div>
-      <div class="piece" id="star-c" style="left: 830px; top: 620px; width: 120px"><div class="boil"><img class="cut" src="assets/cutouts/star.png" alt="" /></div></div>
-      <div class="piece" id="butterfly" style="left: 620px; top: 640px; width: 300px"><div class="boil"><img class="cut" src="assets/cutouts/butterfly.png" alt="" /></div></div>
-      <div class="piece" id="books" style="left: 140px; top: 1000px; width: 820px"><div class="boil"><img class="cut" src="assets/cutouts/books-stack.png" alt="" /></div></div>
-      <div class="piece" id="hourglass" style="left: 370px; top: 640px; width: 340px"><div class="boil"><img class="cut" src="assets/cutouts/hourglass.png" alt="" /></div></div>
-      <div class="piece" id="flowers" style="left: -40px; top: 1260px; width: 700px"><div class="boil"><img class="cut" src="assets/cutouts/flowers-news.png" alt="" /></div></div>
+      <div class="piece" id="book-open" style="left: 300px; top: 1250px; width: 480px"><div class="boil"><img class="cut" src="assets/cutouts/book-open.png" alt="" /></div></div>
+      <div class="piece" id="moon" style="left: 840px; top: 230px; width: 240px"><div class="boil"><img class="cut" src="assets/cutouts/moon.png" alt="" /></div></div>
+      <div class="piece" id="star-a" style="left: 30px; top: 300px; width: 170px"><div class="boil"><img class="cut" src="assets/cutouts/star.png" alt="" /></div></div>
+      <div class="piece" id="star-b" style="left: 880px; top: 760px; width: 130px"><div class="boil"><img class="cut" src="assets/cutouts/star.png" alt="" /></div></div>
+      <div class="piece" id="star-c" style="left: 40px; top: 1000px; width: 110px"><div class="boil"><img class="cut" src="assets/cutouts/star.png" alt="" /></div></div>
+      <div class="piece" id="butterfly" style="left: 820px; top: 830px; width: 230px"><div class="boil"><img class="cut" src="assets/cutouts/butterfly.png" alt="" /></div></div>
+      <div class="piece" id="books" style="left: 640px; top: 1480px; width: 420px"><div class="boil"><img class="cut" src="assets/cutouts/books-stack.png" alt="" /></div></div>
+      <div class="piece" id="hourglass" style="left: 850px; top: 600px; width: 200px"><div class="boil"><img class="cut" src="assets/cutouts/hourglass.png" alt="" /></div></div>
+      <div class="piece" id="flowers" style="left: -40px; top: 1300px; width: 560px"><div class="boil"><img class="cut" src="assets/cutouts/flowers-news.png" alt="" /></div></div>
 
       <svg id="dots" viewBox="0 0 1080 1920" aria-hidden="true">
-        <path id="trail" d="M60 1640 C 260 1560, 160 1300, 380 1240 S 760 1300, 820 1060 S 560 900, 800 720" fill="none" stroke="#5e3c79" stroke-width="10" stroke-linecap="round" stroke-dasharray="1 26" />
+        <path id="trail" d="M150 1180 C 60 1050, 150 900, 100 760 S 90 480, 300 360 S 760 300, 920 560 S 960 760, 930 880" fill="none" stroke="#5e3c79" stroke-width="10" stroke-linecap="round" stroke-dasharray="1 26" />
       </svg>
 
       <!-- text strips -->
-      <div class="piece strip" id="t-algunos" style="left: 120px; top: 470px; width: 560px; height: 120px">
+      <div class="piece strip" id="t-algunos" style="left: 260px; top: 255px; width: 560px; height: 120px">
         <div class="boil"><div class="paper torn"></div><div class="txt small" style="font-size: 82px">para algunos es</div></div>
       </div>
-      <div class="piece strip" id="t-magia" style="left: 130px; top: 1230px; width: 820px; height: 330px; --p: var(--purple)">
+      <div class="piece strip" id="t-magia" style="left: 130px; top: 1250px; width: 820px; height: 320px; --p: var(--purple)">
         <div class="boil"><div class="paper torn"></div><div class="txt big" style="font-size: 303px; color: var(--cream)">magia</div></div>
       </div>
-      <div class="piece strip" id="t-otros" style="left: 520px; top: 1610px; width: 470px; height: 120px; --p: var(--lilac)">
+      <div class="piece strip" id="t-otros" style="left: 560px; top: 1610px; width: 470px; height: 110px; --p: var(--lilac)">
         <div class="boil"><div class="paper torn"></div><div class="txt small" style="font-size: 87px">para otros…</div></div>
       </div>
-      <div class="piece strip" id="t-entender" style="left: 90px; top: 560px; width: 900px; height: 250px">
+      <div class="piece strip" id="t-entender" style="left: 90px; top: 1230px; width: 900px; height: 250px">
         <div class="boil"><div class="paper torn"></div><div class="txt big" style="font-size: 225px">entender</div></div>
       </div>
-      <div class="piece strip" id="t-comoun" style="left: 360px; top: 520px; width: 360px; height: 120px; --p: var(--lilac)">
+      <div class="piece strip" id="t-comoun" style="left: 360px; top: 1170px; width: 360px; height: 110px; --p: var(--lilac)">
         <div class="boil"><div class="paper torn"></div><div class="txt small" style="font-size: 88px">como un</div></div>
       </div>
-      <div class="piece" id="coach" data-layout-allow-occlusion style="left: 0; top: 680px; width: 1080px; height: 300px">
+      <div class="piece" id="coach" data-layout-allow-occlusion style="left: 0; top: 1300px; width: 1080px; height: 300px">
         <div class="boil"><div class="rline" id="rline-coach" style="top: 0; height: 300px"></div></div>
       </div>
-      <div class="piece strip" id="t-herr" style="left: 40px; top: 620px; width: 1000px; height: 200px; --p: var(--purple)">
+      <div class="piece strip" id="t-herr" style="left: 40px; top: 1240px; width: 1000px; height: 200px; --p: var(--purple)">
         <div class="boil"><div class="paper torn"></div><div class="txt big" style="font-size: 168px; color: var(--cream)">herramientas</div></div>
       </div>
-      <div class="piece strip" id="t-resolver" style="left: 110px; top: 1000px; width: 860px; height: 120px; --p: var(--white)">
+      <div class="piece strip" id="t-resolver" style="left: 110px; top: 1470px; width: 860px; height: 100px; --p: var(--white)">
         <div class="boil"><div class="paper torn"></div><div class="txt label" style="font-size: 44px">para resolver un problema</div></div>
       </div>
-      <div class="piece strip news" id="news-a" style="left: 600px; top: 1160px; width: 420px; height: 360px">
+      <div class="piece strip news" id="news-a" style="left: 830px; top: 1000px; width: 260px; height: 220px">
         <div class="boil"><div class="paper torn"><div class="cols"></div></div></div>
       </div>
-      <div class="piece strip news" id="news-b" style="left: 50px; top: 360px; width: 360px; height: 240px">
+      <div class="piece strip news" id="news-b" style="left: -20px; top: 250px; width: 260px; height: 200px">
         <div class="boil"><div class="paper torn"><div class="cols"></div></div></div>
       </div>
-      <div class="piece strip" id="t-llevando" style="left: 80px; top: 1470px; width: 600px; height: 120px">
+      <div class="piece strip" id="t-llevando" style="left: 240px; top: 1180px; width: 600px; height: 110px">
         <div class="boil"><div class="paper torn"></div><div class="txt small" style="font-size: 74px">nos van llevando…</div></div>
       </div>
-      <div class="piece strip" id="t-camino" style="left: 90px; top: 380px; width: 900px; height: 290px; --p: var(--purple)">
+      <div class="piece strip" id="t-camino" style="left: 90px; top: 1320px; width: 900px; height: 290px; --p: var(--purple)">
         <div class="boil"><div class="paper torn"></div><div class="txt big" style="flex-direction: row; gap: 30px; color: var(--cream)"><span class="small" style="font-size: 110px">el</span><span style="font-size: 270px">camino</span></div></div>
       </div>
-      <div class="piece strip" id="t-llega" style="left: 140px; top: 400px; width: 800px; height: 130px; --p: var(--gray)">
+      <div class="piece strip" id="t-llega" style="left: 140px; top: 255px; width: 800px; height: 120px; --p: var(--gray)">
         <div class="boil"><div class="paper torn"></div><div class="txt small" style="font-size: 86px; color: var(--ink)">llega de una manera…</div></div>
       </div>
-      <div class="piece strip" id="t-seva" style="left: 400px; top: 1180px; width: 280px; height: 120px; --p: var(--lilac)">
+      <div class="piece strip" id="t-seva" style="left: 400px; top: 1160px; width: 280px; height: 110px; --p: var(--lilac)">
         <div class="boil"><div class="paper torn"></div><div class="txt small" style="font-size: 92px">se va</div></div>
       </div>
-      <div class="piece strip" id="t-aliviada" style="left: 70px; top: 1310px; width: 940px; height: 290px">
+      <div class="piece strip" id="t-aliviada" style="left: 70px; top: 1280px; width: 940px; height: 290px">
         <div class="boil"><div class="paper torn"></div><div class="txt big" style="font-size: 266px">aliviada</div></div>
       </div>
-      <div class="piece strip" id="t-espera" style="left: 150px; top: 800px; width: 780px; height: 150px">
+      <div class="piece strip" id="t-espera" style="left: 150px; top: 1170px; width: 780px; height: 140px">
         <div class="boil"><div class="paper torn"></div><div class="txt small" style="font-size: 119px">lo que te espera</div></div>
       </div>
-      <div class="piece strip" id="t-bueno" style="left: 60px; top: 970px; width: 960px; height: 240px; --p: var(--purple)">
+      <div class="piece strip" id="t-bueno" style="left: 60px; top: 1320px; width: 960px; height: 240px; --p: var(--purple)">
         <div class="boil"><div class="paper torn"></div><div class="txt big" style="font-size: 205px; color: var(--cream)">está bueno</div></div>
       </div>
-      <div class="piece strip" id="t-handle" style="left: 560px; top: 1560px; width: 440px; height: 84px; --p: var(--white)">
+      <div class="piece strip" id="t-handle" style="left: 330px; top: 245px; width: 420px; height: 76px; --p: var(--white)">
         <div class="boil"><div class="paper torn"></div><div class="txt label" style="font-size: 32px">@abuchaljacoach</div></div>
       </div>
 
-      <div id="grain" aria-hidden="true"></div>
     </div>
 
     <script>
@@ -387,7 +382,7 @@
           return line.querySelectorAll(".card");
         }
         var titleCards = ransom("rline", "REGISTROS?", 182, { S: "assets/cutouts/letter-s.png" });
-        var coachCards = ransom("rline-coach", "COACH", 270, { C: "assets/cutouts/letter-c.png" });
+        var coachCards = ransom("rline-coach", "COACH", 235, { C: "assets/cutouts/letter-c.png" });
 
         document.querySelectorAll(".torn").forEach(function (el) {
           var box = el.closest(".piece, .strip");
@@ -417,10 +412,6 @@
         gsap.set(".piece", { opacity: 0 });
         gsap.set(".card", { opacity: 0 });
 
-        // F0 background
-        slap("#bg-lilac-a", 0, -4);
-        slap("#bg-lilac-b", 0.08, 5);
-        slap("#bg-news", 0.16, 7);
 
         // F1 ¿qué son los registros? (0 - 3.15)
         slap("#title", 0.2, 0);
@@ -429,23 +420,22 @@
           inner.fromTo(c, { opacity: 0, scale: 1.5, rotation: rot(c) * 3, y: -60 }, { opacity: 1, scale: 1, rotation: rot(c), y: parseFloat(c.dataset.dy), duration: 0.17, ease: "power2.out", immediateRender: false }, 0.45 + i * 0.11);
         });
         enter("#book-open", 1.6, 0, 900, -3);
-        enter("#moon", 2.0, 500, -300, 0);
+        enter("#moon", 3.2, 500, -300, 0);
         // title becomes the page header
-        inner.to("#title", { y: -235, scale: 0.5, transformOrigin: "50% 0%", duration: 0.5, ease: "power2.inOut" }, 3.0);
-        inner.to("#bg-news", { y: -500, duration: 0.5, ease: "power1.in" }, 3.0);
+        inner.to("#title", { y: -30, scale: 0.5, transformOrigin: "50% 0%", duration: 0.5, ease: "power2.inOut" }, 3.0);
 
         // F2 magia (3.15 - 8.4)
         slide("#book-open", 3.1, 0, 1000);
         slap("#t-algunos", 3.3, -3);
-        inner.to("#moon", { x: -380, y: 710, scale: 1.5, rotation: -8, duration: 1.4, ease: "power2.inOut" }, 3.4);
+        inner.to("#moon", { x: -20, y: 120, scale: 1.25, rotation: -8, duration: 1.4, ease: "power2.inOut" }, 3.4);
         slap("#t-magia", 5.1, -4);
         slap("#star-a", 5.25, -12);
         slap("#star-b", 5.4, 18);
         slap("#star-c", 5.55, 4);
-        enter("#butterfly", 5.9, 600, -200, 12);
+        enter("#butterfly", 5.9, 400, -300, 12);
         slap("#t-otros", 6.6, 5);
         slide(["#t-magia", "#star-a", "#star-b", "#star-c"], 8.2, -1200, 0);
-        slide(["#moon", "#butterfly"], 8.25, 1200, -300);
+        slide(["#moon", "#butterfly"], 8.25, 600, -300);
         slide("#t-algunos", 8.3, -1200, 0);
 
         // F3 entender (8.4 - 10.8)
@@ -464,9 +454,8 @@
         slap("#news-b", 12.35, -6);
         slap("#news-a", 12.45, 8);
         slap("#t-herr", 12.55, -2);
-        enter("#book-open", 12.7, -900, 300, 4);
         slap("#t-resolver", 15.0, 2);
-        slide(["#t-herr", "#news-b", "#book-open"], 16.7, -1200, 0);
+        slide(["#t-herr", "#news-b"], 16.7, -1200, 0);
         slide(["#t-resolver", "#news-a"], 16.75, 1200, 0);
 
         // F5 el camino (16.87 - 21.5)
@@ -490,7 +479,7 @@
               var pt = trail.getPointAtLength(Math.max(0.01, len));
               var pt2 = trail.getPointAtLength(Math.min(L, len + 12));
               var ang = (Math.atan2(pt2.y - pt.y, pt2.x - pt.x) * 180) / Math.PI;
-              gsap.set("#butterfly", { x: pt.x - 770, y: pt.y - 740, rotation: ang * 0.25, scale: 0.8 });
+              gsap.set("#butterfly", { x: pt.x - 935, y: pt.y - 915, rotation: ang * 0.25, scale: 0.8 });
             },
           },
           17.0,
@@ -504,17 +493,17 @@
         }
         inner.set("#butterfly", { opacity: 1 }, 17.0);
         slap("#t-llevando", 17.6, -3);
-        inner.fromTo("#star-b", { opacity: 1, x: -720, y: -500, scale: 0.8, rotation: 0 }, { rotation: 20, duration: 0.3, immediateRender: false }, 18.2);
-        inner.fromTo("#star-c", { opacity: 1, x: -650, y: 640, scale: 1, rotation: 0 }, { rotation: -15, duration: 0.3, immediateRender: false }, 18.6);
-        inner.fromTo("#moon", { opacity: 1, x: 120, y: 1350, scale: 1.1, rotation: 0 }, { y: 1180, duration: 0.6, ease: "power2.out", immediateRender: false }, 18.9);
+        inner.fromTo("#star-b", { opacity: 1, x: -875, y: 155, scale: 0.8, rotation: 0 }, { rotation: 20, duration: 0.3, immediateRender: false }, 18.2);
+        inner.fromTo("#star-c", { opacity: 1, x: 465, y: -755, scale: 1, rotation: 0 }, { rotation: -15, duration: 0.3, immediateRender: false }, 18.6);
+        inner.fromTo("#moon", { opacity: 1, x: 300, y: 700, scale: 0.9, rotation: 0 }, { x: 60, duration: 0.6, ease: "power2.out", immediateRender: false }, 18.9);
         slap("#t-camino", 19.95, 3);
         slide(["#t-camino", "#t-llevando"], 21.3, -1200, 0);
         inner.to(["#dots", "#butterfly"], { opacity: 0, duration: 0.2 }, 21.35);
         slide(["#star-b", "#star-c"], 21.3, 1200, 0);
-        slide("#moon", 21.35, 1200, 200);
+        slide("#moon", 21.35, 600, 0);
 
         // F6 llega así → aliviada (21.5 - 25.5)
-        enter("#hourglass", 21.55, 0, -1100, 0);
+        enter("#hourglass", 21.55, 300, -900, 0);
         slap("#t-llega", 21.9, -2);
         inner.to("#hourglass", { rotation: 180, duration: 0.6, ease: "power2.inOut" }, 23.2);
         slap("#t-seva", 23.6, -5);
@@ -524,11 +513,11 @@
         slide(["#t-seva", "#t-aliviada"], 25.35, -1200, 0);
 
         // F7 lo que te espera está bueno (25.5 - 29.9)
-        inner.fromTo("#moon", { opacity: 1, x: 0, y: -400, scale: 1, rotation: 0 }, { y: 300, duration: 0.6, ease: "power2.out", immediateRender: false }, 25.5);
-        inner.fromTo("#butterfly", { opacity: 1, x: -900, y: -600, scale: 0.75, rotation: 0 }, { x: -520, y: -310, rotation: -10, duration: 0.6, ease: "power2.out", immediateRender: false }, 25.7);
+        inner.fromTo("#moon", { opacity: 1, x: 0, y: -600, scale: 1, rotation: 0 }, { y: 0, duration: 0.6, ease: "power2.out", immediateRender: false }, 25.5);
+        inner.fromTo("#butterfly", { opacity: 1, x: -900, y: -600, scale: 0.75, rotation: 0 }, { x: -835, y: -355, rotation: -10, duration: 0.6, ease: "power2.out", immediateRender: false }, 25.7);
         slap("#t-espera", 25.8, -2);
-        inner.fromTo("#star-a", { opacity: 1, x: 760, y: -560, rotation: 0, scale: 0.7 }, { opacity: 1, duration: 0.01, immediateRender: false }, 26.2);
-        inner.fromTo("#books", { opacity: 1, x: 300, y: 1000, rotation: -6, scale: 0.6 }, { y: 520, duration: 0.5, ease: "power2.out", immediateRender: false }, 26.4);
+        inner.fromTo("#star-a", { opacity: 1, x: 0, y: 0, rotation: 0, scale: 0.8 }, { opacity: 1, duration: 0.01, immediateRender: false }, 26.2);
+        inner.fromTo("#books", { opacity: 1, x: 0, y: 600, rotation: -6, scale: 1 }, { y: 0, duration: 0.5, ease: "power2.out", immediateRender: false }, 26.4);
         slap("#t-bueno", 27.9, -3);
         slap("#t-handle", 28.6, 3);
 
@@ -553,7 +542,7 @@
             applyTime(tl.time());
           },
         });
-        tl.to({ p: 0 }, { p: 1, duration: 29.9, ease: "none" }, 0);
+        tl.to({ p: 0 }, { p: 1, duration: 29.19, ease: "none" }, 0);
         tl.seek(0);
         applyTime(0);
         window.__timelines["main"] = tl;
