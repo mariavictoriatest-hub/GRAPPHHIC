@@ -9,5 +9,22 @@
   "media": {
     "autoProxy": true
   },
-  "authoringSkill": "general-video"
+  "authoringSkill": "general-video",
+  "registryItems": [
+    {
+      "name": "paper-collage-reveal",
+      "type": "hyperframes:component",
+      "target": "compositions/components/paper-collage-reveal.html"
+    },
+    {
+      "name": "torn-paper-rip",
+      "type": "hyperframes:component",
+      "target": "compositions/components/torn-paper-rip.html"
+    },
+    {
+      "name": "freeze-frame-dressing",
+      "type": "hyperframes:block",
+      "target": "compositions/freeze-frame-dressing.html"
+    }
+  ]
 }
