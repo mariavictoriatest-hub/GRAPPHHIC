@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Una causa no es contenido — carrusel</title>
+<style>
+@font-face{font-family:"DM Sans";font-style:normal;font-weight:100 1000;src:url(fonts/dmsans-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"DM Sans";font-style:normal;font-weight:100 1000;src:url(fonts/dmsans-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Caveat";font-style:normal;font-weight:400 700;src:url(fonts/caveat-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Caveat";font-style:normal;font-weight:400 700;src:url(fonts/caveat-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
+:root{
+  --teal:#016c7a; --turq:#1fb3c1; --lime:#9afd7f; --white:#fff; --paper:#f4f3ee;
+  --birome:#2c3e8c; --pink:#f2a7c3; --ink:#0b4f59; --gray:#8e8e93;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#222;font-family:"DM Sans",sans-serif;font-weight:500;-webkit-font-smoothing:antialiased}
+.slide{position:relative;width:1080px;height:1350px;overflow:hidden;margin:0 auto 40px}
+.teal{background:var(--teal);color:var(--white)}
+.turq{background:var(--turq);color:var(--white)}
+.paper{background:var(--paper);color:var(--teal)}
+
+/* grano / textura */
+.grain{position:absolute;inset:0;pointer-events:none;z-index:1}
+.grain svg{width:100%;height:100%;display:block}
+.teal .grain,.turq .grain{mix-blend-mode:overlay;opacity:.55}
+.paper .grain{mix-blend-mode:multiply;opacity:.22}
+.vignette{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(120% 90% at 30% 20%,rgba(255,255,255,.08),transparent 55%),
+             radial-gradient(120% 100% at 80% 110%,rgba(0,0,0,.22),transparent 60%)}
+.halftone{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(1,108,122,.30) 1.6px,transparent 2.2px);
+  background-size:11px 11px;
+  -webkit-mask-image:radial-gradient(ellipse 62% 58% at 50% 50%,transparent 70%,#000 100%);
+          mask-image:radial-gradient(ellipse 62% 58% at 50% 50%,transparent 70%,#000 100%)}
+.layer{position:absolute;inset:0;z-index:2}
+
+/* marcas fijas */
+.handle{position:absolute;top:110px;left:0;right:0;text-align:center;font-size:28px;font-weight:500;letter-spacing:.02em;z-index:5}
+.pager{position:absolute;right:90px;bottom:110px;display:flex;align-items:center;gap:14px;font-size:28px;font-weight:700;z-index:5}
+.pager svg{width:86px;height:46px}
+.logo{position:absolute;left:0;right:0;bottom:110px;text-align:center;z-index:5}
+.logo .mark{font-weight:700;font-size:84px;line-height:.9;letter-spacing:-3px;display:inline-flex;align-items:baseline}
+.logo .dot{display:inline-block;width:17px;height:17px;border-radius:50%;background:var(--lime);margin-left:4px}
+.logo .who{display:block;font-size:28px;font-weight:500;margin-top:6px;letter-spacing:.04em}
+
+/* recursos */
+.cav{font-family:"Caveat",cursive;font-weight:700}
+.tape{position:absolute;background:rgba(236,230,207,.82);
+  clip-path:polygon(0 4%,3% 0,6% 6%,9% 1%,12% 5%,88% 2%,91% 6%,94% 0,97% 5%,100% 2%,99% 25%,100% 50%,98.5% 75%,100% 97%,96% 100%,93% 95%,90% 100%,87% 96%,12% 99%,9% 94%,6% 100%,3% 96%,0 100%,1.5% 75%,0 50%,1% 25%);
+  box-shadow:0 1px 0 rgba(0,0,0,.04)}
+.tape.sm{width:200px;height:56px}
+.hl{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath d='M0 9 C40 4 90 7 130 5 S185 4 200 7 L199 31 C160 36 120 33 80 35 S20 37 1 34 Z' fill='%239afd7f'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone;padding:0 .3em;color:var(--teal)}
+.num{width:116px;height:116px;border-radius:50%;background:var(--lime);color:var(--teal);font-weight:700;font-size:62px;display:flex;align-items:center;justify-content:center;flex:none}
+.card{background:#fff;border-radius:28px;box-shadow:0 18px 40px rgba(0,0,0,.18),0 2px 6px rgba(0,0,0,.08)}
+.sticker{position:absolute;z-index:3}
+
+/* ---------- S1 portada ---------- */
+#s1 .eyebrow{position:absolute;top:110px;left:90px;font-size:28px;color:var(--lime);letter-spacing:.06em;z-index:5}
+#s1 .lazo{position:absolute;top:96px;right:96px;width:78px;z-index:5}
+#s1 h1{position:absolute;left:90px;right:90px;top:250px;font-weight:700;font-size:132px;line-height:1;letter-spacing:-4px;z-index:3}
+#s1 h1 .una{display:block}
+#s1 h1 .causa{display:block;font-size:300px;color:var(--lime);letter-spacing:0;line-height:.75;margin:-58px 0 -40px 150px;transform:rotate(-6deg);transform-origin:left center;position:relative;z-index:4}
+#s1 h1 .rest{display:block;position:relative;z-index:3}
+#s1 .bajada{position:absolute;left:170px;top:880px;width:740px;padding:30px 44px;transform:rotate(-2deg);z-index:4;color:var(--teal);font-size:42px;font-weight:700;line-height:1.2;text-align:center}
+#s1 .bajada span{font-weight:500}
+
+/* ---------- S2 notas ---------- */
+#s2 .notes{position:absolute;left:90px;right:90px;top:240px;padding:40px 56px 56px;transform:rotate(-1.5deg);z-index:3}
+#s2 .bar{display:flex;align-items:center;justify-content:space-between;color:#e0a100;font-size:34px;font-weight:500;margin-bottom:28px}
+#s2 .bar .back{display:flex;align-items:center;gap:6px;color:var(--turq)}
+#s2 .bar .icons{display:flex;gap:26px}
+#s2 .bar svg{width:40px;height:40px}
+#s2 .date{text-align:center;color:var(--gray);font-size:28px;margin-bottom:26px}
+#s2 .ntitle{color:var(--turq);font-size:54px;font-weight:700;line-height:1.08;margin-bottom:26px;letter-spacing:-1px}
+#s2 .nbody{color:#0f98a6;font-size:38px;line-height:1.36}
+#s2 .nbody p+p{margin-top:18px}
+#s2 .tape{left:50%;top:-30px;width:220px;height:62px;transform:translateX(-50%) rotate(3deg)}
+#s2 .after{position:absolute;left:90px;right:90px;top:960px;text-align:center;font-size:72px;line-height:1.05;color:#fff;z-index:3;transform:rotate(-2deg)}
+
+/* ---------- S3 cuaderno ---------- */
+#s3{background:
+  linear-gradient(90deg,transparent 168px,rgba(31,179,193,.55) 168px,rgba(31,179,193,.55) 171px,transparent 171px),
+  repeating-linear-gradient(180deg,transparent 0 58px,rgba(31,179,193,.28) 58px 60px),
+  var(--paper);background-position:0 0,0 30px,0 0}
+#s3 .holes{position:absolute;left:58px;top:60px;bottom:60px;display:flex;flex-direction:column;justify-content:space-between;z-index:3}
+#s3 .holes i{display:block;width:34px;height:34px;border-radius:50%;background:var(--teal);box-shadow:inset 2px 3px 4px rgba(0,0,0,.35)}
+#s3 .handle{color:var(--teal);left:110px}
+#s3 .list{position:absolute;left:210px;top:270px;z-index:3;color:var(--birome);font-size:86px;line-height:120px}
+#s3 .list li{list-style:none;display:flex;align-items:center;gap:22px}
+#s3 .list svg{width:64px;height:58px;flex:none}
+#s3 .big{position:absolute;left:210px;right:90px;top:690px;font-weight:700;font-size:92px;line-height:1.05;letter-spacing:-3px;color:var(--teal);z-index:3}
+#s3 .label{position:absolute;left:210px;right:100px;top:960px;padding:26px 36px 28px;transform:rotate(-1.5deg);z-index:3;color:var(--teal);font-size:40px;font-weight:700;line-height:1.2;text-align:center}
+#s3 .label .pw{display:block;white-space:nowrap;font-size:54px;letter-spacing:-1px}
+#s3 .label small{display:block;font-size:30px;font-weight:500;margin-top:4px}
+#s3 .pager{color:var(--teal)}
+
+/* ---------- S4 ---------- */
+#s4 h2{position:absolute;left:90px;right:90px;top:250px;font-weight:700;font-size:118px;line-height:1;letter-spacing:-4px;z-index:3}
+#s4 h2 .cv{display:block;font-size:200px;color:var(--lime);letter-spacing:0;line-height:.8;margin:6px 0 0 30px;transform:rotate(-4deg);transform-origin:left center}
+#s4 .body{position:absolute;left:90px;right:90px;top:690px;font-size:44px;line-height:1.3;z-index:3}
+#s4 .body .rem{display:block;margin-top:34px;font-weight:700;font-size:50px;line-height:1.38}
+
+/* ---------- S5–S8 preguntas ---------- */
+.q{background:
+  repeating-linear-gradient(0deg,transparent 0 44px,rgba(1,108,122,.08) 44px 46px),
+  repeating-linear-gradient(90deg,transparent 0 44px,rgba(1,108,122,.08) 44px 46px),
+  var(--paper)}
+.q .handle{color:var(--teal)}
+.q .halftone{opacity:.55}
+.q .head{position:absolute;left:90px;right:90px;top:220px;display:flex;align-items:center;gap:28px;z-index:3}
+.q .head p{font-size:32px;font-weight:500;color:var(--teal)}
+.q .question{position:absolute;left:90px;right:90px;top:400px;font-weight:700;font-size:96px;line-height:1.04;letter-spacing:-3px;color:var(--teal);z-index:3}
+.q .question .cav{color:var(--birome);font-size:1.5em;letter-spacing:0;line-height:.6;display:inline-block;transform:rotate(-4deg)}
+.q .note{position:absolute;left:110px;right:110px;top:820px;padding:56px 54px 50px;transform:rotate(1.2deg);z-index:3;font-size:42px;line-height:1.32;color:var(--ink)}
+.q .question .cav,#s10 .final .cav{margin-left:10px}
+.q .note b{font-weight:700;color:var(--teal)}
+.q .note .tape{left:60px;top:-28px;width:190px;height:56px;transform:rotate(-6deg)}
+.q .pager{color:var(--teal)}
+
+/* ---------- S9 ---------- */
+#s9 h2{position:absolute;left:90px;right:90px;top:230px;font-weight:700;font-size:124px;line-height:1;letter-spacing:-4px;z-index:3}
+#s9 .list{position:absolute;left:90px;right:90px;top:500px;padding:34px 52px;z-index:3;transform:rotate(-1deg);color:var(--teal)}
+#s9 .list li{list-style:none;display:flex;align-items:center;gap:22px;font-size:40px;line-height:1.2;padding:14px 0}
+#s9 .list li+li{border-top:2px dashed rgba(1,108,122,.18)}
+#s9 .list svg{width:40px;height:40px;flex:none}
+#s9 .rem{position:absolute;left:120px;right:110px;top:925px;padding:34px 44px;background:var(--teal);border-radius:28px;z-index:3;transform:rotate(1.5deg);color:#fff;font-size:58px;line-height:1.05;box-shadow:0 18px 40px rgba(0,0,0,.18)}
+#s9 .rem .l{color:var(--lime)}
+
+/* ---------- S10 ---------- */
+#s10 .final{position:absolute;left:90px;right:90px;top:220px;font-weight:700;font-size:100px;line-height:1.06;letter-spacing:-3px;z-index:3}
+#s10 .final .cav{color:var(--lime);font-size:1.55em;letter-spacing:0;line-height:.6;display:inline-block;transform:rotate(-4deg);margin-right:.12em}
+#s10 .bubble{position:absolute;left:90px;right:90px;top:740px;background:#fff;color:var(--teal);border-radius:48px;padding:44px 54px;z-index:3;font-size:36px;line-height:1.3}
+#s10 .bubble b{display:block;font-weight:700;font-size:58px;letter-spacing:-1.5px;line-height:1.15;margin:4px 0 8px}
+#s10 .bubble::after{content:"";position:absolute;left:120px;bottom:-34px;width:60px;height:60px;background:#fff;clip-path:polygon(0 0,100% 0,10% 100%)}
+#s10 .bubble .sub{display:block;color:var(--ink)}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <filter id="noise" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="3" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+  </filter>
+  <filter id="paperNoise" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency=".035 .5" numOctaves="2" seed="4"/>
+    <feColorMatrix type="saturate" values="0"/>
+  </filter>
+</svg>
+
+<!-- ============ 1 · PORTADA ============ -->
+<section class="slide teal" id="s1">
+  <div class="grain"><svg><rect width="100%" height="100%" filter="url(#noise)"/></svg></div>
+  <div class="vignette"></div>
+  <div class="eyebrow">Del blog · nattesuy.com</div>
+  <!-- único toque de rosa del carrusel -->
+  <svg class="lazo" viewBox="0 0 80 112" fill="none" stroke="#f2a7c3" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14 106 L56 47 C70 25 62 6 41 5 C21 5 12 25 27 46 L67 104"/>
+    <path d="M16 103 L58 45 C71 24 61 8 43 7" opacity=".45"/>
+    <path d="M14 106 l-6 -4 M67 104 l7 -3"/>
+  </svg>
+  <h1>
+    <span class="una">Una</span>
+    <span class="causa cav">causa</span>
+    <span class="rest">no es<br>contenido.</span>
+  </h1>
+  <div class="tape bajada">Cómo sumarte con criterio<br><span>(y con cariño).</span></div>
+  <div class="logo"><span class="mark">atte<span class="dot"></span></span><span class="who">Nati</span></div>
+  <div class="pager" style="color:#fff"><span>1/10</span><svg viewBox="0 0 86 46" fill="none" stroke="#9afd7f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="43" cy="23" rx="40" ry="20"/><path d="M26 23 H60 M50 14 L60 23 L50 32"/></svg></div>
+</section>
+
+<!-- ============ 2 · DESDE DÓNDE ============ -->
+<section class="slide turq" id="s2">
+  <div class="grain"><svg><rect width="100%" height="100%" filter="url(#noise)"/></svg></div>
+  <div class="vignette"></div>
+  <div class="handle">@nattesuy</div>
+  <div class="card notes">
+    <div class="tape"></div>
+    <div class="bar">
+      <span class="back"><svg viewBox="0 0 40 40" fill="none" stroke="#1fb3c1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M25 8 L13 20 L25 32"/></svg>Notas</span>
+      <span class="icons">
+        <svg viewBox="0 0 40 40" fill="none" stroke="#1fb3c1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M13 16 H9 V36 H31 V16 H27 M20 4 V24 M13 11 L20 4 L27 11"/></svg>
+        <svg viewBox="0 0 40 40" fill="none" stroke="#1fb3c1" stroke-width="3"><circle cx="20" cy="20" r="16"/><circle cx="13" cy="20" r="1.6" fill="#1fb3c1"/><circle cx="20" cy="20" r="1.6" fill="#1fb3c1"/><circle cx="27" cy="20" r="1.6" fill="#1fb3c1"/></svg>
+      </span>
+    </div>
+    <div class="date">Octubre, 2026</div>
+    <div class="ntitle">Por qué este mes me llega distinto</div>
+    <div class="nbody">
+      <p>Octubre se pinta de rosa y yo, cada año, lo miro con sentimientos encontrados.</p>
+      <p>Mi mamá tuvo cáncer de mama. Por eso me duele un poco cuando una causa se usa de vitrina.</p>
+    </div>
+  </div>
+  <div class="after cav">No estoy en contra de nada.<br>Al revés.</div>
+  <div class="pager" style="color:#fff"><span>2/10</span><svg viewBox="0 0 86 46" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="43" cy="23" rx="40" ry="20"/><path d="M26 23 H60 M50 14 L60 23 L50 32"/></svg></div>
+</section>
+
+<!-- ============ 3 · EL PROBLEMA ============ -->
+<section class="slide paper" id="s3">
+  <div class="grain"><svg><rect width="100%" height="100%" filter="url(#paperNoise)"/></svg></div>
+  <div class="halftone"></div>
+  <div class="holes"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="handle">@nattesuy</div>
+  <ul class="list cav">
+    <li>Logo en rosa <svg viewBox="0 0 64 58" fill="none" stroke="#2c3e8c" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 30 C12 35 18 42 22 50 C30 32 42 16 58 6"/></svg></li>
+    <li>Posteo de ocasión <svg viewBox="0 0 64 58" fill="none" stroke="#2c3e8c" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 32 C11 36 17 43 21 51 C31 30 41 17 59 8"/></svg></li>
+    <li>Una promo <svg viewBox="0 0 64 58" fill="none" stroke="#2c3e8c" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 28 C13 34 18 41 23 50 C31 33 43 15 57 5"/></svg></li>
+  </ul>
+  <div class="big">…y en noviembre, <span class="hl">silencio.</span></div>
+  <div class="tape label">Esto tiene nombre:<span class="pw">purpose-washing</span><small>(lavado de propósito)</small></div>
+  <div class="pager"><span>3/10</span><svg viewBox="0 0 86 46" fill="none" stroke="#016c7a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="43" cy="23" rx="40" ry="20"/><path d="M26 23 H60 M50 14 L60 23 L50 32"/></svg></div>
+</section>
+
+<!-- ============ 4 · PYME ============ -->
+<section class="slide teal" id="s4">
+  <div class="grain"><svg><rect width="100%" height="100%" filter="url(#noise)"/></svg></div>
+  <div class="vignette"></div>
+  <div class="handle">@nattesuy</div>
+  <svg class="sticker" style="right:96px;top:520px;width:120px" viewBox="0 0 120 130" fill="none" stroke="#9afd7f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M60 60 C40 52 30 30 44 22 C54 16 60 28 60 34 C60 28 66 16 76 22 C90 30 80 52 60 60 Z"/>
+    <path d="M60 60 C68 40 90 30 98 44 C104 54 92 60 86 60 C92 60 104 66 98 76 C90 90 68 80 60 60 Z"/>
+    <path d="M60 60 C80 68 90 90 76 98 C66 104 60 92 60 86 C60 92 54 104 44 98 C30 90 40 68 60 60 Z"/>
+    <path d="M60 60 C52 80 30 90 22 76 C16 66 28 60 34 60 C28 60 16 54 22 44 C30 30 52 40 60 60 Z"/>
+    <path d="M62 62 C70 90 80 108 96 124"/>
+  </svg>
+  <h2>Tu marca es tu <span class="cv cav">credibilidad.</span></h2>
+  <div class="body">No tenés presupuesto para reparar una imagen oportunista. Pero tampoco lo necesitás:
+    <span class="rem"><span class="hl">la coherencia es gratis y se construye todos los días.</span></span>
+  </div>
+  <div class="pager" style="color:#fff"><span>4/10</span><svg viewBox="0 0 86 46" fill="none" stroke="#9afd7f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="43" cy="23" rx="40" ry="20"/><path d="M26 23 H60 M50 14 L60 23 L50 32"/></svg></div>
+</section>
+
+<!-- ============ 5 · PREGUNTA 1 ============ -->
+<section class="slide paper q" id="s5">
+  <div class="grain"><svg><rect width="100%" height="100%" filter="url(#paperNoise)"/></svg></div>
+  <div class="halftone"></div>
+  <div class="handle">@nattesuy</div>
+  <div class="head"><div class="num">1</div><p>Antes de sumarte, preguntate:</p></div>
+  <div class="question">¿Tiene algo que ver con lo que hago todo el año?</div>
+  <div class="card note"><div class="tape"></div>Si no hay <span class="hl"><b>hilo conductor</b></span> entre la causa y tu negocio, se nota.</div>
+  <svg class="sticker" style="left:90px;bottom:100px;width:92px" viewBox="0 0 100 100"><g fill="#9afd7f"><ellipse cx="50" cy="24" rx="13" ry="23"/><ellipse cx="50" cy="24" rx="13" ry="23" transform="rotate(60 50 50)"/><ellipse cx="50" cy="24" rx="13" ry="23" transform="rotate(120 50 50)"/><ellipse cx="50" cy="24" rx="13" ry="23" transform="rotate(180 50 50)"/><ellipse cx="50" cy="24" rx="13" ry="23" transform="rotate(240 50 50)"/><ellipse cx="50" cy="24" rx="13" ry="23" transform="rotate(300 50 50)"/></g><circle cx="50" cy="50" r="11" fill="#016c7a"/></svg>
+  <div class="pager"><span>5/10</span><svg viewBox="0 0 86 46" fill="none" stroke="#016c7a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="43" cy="23" rx="40" ry="20"/><path d="M26 23 H60 M50 14 L60 23 L50 32"/></svg></div>
+</section>
+
+<!-- ============ 6 · PREGUNTA 2 ============ -->
+<section class="slide paper q" id="s6">
+  <div class="grain"><svg><rect width="100%" height="100%" filter="url(#paperNoise)"/></svg></div>
+  <div class="halftone"></div>
+  <div class="handle">@nattesuy</div>
+  <div class="head"><div class="num">2</div><p>Antes de sumarte, preguntate:</p></div>
+  <div class="question">¿Hay una acción <span class="cav">concreta,</span> o solo estética?</div>
+  <div class="card note"><div class="tape"></div>Cambiar el color del logo no es una acción. <b>Informar, colaborar o aportar algo real, sí.</b></div>
+  <svg class="sticker" style="left:90px;bottom:104px;width:96px" viewBox="0 0 100 100" fill="none" stroke="#016c7a" stroke-width="4" stroke-linecap="round"><path d="M50 10 V90 M15 30 L85 70 M15 70 L85 30"/></svg>
+  <div class="pager"><span>6/10</span><svg viewBox="0 0 86 46" fill="none" stroke="#016c7a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="43" cy="23" rx="40" ry="20"/><path d="M26 23 H60 M50 14 L60 23 L50 32"/></svg></div>
+</section>
+
+<!-- ============ 7 · PREGUNTA 3 ============ -->
+<section class="slide paper q" id="s7">
+  <div class="grain"><svg><rect width="100%" height="100%" filter="url(#paperNoise)"/></svg></div>
+  <div class="halftone"></div>
+  <div class="handle">@nattesuy</div>
+  <div class="head"><div class="num">3</div><p>Antes de sumarte, preguntate:</p></div>
+  <div class="question">¿La puedo <span class="cav">sostener</span> cuando termine el mes?</div>
+  <div class="card note"><div class="tape"></div>Mejor algo <b>chico y constante</b> que algo grande y pasajero.</div>
+  <svg class="sticker" style="left:90px;bottom:96px;width:100px" viewBox="0 0 120 130" fill="#9afd7f">
+    <circle cx="60" cy="38" r="20"/><circle cx="82" cy="60" r="20"/><circle cx="60" cy="82" r="20"/><circle cx="38" cy="60" r="20"/>
+    <path d="M62 64 C70 92 82 108 98 122" fill="none" stroke="#9afd7f" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="60" cy="60" r="7" fill="#016c7a"/>
+  </svg>
+  <div class="pager"><span>7/10</span><svg viewBox="0 0 86 46" fill="none" stroke="#016c7a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="43" cy="23" rx="40" ry="20"/><path d="M26 23 H60 M50 14 L60 23 L50 32"/></svg></div>
+</section>
+
+<!-- ============ 8 · PREGUNTA 4 ============ -->
+<section class="slide paper q" id="s8">
+  <div class="grain"><svg><rect width="100%" height="100%" filter="url(#paperNoise)"/></svg></div>
+  <div class="halftone"></div>
+  <div class="handle">@nattesuy</div>
+  <div class="head"><div class="num">4</div><p>Antes de sumarte, preguntate:</p></div>
+  <div class="question">¿Estoy siendo <span class="cav">transparente?</span></div>
+  <div class="card note"><div class="tape"></div>Contá <b>a quién, cuánto y cuándo.</b> Prometer de más es peor que no prometer.</div>
+  <svg class="sticker" style="left:90px;bottom:100px;width:92px" viewBox="0 0 100 100"><g fill="#1fb3c1"><ellipse cx="50" cy="24" rx="13" ry="23"/><ellipse cx="50" cy="24" rx="13" ry="23" transform="rotate(72 50 50)"/><ellipse cx="50" cy="24" rx="13" ry="23" transform="rotate(144 50 50)"/><ellipse cx="50" cy="24" rx="13" ry="23" transform="rotate(216 50 50)"/><ellipse cx="50" cy="24" rx="13" ry="23" transform="rotate(288 50 50)"/></g><circle cx="50" cy="50" r="11" fill="#9afd7f"/></svg>
+  <div class="pager"><span>8/10</span><svg viewBox="0 0 86 46" fill="none" stroke="#016c7a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="43" cy="23" rx="40" ry="20"/><path d="M26 23 H60 M50 14 L60 23 L50 32"/></svg></div>
+</section>
+
+<!-- ============ 9 · SI NO TENÉS CAUSA ============ -->
+<section class="slide turq" id="s9">
+  <div class="grain"><svg><rect width="100%" height="100%" filter="url(#noise)"/></svg></div>
+  <div class="vignette"></div>
+  <div class="handle">@nattesuy</div>
+  <h2>También<br>está bien.</h2>
+  <ul class="card list">
+    <li><svg viewBox="0 0 40 40" fill="none" stroke="#016c7a" stroke-width="4" stroke-linecap="round"><path d="M20 4 V36 M6 12 L34 28 M6 28 L34 12"/></svg>Ser honesta con tus clientes,</li>
+    <li><svg viewBox="0 0 40 40" fill="none" stroke="#016c7a" stroke-width="4" stroke-linecap="round"><path d="M20 4 V36 M6 12 L34 28 M6 28 L34 12"/></svg>cuidar a tu equipo,</li>
+    <li><svg viewBox="0 0 40 40" fill="none" stroke="#016c7a" stroke-width="4" stroke-linecap="round"><path d="M20 4 V36 M6 12 L34 28 M6 28 L34 12"/></svg>trabajar con proveedores locales,</li>
+    <li><svg viewBox="0 0 40 40" fill="none" stroke="#016c7a" stroke-width="4" stroke-linecap="round"><path d="M20 4 V36 M6 12 L34 28 M6 28 L34 12"/></svg>cumplir lo que prometés.</li>
+  </ul>
+  <div class="rem cav">El propósito no es un posteo. <span class="l">Es la suma de decisiones cotidianas.</span></div>
+  <div class="pager" style="color:#fff"><span>9/10</span><svg viewBox="0 0 86 46" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="43" cy="23" rx="40" ry="20"/><path d="M26 23 H60 M50 14 L60 23 L50 32"/></svg></div>
+</section>
+
+<!-- ============ 10 · CIERRE ============ -->
+<section class="slide teal" id="s10">
+  <div class="grain"><svg><rect width="100%" height="100%" filter="url(#noise)"/></svg></div>
+  <div class="vignette"></div>
+  <div class="final">Si vas a sumarte, que sea con <span class="cav">criterio</span> y con <span class="cav">cariño.</span></div>
+  <div class="bubble">Leé la nota completa en <b>nattesuy.com/blog →</b><span class="sub">con ejemplos chicos y reales para tu pyme.</span></div>
+  <div class="logo"><span class="mark">atte<span class="dot"></span></span><span class="who">Nati</span></div>
+</section>
+
+</body>
+</html>
