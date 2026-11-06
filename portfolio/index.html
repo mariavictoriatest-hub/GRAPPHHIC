@@ -1,0 +1,860 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>María Victoria · Portfolio</title>
+<meta name="description" content="María Victoria — Especialista en Marketing Digital. Marketing Manager · Social Media Manager · Paid Media.">
+
+<!-- Fallbacks de Google Fonts (se usan si las fuentes de marca no están en /fonts) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,600;125,800&family=Manrope:wght@400;500;700&family=Fraunces:ital,wght@1,500;1,700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   FUENTES DE MARCA
+   Copiá los archivos en /portfolio/fonts con estos nombres
+   (o cambiá las rutas). Si no están, se usan los fallbacks.
+   ============================================================ */
+@font-face { font-family: "Anantason Expand"; src: local("Anantason Expand"), url("fonts/AnantasonExpand.woff2") format("woff2"), url("fonts/AnantasonExpand.otf") format("opentype"); font-display: swap; }
+@font-face { font-family: "Garet"; src: local("Garet"), local("Garet Book"), url("fonts/Garet-Book.woff2") format("woff2"), url("fonts/Garet-Book.otf") format("opentype"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Garet"; src: local("Garet Heavy"), url("fonts/Garet-Heavy.woff2") format("woff2"), url("fonts/Garet-Heavy.otf") format("opentype"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Rocking Horse"; src: local("Rocking Horse"), url("fonts/RockingHorse.woff2") format("woff2"), url("fonts/RockingHorse.otf") format("opentype"); font-display: swap; }
+
+:root {
+  --verde: #365850;
+  --verde-osc: #284139;
+  --naranja: #ff6f38;
+  --crema: #fff5ec;
+  --crema-2: #f6e6d6;
+  --tinta: #1f302b;
+  --suave: #5d746d;
+
+  --f-display: "Anantason Expand", "Archivo", system-ui, sans-serif;
+  --f-body: "Garet", "Manrope", system-ui, sans-serif;
+  --f-script: "Rocking Horse", "Fraunces", Georgia, serif;
+
+  --gutter: clamp(16px, 5vw, 72px);
+  --ease: cubic-bezier(.2,.7,.2,1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  background: var(--crema);
+  color: var(--tinta);
+  font-family: var(--f-body);
+  font-size: clamp(15px, 1.05vw, 18px);
+  line-height: 1.55;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+
+/* ---------- Tipografía ---------- */
+.display { font-family: var(--f-display); font-weight: 800; font-stretch: 125%; letter-spacing: -.01em; line-height: 1.02; text-transform: uppercase; }
+.script  { font-family: var(--f-script); font-style: italic; font-weight: 500; text-transform: none; letter-spacing: 0; }
+.eyebrow { font-family: var(--f-display); font-stretch: 125%; font-weight: 600; font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--naranja); }
+h1.display { font-size: clamp(2.4rem, 7vw, 6.2rem); }
+h2.display { font-size: clamp(1.8rem, 4.2vw, 3.6rem); margin: .35em 0 .5em; }
+h3 { font-family: var(--f-display); font-stretch: 125%; font-weight: 600; font-size: 1rem; text-transform: uppercase; letter-spacing: .03em; }
+.lead { font-size: clamp(1.05rem, 1.5vw, 1.35rem); max-width: 46ch; color: var(--suave); }
+.acento { color: var(--naranja); }
+
+/* ---------- Deck ---------- */
+.deck { position: relative; height: 100vh; height: 100dvh; overflow: hidden; }
+.slide {
+  position: absolute; inset: 0;
+  padding: clamp(72px, 10vh, 110px) var(--gutter) clamp(80px, 11vh, 120px);
+  display: flex; flex-direction: column; justify-content: center;
+  overflow-y: auto; overflow-x: hidden;
+  opacity: 0; visibility: hidden;
+  transform: translateX(40px);
+  transition: opacity .55s var(--ease), transform .55s var(--ease), visibility 0s .55s;
+}
+.slide.prev { transform: translateX(-40px); }
+.slide.active { opacity: 1; visibility: visible; transform: none; transition: opacity .55s var(--ease), transform .55s var(--ease), visibility 0s; }
+.slide.verde { background: var(--verde); color: var(--crema); }
+.slide.verde .lead { color: #cfe0d9; }
+.slide.naranja { background: var(--naranja); color: var(--crema); }
+.slide.naranja .eyebrow { color: var(--verde); }
+.inner { width: 100%; max-width: 1180px; margin: 0 auto; }
+
+/* Animación de entrada de elementos */
+.slide [data-anim] { opacity: 0; transform: translateY(18px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+.slide.active [data-anim] { opacity: 1; transform: none; }
+.slide.active [data-anim="2"] { transition-delay: .12s; }
+.slide.active [data-anim="3"] { transition-delay: .24s; }
+.slide.active [data-anim="4"] { transition-delay: .36s; }
+.slide.active [data-anim="5"] { transition-delay: .48s; }
+
+/* ---------- Barra superior / inferior ---------- */
+.topbar, .bottombar {
+  position: fixed; left: 0; right: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 18px var(--gutter); pointer-events: none;
+}
+.topbar { top: 0; }
+.bottombar { bottom: 0; }
+.topbar > *, .bottombar > * { pointer-events: auto; }
+.brand { font-family: var(--f-display); font-stretch: 125%; font-weight: 800; font-size: .85rem; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+.brand .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--naranja); }
+.for-client { font-size: .8rem; opacity: .75; text-align: right; }
+.on-dark { color: var(--crema); }
+
+.progress { position: fixed; top: 0; left: 0; height: 4px; background: var(--naranja); z-index: 30; transition: width .5s var(--ease); }
+.dots { display: flex; gap: 8px; flex-wrap: wrap; }
+.dots button { width: 9px; height: 9px; border-radius: 50%; border: 0; background: currentColor; opacity: .25; cursor: pointer; transition: opacity .3s, transform .3s; }
+.dots button.on { opacity: 1; transform: scale(1.35); background: var(--naranja); }
+.nav { display: flex; gap: 8px; align-items: center; }
+.btn-ico {
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 1.5px solid currentColor; background: transparent; color: inherit;
+  display: grid; place-items: center; cursor: pointer; font-size: 1.05rem;
+  transition: background .25s, color .25s, border-color .25s;
+}
+.btn-ico:hover { background: var(--naranja); border-color: var(--naranja); color: var(--crema); }
+.counter { font-family: var(--f-display); font-stretch: 125%; font-size: .75rem; min-width: 52px; text-align: center; }
+
+/* ---------- Componentes ---------- */
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px; border: 1.5px solid currentColor; font-size: .82rem; font-weight: 700; }
+.pills { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 24px; border-radius: 999px; border: 0;
+  background: var(--naranja); color: var(--crema);
+  font-family: var(--f-display); font-stretch: 125%; font-weight: 600; font-size: .82rem; letter-spacing: .06em; text-transform: uppercase;
+  text-decoration: none; cursor: pointer; transition: transform .25s var(--ease), background .25s;
+}
+.btn:hover { transform: translateY(-2px); background: #ff5a1c; }
+.btn.ghost { background: transparent; border: 1.5px solid currentColor; color: inherit; }
+.btn.ghost:hover { background: var(--crema); color: var(--verde); }
+
+.grid { display: grid; gap: clamp(14px, 2vw, 24px); }
+.g2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+.g3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+.g4 { grid-template-columns: repeat(4, minmax(0,1fr)); }
+
+.card { background: #fff; border-radius: 22px; padding: clamp(18px, 2vw, 28px); box-shadow: 0 1px 0 rgba(54,88,80,.08), 0 18px 40px -28px rgba(54,88,80,.45); }
+.slide.verde .card { background: rgba(255,245,236,.07); box-shadow: inset 0 0 0 1px rgba(255,245,236,.14); }
+.card p { color: var(--suave); font-size: .95rem; margin-top: 8px; }
+.slide.verde .card p { color: #cfe0d9; }
+.ico { width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: var(--crema); color: var(--naranja); margin-bottom: 14px; }
+.slide.verde .ico { background: var(--naranja); color: var(--crema); }
+.ico svg { width: 24px; height: 24px; }
+
+/* Portada */
+.cover { display: grid; grid-template-columns: 1.25fr .75fr; gap: clamp(24px, 4vw, 64px); align-items: center; }
+.cover h1 .script { display: block; font-size: .62em; color: var(--naranja); margin-bottom: .1em; }
+.roles { margin: 26px 0 32px; }
+.photo {
+  aspect-ratio: 4/5; border-radius: 240px 240px 28px 28px; overflow: hidden; position: relative;
+  background: linear-gradient(160deg, var(--naranja), #ff9b6f);
+  display: grid; place-items: center; color: var(--crema);
+}
+.photo img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+.photo .ph { font-family: var(--f-display); font-stretch: 125%; font-size: clamp(3rem, 8vw, 7rem); font-weight: 800; opacity: .9; }
+.badge {
+  position: absolute; left: -18px; bottom: 28px; background: var(--crema); color: var(--verde);
+  padding: 12px 16px; border-radius: 16px; font-size: .8rem; font-weight: 700; box-shadow: 0 14px 30px -14px rgba(0,0,0,.35);
+  display: flex; align-items: center; gap: 8px;
+}
+.badge .live { width: 9px; height: 9px; border-radius: 50%; background: #3cc47c; box-shadow: 0 0 0 4px rgba(60,196,124,.2); }
+.photo-wrap { position: relative; }
+
+/* Sobre mí */
+.about { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 5vw, 80px); align-items: center; }
+.quote { font-family: var(--f-script); font-style: italic; font-size: clamp(1.5rem, 2.6vw, 2.3rem); line-height: 1.25; color: var(--verde); }
+.facts { margin-top: 26px; display: grid; gap: 12px; }
+.fact { display: flex; gap: 14px; align-items: baseline; border-top: 1.5px solid var(--crema-2); padding-top: 12px; }
+.fact b { font-family: var(--f-display); font-stretch: 125%; color: var(--naranja); min-width: 92px; font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; }
+
+/* KPIs */
+.kpi { border-top: 2px solid rgba(255,245,236,.3); padding-top: 18px; }
+.kpi .n { font-family: var(--f-display); font-stretch: 125%; font-weight: 800; font-size: clamp(2.2rem, 3.6vw, 3.6rem); line-height: 1; color: var(--naranja); white-space: nowrap; }
+.kpi .n small { font-size: .5em; margin-right: 2px; }
+.kpi .l { margin-top: 10px; font-size: .95rem; color: #cfe0d9; max-width: 22ch; }
+
+/* Casos */
+.case { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 60px); align-items: start; }
+.case-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
+.case-meta .pill { font-size: .72rem; padding: 5px 11px; color: var(--verde); }
+.tabs { display: inline-flex; background: var(--crema-2); border-radius: 999px; padding: 4px; margin-bottom: 16px; flex-wrap: wrap; }
+.tabs button { border: 0; background: transparent; padding: 9px 16px; border-radius: 999px; font: inherit; font-weight: 700; font-size: .85rem; color: var(--verde); cursor: pointer; transition: background .25s, color .25s; }
+.tabs button.on { background: var(--verde); color: var(--crema); }
+.tabpanel { display: none; }
+.tabpanel.on { display: block; animation: fade .4s var(--ease); }
+.tabpanel li { margin: 6px 0 6px 18px; color: var(--suave); }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+.results { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin-top: 18px; }
+.res { background: #fff; box-shadow: inset 0 0 0 1.5px var(--crema-2); border-radius: 16px; padding: 14px; }
+.res .n { font-family: var(--f-display); font-stretch: 125%; font-weight: 800; font-size: clamp(1.3rem, 2.2vw, 1.9rem); color: var(--naranja); line-height: 1.1; }
+.res .l { font-size: .78rem; color: var(--suave); margin-top: 4px; }
+
+.chart h3 { font-size: .8rem; margin-bottom: 4px; }
+.chart .sub { font-size: .8rem; color: var(--suave); margin-bottom: 18px; }
+.bars { display: flex; align-items: flex-end; gap: clamp(6px, 1.2vw, 14px); height: 190px; border-bottom: 1.5px solid var(--crema-2); }
+.bar { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; gap: 6px; }
+.bar i { display: block; width: 100%; max-width: 46px; border-radius: 10px 10px 4px 4px; background: var(--verde); height: 0; transition: height 1s var(--ease); opacity: .35; }
+.bar.hi i { background: var(--naranja); opacity: 1; }
+.bar span { font-size: .72rem; font-weight: 700; color: var(--suave); }
+.bar-labels { display: flex; gap: clamp(6px, 1.2vw, 14px); margin-top: 8px; }
+.bar-labels span { flex: 1; text-align: center; font-size: .7rem; color: var(--suave); }
+.legend { display: flex; gap: 16px; font-size: .75rem; color: var(--suave); margin-top: 14px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+
+/* Proceso */
+.steps { counter-reset: s; }
+.step { position: relative; }
+.step .num { font-family: var(--f-display); font-stretch: 125%; font-weight: 800; font-size: 2.6rem; color: var(--naranja); line-height: 1; margin-bottom: 14px; }
+.step .when { font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; opacity: .7; margin-top: 12px; display: block; }
+
+/* Stack */
+.stack-cat h3 { margin-bottom: 12px; font-size: .78rem; color: var(--naranja); }
+.stack-cat .pills .pill { color: var(--verde); background: #fff; border-color: var(--crema-2); font-weight: 500; }
+.skill { margin: 14px 0; }
+.skill .top { display: flex; justify-content: space-between; font-size: .88rem; font-weight: 700; }
+.skill .track { height: 8px; background: var(--crema-2); border-radius: 99px; overflow: hidden; margin-top: 6px; }
+.skill .track i { display: block; height: 100%; width: 0; background: var(--naranja); border-radius: 99px; transition: width 1.1s var(--ease); }
+
+/* Testimonios */
+.testi { position: relative; min-height: 220px; }
+.t-item { display: none; }
+.t-item.on { display: block; animation: fade .5s var(--ease); }
+.t-item blockquote { font-family: var(--f-script); font-style: italic; font-size: clamp(1.4rem, 2.8vw, 2.4rem); line-height: 1.3; max-width: 30ch; }
+.t-item .who { margin-top: 22px; display: flex; gap: 14px; align-items: center; }
+.avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--naranja); color: var(--crema); display: grid; place-items: center; font-family: var(--f-display); font-stretch: 125%; font-weight: 800; font-size: .85rem; }
+.who small { display: block; opacity: .75; }
+.t-nav { display: flex; gap: 10px; margin-top: 28px; }
+
+/* Modalidad / roles */
+.role-card { display: block; align-self: start; border: 1.5px solid var(--crema-2); background: #fff; border-radius: 22px; padding: 22px; cursor: pointer; transition: border-color .25s, transform .25s var(--ease); text-align: left; font: inherit; color: inherit; width: 100%; }
+.role-card:hover { transform: translateY(-3px); }
+.role-card.on { border-color: var(--naranja); box-shadow: 0 0 0 3px rgba(255,111,56,.18); }
+.role-card ul { margin-top: 10px; display: none; }
+.role-card.on ul { display: block; }
+.role-card li { margin: 5px 0 5px 18px; color: var(--suave); font-size: .92rem; }
+.role-card .hint { font-size: .78rem; color: var(--naranja); font-weight: 700; margin-top: 8px; display: block; }
+.role-card.on .hint { display: none; }
+.work-facts { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin-top: 22px; }
+.wf { background: var(--verde); color: var(--crema); border-radius: 18px; padding: 16px; }
+.wf b { display: block; font-family: var(--f-display); font-stretch: 125%; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--naranja); margin-bottom: 4px; }
+
+/* Contacto */
+.contact { text-align: center; }
+.contact h2 { margin-left: auto; margin-right: auto; max-width: 16ch; }
+.contact .lead { margin: 0 auto 32px; color: var(--crema); opacity: .9; }
+.contact .row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.contact .btn { background: var(--verde); }
+.contact .btn:hover { background: var(--verde-osc); }
+.socials { display: flex; gap: 18px; justify-content: center; margin-top: 36px; flex-wrap: wrap; }
+.socials a { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; text-decoration: none; border-bottom: 1.5px solid transparent; }
+.socials a:hover { border-color: currentColor; }
+.socials svg { width: 20px; height: 20px; }
+.big-script { font-family: var(--f-script); font-style: italic; font-size: clamp(2.4rem, 6vw, 5rem); color: var(--verde); line-height: 1; }
+
+/* Decoración */
+.blob { position: absolute; border-radius: 50%; pointer-events: none; z-index: -1; }
+.slide { isolation: isolate; }
+
+/* Índice (tecla O) */
+.overview {
+  position: fixed; inset: 0; z-index: 40; background: rgba(31,48,43,.94); color: var(--crema);
+  padding: 80px var(--gutter) 40px; overflow-y: auto; display: none;
+}
+.overview.on { display: block; animation: fade .3s var(--ease); }
+.overview h2 { font-family: var(--f-display); font-stretch: 125%; font-size: 1rem; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 22px; }
+.ov-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; max-width: 1180px; }
+.ov-grid button { text-align: left; background: rgba(255,245,236,.07); border: 1px solid rgba(255,245,236,.15); color: inherit; border-radius: 14px; padding: 16px; cursor: pointer; font: inherit; }
+.ov-grid button:hover, .ov-grid button.on { border-color: var(--naranja); }
+.ov-grid small { color: var(--naranja); font-weight: 700; display: block; }
+
+/* Modo edición */
+body.editing [data-edit] { outline: 1.5px dashed rgba(255,111,56,.7); outline-offset: 3px; border-radius: 4px; }
+body.editing [data-edit]:focus { outline-style: solid; background: rgba(255,111,56,.06); }
+.editbar {
+  position: fixed; left: 50%; transform: translateX(-50%); top: 14px; z-index: 50;
+  background: var(--tinta); color: var(--crema); border-radius: 999px; padding: 8px 8px 8px 18px;
+  display: none; align-items: center; gap: 10px; font-size: .82rem; box-shadow: 0 14px 30px -12px rgba(0,0,0,.5);
+  max-width: calc(100vw - 32px); flex-wrap: wrap;
+}
+body.editing .editbar { display: flex; }
+.editbar button { border: 0; border-radius: 999px; padding: 8px 14px; font: inherit; font-weight: 700; cursor: pointer; background: var(--naranja); color: var(--crema); }
+.editbar button.sec { background: rgba(255,245,236,.12); }
+
+.help { font-size: .72rem; opacity: .6; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .cover, .about, .case { grid-template-columns: 1fr; }
+  .photo-wrap { max-width: 260px; order: -1; }
+  .g4, .work-facts { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .g3 { grid-template-columns: 1fr; }
+  .slide { justify-content: flex-start; }
+  .help, .for-client { display: none; }
+  .topbar, .bottombar { background: var(--bar-bg, var(--crema)); padding-top: 12px; padding-bottom: 12px; }
+  .slide { padding-top: 70px; padding-bottom: 90px; }
+}
+@media (max-width: 560px) {
+  .g2, .g4 { grid-template-columns: 1fr; }
+  .results { grid-template-columns: 1fr 1fr; }
+  .work-facts { grid-template-columns: 1fr 1fr; }
+  .dots { display: none; }
+  .badge { left: 8px; }
+}
+
+/* ---------- Imprimir / Exportar a PDF ---------- */
+@media print {
+  @page { size: 1280px 720px; margin: 0; }
+  body { overflow: visible; }
+  .deck { height: auto; }
+  .slide { position: relative; opacity: 1 !important; visibility: visible !important; transform: none !important; height: 720px; page-break-after: always; break-after: page; overflow: hidden; }
+  .slide [data-anim] { opacity: 1 !important; transform: none !important; }
+  .topbar, .bottombar, .progress, .overview, .editbar { display: none !important; }
+  .tabpanel { display: block !important; }
+  .tabs { display: none; }
+  .t-item { display: none !important; }
+  .t-item:first-child { display: block !important; }
+  .bar i { transition: none; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<!-- Barra de edición (tecla E) -->
+<div class="editbar" role="toolbar" aria-label="Modo edición">
+  <span>✏️ Modo edición — hacé clic en cualquier texto para cambiarlo</span>
+  <button class="sec" id="btnReset" type="button">Descartar cambios</button>
+  <button id="btnSave" type="button">Descargar HTML editado</button>
+  <button class="sec" id="btnExit" type="button">Salir (E)</button>
+</div>
+
+<header class="topbar" id="topbar">
+  <a class="brand" href="#1"><span class="dot"></span><span data-edit>María Victoria</span></a>
+  <div class="for-client" id="forClient">Propuesta para <b data-field="cliente">Empresa Ejemplo S.A.</b></div>
+</header>
+
+<main class="deck" id="deck">
+
+  <!-- 1 · PORTADA -->
+  <section class="slide" data-title="Portada">
+    <div class="blob" style="width:520px;height:520px;background:#ffe2d1;right:-180px;top:-200px"></div>
+    <div class="inner cover">
+      <div>
+        <p class="eyebrow" data-anim data-edit>Portfolio 2026 · Marketing Digital</p>
+        <h1 class="display" data-anim="2" style="margin-top:.3em">
+          <span class="script" data-edit>Hola, soy</span>
+          <span data-edit>María Victoria</span>
+        </h1>
+        <p class="lead" data-anim="3" style="margin-top:18px" data-edit>Especialista en Marketing Digital. Ayudo a empresas y emprendedores a comunicar mejor, crecer en redes y convertir inversión publicitaria en resultados medibles.</p>
+        <div class="pills roles" data-anim="4" style="color:var(--verde)">
+          <span class="pill" data-edit>Marketing Manager</span>
+          <span class="pill" data-edit>Social Media Manager</span>
+          <span class="pill" data-edit>Paid Media</span>
+        </div>
+        <div data-anim="5" style="display:flex;gap:12px;flex-wrap:wrap">
+          <button class="btn" type="button" data-go="next">Ver portfolio →</button>
+          <a class="btn ghost" style="color:var(--verde)" href="#12">Contactar</a>
+        </div>
+      </div>
+      <div class="photo-wrap" data-anim="3">
+        <div class="photo">
+          <!-- Reemplazá por tu foto: <img src="img/maria-victoria.jpg" alt="María Victoria"> -->
+          <span class="ph">MV</span>
+        </div>
+        <div class="badge"><span class="live"></span><span data-edit>Disponible para proyectos remotos</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · SOBRE MÍ -->
+  <section class="slide" data-title="Sobre mí">
+    <div class="inner about">
+      <div>
+        <p class="eyebrow" data-anim>Sobre mí</p>
+        <h2 class="display" data-anim="2" data-edit>Estrategia con <span class="acento">alma</span> y números claros</h2>
+        <p class="quote" data-anim="3" data-edit>“Creo que una marca crece cuando su comunicación es coherente, humana y está guiada por datos.”</p>
+      </div>
+      <div data-anim="3">
+        <p data-edit>Hace más de <b>7 años</b> acompaño a marcas de servicios, e-commerce y educación a ordenar su comunicación digital: desde la estrategia y el contenido hasta la pauta y el análisis de resultados. Trabajo de forma 100% remota con equipos de Latinoamérica, España y EE.&nbsp;UU.</p>
+        <div class="facts">
+          <div class="fact"><b>Enfoque</b><span data-edit>Estrategia → ejecución → medición → optimización continua.</span></div>
+          <div class="fact"><b>Sectores</b><span data-edit>E-commerce, salud & bienestar, educación online, servicios profesionales, gastronomía.</span></div>
+          <div class="fact"><b>Idiomas</b><span data-edit>Español nativo · Inglés avanzado (C1)</span></div>
+          <div class="fact"><b>Base</b><span data-edit>Argentina · Remoto · Disponible GMT-3 a GMT+1</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · SERVICIOS -->
+  <section class="slide" data-title="Qué hago">
+    <div class="inner">
+      <p class="eyebrow" data-anim>Qué hago</p>
+      <h2 class="display" data-anim="2" data-edit>Cómo puedo ayudar a <span class="acento" data-field="cliente">Empresa Ejemplo S.A.</span></h2>
+      <div class="grid g4" style="margin-top:10px">
+        <article class="card" data-anim="2">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></div>
+          <h3 data-edit>Estrategia de Marketing</h3>
+          <p data-edit>Diagnóstico, buyer persona, posicionamiento, plan de medios y objetivos SMART con KPIs claros.</p>
+        </article>
+        <article class="card" data-anim="3">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <h3 data-edit>Social Media</h3>
+          <p data-edit>Estrategia de contenidos, calendario editorial, copywriting, comunidad y reporting mensual.</p>
+        </article>
+        <article class="card" data-anim="4">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+          <h3 data-edit>Paid Media</h3>
+          <p data-edit>Campañas en Meta Ads, Google Ads, TikTok y LinkedIn Ads. Testing creativo, funnels y optimización de ROAS.</p>
+        </article>
+        <article class="card" data-anim="5">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></div>
+          <h3 data-edit>Contenido & Marca</h3>
+          <p data-edit>Identidad verbal, tono de voz, guías de estilo, lanzamientos y campañas integrales.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · RESULTADOS EN NÚMEROS -->
+  <section class="slide verde" data-title="Resultados">
+    <div class="blob" style="width:600px;height:600px;background:rgba(255,111,56,.12);left:-260px;bottom:-300px"></div>
+    <div class="inner">
+      <p class="eyebrow" data-anim>Resultados en números</p>
+      <h2 class="display" data-anim="2" data-edit>Lo que logré con <span class="script acento">mis clientes</span></h2>
+      <div class="grid g4" style="margin-top:20px">
+        <div class="kpi" data-anim="2"><div class="n"><span data-count="45">0</span>+</div><div class="l" data-edit>marcas acompañadas en su crecimiento digital</div></div>
+        <div class="kpi" data-anim="3"><div class="n"><small>US$</small><span data-count="1.2" data-dec="1">0</span>M</div><div class="l" data-edit>en inversión publicitaria gestionada</div></div>
+        <div class="kpi" data-anim="4"><div class="n"><span data-count="4.6" data-dec="1">0</span>x</div><div class="l" data-edit>ROAS promedio en campañas de e-commerce</div></div>
+        <div class="kpi" data-anim="5"><div class="n">+<span data-count="320">0</span>%</div><div class="l" data-edit>crecimiento promedio de engagement en redes</div></div>
+      </div>
+      <p class="help" style="margin-top:28px" data-edit>*Datos de ejemplo — reemplazar por métricas reales.</p>
+    </div>
+  </section>
+
+  <!-- 5 · CASO 1 · PAID MEDIA -->
+  <section class="slide" data-title="Caso · Paid Media">
+    <div class="inner case">
+      <div>
+        <p class="eyebrow" data-anim>Caso de éxito 01 · Paid Media</p>
+        <h2 class="display" data-anim="2" data-edit>Bloom Cosmética</h2>
+        <div class="case-meta" data-anim="2"><span class="pill" data-edit>E-commerce</span><span class="pill" data-edit>Meta Ads</span><span class="pill" data-edit>Google Ads</span><span class="pill" data-edit>6 meses</span></div>
+        <div data-anim="3" style="margin-top:16px">
+          <div class="tabs" role="tablist">
+            <button class="on" type="button" data-tab="0">Desafío</button>
+            <button type="button" data-tab="1">Estrategia</button>
+            <button type="button" data-tab="2">Resultado</button>
+          </div>
+          <div class="tabpanel on" data-edit><p>Marca de cosmética natural con buen producto pero ventas online estancadas: ROAS de 1.4x y un costo por adquisición que no permitía escalar.</p></div>
+          <div class="tabpanel" data-edit><ul><li>Reestructura de cuentas en funnel TOFU / MOFU / BOFU.</li><li>Testing creativo semanal con UGC y reels de producto.</li><li>Audiencias lookalike + remarketing dinámico de catálogo.</li><li>Google Shopping y búsqueda de marca.</li></ul></div>
+          <div class="tabpanel" data-edit><p>En 6 meses la marca triplicó su facturación online manteniendo un costo por adquisición rentable y pudo escalar el presupuesto mes a mes.</p></div>
+        </div>
+        <div class="results" data-anim="4">
+          <div class="res"><div class="n" data-edit>5.2x</div><div class="l" data-edit>ROAS (antes 1.4x)</div></div>
+          <div class="res"><div class="n" data-edit>-48%</div><div class="l" data-edit>Costo por compra</div></div>
+          <div class="res"><div class="n" data-edit>+210%</div><div class="l" data-edit>Ventas online</div></div>
+        </div>
+      </div>
+      <div class="card chart" data-anim="3">
+        <h3 data-edit>Evolución del ROAS</h3>
+        <p class="sub" data-edit>Mensual · Meta + Google Ads</p>
+        <div class="bars" data-bars="1.4,2.1,2.9,3.6,4.4,5.2" data-max="6" data-suffix="x"></div>
+        <div class="bar-labels"><span>Ene</span><span>Feb</span><span>Mar</span><span>Abr</span><span>May</span><span>Jun</span></div>
+        <div class="legend"><span><i style="background:var(--verde);opacity:.35"></i>Mes</span><span><i style="background:var(--naranja)"></i>Último mes</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · CASO 2 · SOCIAL MEDIA -->
+  <section class="slide" data-title="Caso · Social Media">
+    <div class="inner case">
+      <div>
+        <p class="eyebrow" data-anim>Caso de éxito 02 · Social Media</p>
+        <h2 class="display" data-anim="2" data-edit>Raíz Café</h2>
+        <div class="case-meta" data-anim="2"><span class="pill" data-edit>Gastronomía</span><span class="pill" data-edit>Instagram</span><span class="pill" data-edit>TikTok</span><span class="pill" data-edit>12 meses</span></div>
+        <div data-anim="3" style="margin-top:16px">
+          <div class="tabs" role="tablist">
+            <button class="on" type="button" data-tab="0">Desafío</button>
+            <button type="button" data-tab="1">Estrategia</button>
+            <button type="button" data-tab="2">Resultado</button>
+          </div>
+          <div class="tabpanel on" data-edit><p>Cadena de cafeterías de especialidad con 3 locales y redes sin identidad: publicaciones esporádicas, poco alcance y nula conversación con su comunidad.</p></div>
+          <div class="tabpanel" data-edit><ul><li>Definición de pilares de contenido y tono de voz.</li><li>Calendario editorial con reels semanales “detrás de la barra”.</li><li>Alianzas con microinfluencers locales.</li><li>Community management y respuestas en menos de 2 h.</li></ul></div>
+          <div class="tabpanel" data-edit><p>La cuenta se convirtió en el principal canal de captación: los clientes llegan mencionando contenido visto en redes y los eventos se agotan solo con difusión orgánica.</p></div>
+        </div>
+        <div class="results" data-anim="4">
+          <div class="res"><div class="n" data-edit>+18K</div><div class="l" data-edit>Seguidores nuevos</div></div>
+          <div class="res"><div class="n" data-edit>6.8%</div><div class="l" data-edit>Engagement rate</div></div>
+          <div class="res"><div class="n" data-edit>+35%</div><div class="l" data-edit>Visitas a locales</div></div>
+        </div>
+      </div>
+      <div class="card chart" data-anim="3">
+        <h3 data-edit>Crecimiento de comunidad</h3>
+        <p class="sub" data-edit>Seguidores en Instagram · miles, por trimestre</p>
+        <div class="bars" data-bars="2.4,6.1,11.8,20.4" data-max="22" data-suffix="K"></div>
+        <div class="bar-labels"><span>T1</span><span>T2</span><span>T3</span><span>T4</span></div>
+        <div class="legend"><span><i style="background:var(--verde);opacity:.35"></i>Trimestre</span><span><i style="background:var(--naranja)"></i>Actual</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · CASO 3 · MARKETING MANAGER -->
+  <section class="slide" data-title="Caso · Marketing">
+    <div class="inner case">
+      <div>
+        <p class="eyebrow" data-anim>Caso de éxito 03 · Marketing Management</p>
+        <h2 class="display" data-anim="2" data-edit>Aula Nova</h2>
+        <div class="case-meta" data-anim="2"><span class="pill" data-edit>Educación online</span><span class="pill" data-edit>Lanzamiento</span><span class="pill" data-edit>Email + Ads</span><span class="pill" data-edit>Equipo de 4</span></div>
+        <div data-anim="3" style="margin-top:16px">
+          <div class="tabs" role="tablist">
+            <button class="on" type="button" data-tab="0">Desafío</button>
+            <button type="button" data-tab="1">Estrategia</button>
+            <button type="button" data-tab="2">Resultado</button>
+          </div>
+          <div class="tabpanel on" data-edit><p>Plataforma educativa que necesitaba lanzar un programa nuevo en 8 semanas, sin base de leads calificada y con un equipo de marketing recién formado.</p></div>
+          <div class="tabpanel" data-edit><ul><li>Plan de lanzamiento integral y coordinación de un equipo de 4 personas.</li><li>Lead magnet + webinar gratuito como puerta de entrada.</li><li>Secuencia de email marketing automatizada.</li><li>Campañas de captación y remarketing en Meta y YouTube.</li></ul></div>
+          <div class="tabpanel" data-edit><p>El lanzamiento superó el objetivo de inscripciones en un 40% y dejó un sistema de captación replicable para las siguientes cohortes.</p></div>
+        </div>
+        <div class="results" data-anim="4">
+          <div class="res"><div class="n" data-edit>9.400</div><div class="l" data-edit>Leads captados</div></div>
+          <div class="res"><div class="n" data-edit>US$2.1</div><div class="l" data-edit>Costo por lead</div></div>
+          <div class="res"><div class="n" data-edit>+140%</div><div class="l" data-edit>Objetivo de ventas</div></div>
+        </div>
+      </div>
+      <div class="card chart" data-anim="3">
+        <h3 data-edit>Leads por semana de lanzamiento</h3>
+        <p class="sub" data-edit>Captación total · semanas 1 a 8</p>
+        <div class="bars" data-bars="320,610,890,1150,1240,1480,1650,2060" data-max="2200" data-suffix=""></div>
+        <div class="bar-labels"><span>S1</span><span>S2</span><span>S3</span><span>S4</span><span>S5</span><span>S6</span><span>S7</span><span>S8</span></div>
+        <div class="legend"><span><i style="background:var(--verde);opacity:.35"></i>Semana</span><span><i style="background:var(--naranja)"></i>Cierre</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · METODOLOGÍA -->
+  <section class="slide verde" data-title="Cómo trabajo">
+    <div class="inner">
+      <p class="eyebrow" data-anim>Metodología</p>
+      <h2 class="display" data-anim="2" data-edit>Mi forma de <span class="script acento">trabajar</span></h2>
+      <div class="grid g4 steps" style="margin-top:16px">
+        <div class="card step" data-anim="2"><div class="num">01</div><h3 data-edit>Diagnóstico</h3><p data-edit>Auditoría de canales, competencia, audiencias y métricas actuales.</p><span class="when" data-edit>Semana 1</span></div>
+        <div class="card step" data-anim="3"><div class="num">02</div><h3 data-edit>Estrategia</h3><p data-edit>Objetivos, KPIs, plan de contenidos y de medios alineados al negocio.</p><span class="when" data-edit>Semana 2</span></div>
+        <div class="card step" data-anim="4"><div class="num">03</div><h3 data-edit>Ejecución</h3><p data-edit>Contenido, campañas y comunidad con sprints y comunicación constante.</p><span class="when" data-edit>Mes 1 en adelante</span></div>
+        <div class="card step" data-anim="5"><div class="num">04</div><h3 data-edit>Medición</h3><p data-edit>Dashboards en tiempo real, reportes mensuales y optimización continua.</p><span class="when" data-edit>Siempre</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · HERRAMIENTAS -->
+  <section class="slide" data-title="Herramientas">
+    <div class="inner">
+      <p class="eyebrow" data-anim>Skills & herramientas</p>
+      <h2 class="display" data-anim="2" data-edit>Mi stack</h2>
+      <div class="grid g2" style="margin-top:6px;align-items:start">
+        <div class="grid" style="gap:22px" data-anim="3">
+          <div class="stack-cat"><h3>Paid Media</h3><div class="pills"><span class="pill" data-edit>Meta Ads</span><span class="pill" data-edit>Google Ads</span><span class="pill" data-edit>TikTok Ads</span><span class="pill" data-edit>LinkedIn Ads</span></div></div>
+          <div class="stack-cat"><h3>Social & contenido</h3><div class="pills"><span class="pill" data-edit>Meta Business Suite</span><span class="pill" data-edit>Metricool</span><span class="pill" data-edit>Canva</span><span class="pill" data-edit>CapCut</span><span class="pill" data-edit>Notion</span></div></div>
+          <div class="stack-cat"><h3>Analítica & CRM</h3><div class="pills"><span class="pill" data-edit>GA4</span><span class="pill" data-edit>Looker Studio</span><span class="pill" data-edit>HubSpot</span><span class="pill" data-edit>Mailchimp</span><span class="pill" data-edit>GTM</span></div></div>
+        </div>
+        <div class="card" data-anim="4">
+          <h3 style="margin-bottom:6px">Competencias clave</h3>
+          <div class="skill"><div class="top"><span data-edit>Estrategia digital</span><span>95%</span></div><div class="track"><i data-w="95"></i></div></div>
+          <div class="skill"><div class="top"><span data-edit>Paid Media & performance</span><span>92%</span></div><div class="track"><i data-w="92"></i></div></div>
+          <div class="skill"><div class="top"><span data-edit>Social Media & comunidad</span><span>94%</span></div><div class="track"><i data-w="94"></i></div></div>
+          <div class="skill"><div class="top"><span data-edit>Analítica & reporting</span><span>88%</span></div><div class="track"><i data-w="88"></i></div></div>
+          <div class="skill"><div class="top"><span data-edit>Copywriting & storytelling</span><span>90%</span></div><div class="track"><i data-w="90"></i></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · TESTIMONIOS -->
+  <section class="slide verde" data-title="Testimonios">
+    <div class="inner">
+      <p class="eyebrow" data-anim>Lo que dicen mis clientes</p>
+      <div class="testi" data-anim="2" style="margin-top:24px">
+        <div class="t-item on">
+          <blockquote data-edit>“María Victoria ordenó nuestra comunicación y en pocos meses las redes pasaron a ser nuestro principal canal de ventas.”</blockquote>
+          <div class="who"><span class="avatar">LG</span><div><b data-edit>Laura Gómez</b><small data-edit>Fundadora · Bloom Cosmética</small></div></div>
+        </div>
+        <div class="t-item">
+          <blockquote data-edit>“Combina creatividad con una mirada muy analítica. Cada peso invertido en pauta tenía un porqué.”</blockquote>
+          <div class="who"><span class="avatar">MR</span><div><b data-edit>Martín Ruiz</b><small data-edit>CEO · Aula Nova</small></div></div>
+        </div>
+        <div class="t-item">
+          <blockquote data-edit>“Proactiva, organizada y muy clara al comunicar. Trabajar en remoto con ella fue facilísimo.”</blockquote>
+          <div class="who"><span class="avatar">SP</span><div><b data-edit>Sofía Paredes</b><small data-edit>Head of Marketing · Raíz Café</small></div></div>
+        </div>
+      </div>
+      <div class="t-nav" data-anim="3">
+        <button class="btn-ico" type="button" id="tPrev" aria-label="Testimonio anterior">←</button>
+        <button class="btn-ico" type="button" id="tNext" aria-label="Siguiente testimonio">→</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 · ROLES & MODALIDAD -->
+  <section class="slide" data-title="Roles & modalidad">
+    <div class="inner">
+      <p class="eyebrow" data-anim>Para tu equipo</p>
+      <h2 class="display" data-anim="2" data-edit>¿En qué rol <span class="acento">sumo</span>?</h2>
+      <div class="grid g3" data-anim="3" id="roles">
+        <button class="role-card" type="button" data-role="Marketing Manager">
+          <h3 data-edit>Marketing Manager</h3>
+          <span class="hint">Ver qué aporto →</span>
+          <ul data-edit><li>Liderar el plan de marketing anual y el presupuesto.</li><li>Coordinar equipos internos y proveedores.</li><li>Definir KPIs y reportar a dirección.</li></ul>
+        </button>
+        <button class="role-card" type="button" data-role="Social Media Manager">
+          <h3 data-edit>Social Media Manager</h3>
+          <span class="hint">Ver qué aporto →</span>
+          <ul data-edit><li>Estrategia y calendario de contenidos multicanal.</li><li>Gestión de comunidad e influencers.</li><li>Reportes de crecimiento y engagement.</li></ul>
+        </button>
+        <button class="role-card" type="button" data-role="Paid Media">
+          <h3 data-edit>Paid Media Specialist</h3>
+          <span class="hint">Ver qué aporto →</span>
+          <ul data-edit><li>Planificación y optimización de campañas full-funnel.</li><li>Testing creativo y de audiencias.</li><li>Foco en ROAS, CPA y escalabilidad.</li></ul>
+        </button>
+      </div>
+      <div class="work-facts" data-anim="4">
+        <div class="wf"><b>Modalidad</b><span data-edit>100% remoto</span></div>
+        <div class="wf"><b>Zona horaria</b><span data-edit>GMT-3 · flexible</span></div>
+        <div class="wf"><b>Formato</b><span data-edit>Full-time · Freelance · Por proyecto</span></div>
+        <div class="wf"><b>Inicio</b><span data-edit>Inmediato</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 · CONTACTO -->
+  <section class="slide naranja" data-title="Contacto">
+    <div class="blob" style="width:520px;height:520px;background:rgba(255,245,236,.14);right:-160px;bottom:-220px"></div>
+    <div class="inner contact">
+      <p class="big-script" data-anim data-edit>¿Hablamos?</p>
+      <h2 class="display" data-anim="2" data-edit>Hagamos crecer <span data-field="cliente">Empresa Ejemplo S.A.</span> juntos</h2>
+      <p class="lead" data-anim="3" data-edit>Agendemos una llamada de 30 minutos para conocer tus objetivos y ver cómo puedo sumar a tu equipo.</p>
+      <div class="row" data-anim="4">
+        <a class="btn" href="mailto:hola@mariavictoria.com?subject=Hablemos%20de%20marketing" data-edit>hola@mariavictoria.com</a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/vtesta/" target="_blank" rel="noopener">Ver LinkedIn ↗</a>
+      </div>
+      <div class="socials" data-anim="5">
+        <a href="https://www.linkedin.com/in/vtesta/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>/in/vtesta</a>
+        <a href="https://www.instagram.com/vtestadigital/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>@vtestadigital</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="bottombar" id="bottombar">
+  <div class="dots" id="dots" aria-label="Diapositivas"></div>
+  <span class="help">← → navegar · O índice · F pantalla completa · E editar</span>
+  <div class="nav">
+    <button class="btn-ico" type="button" id="prev" aria-label="Anterior">←</button>
+    <span class="counter" id="counter">01 / 12</span>
+    <button class="btn-ico" type="button" id="next" aria-label="Siguiente">→</button>
+  </div>
+</footer>
+
+<div class="overview" id="overview" aria-hidden="true">
+  <h2>Índice · <span style="opacity:.6">Esc para cerrar</span></h2>
+  <div class="ov-grid" id="ovGrid"></div>
+</div>
+
+<script>
+/* ============================================================
+   PERSONALIZACIÓN POR CLIENTE
+   Opción A: editá CLIENTE abajo.
+   Opción B: sin tocar código, usá la URL:
+     index.html?cliente=Acme%20Corp&rol=Paid%20Media
+   ============================================================ */
+const CLIENTE = "Empresa Ejemplo S.A.";
+const ROL_DESTACADO = ""; // "Marketing Manager" | "Social Media Manager" | "Paid Media"
+
+(function () {
+  const params = new URLSearchParams(location.search);
+  const cliente = params.get("cliente") || CLIENTE;
+  const rol = params.get("rol") || ROL_DESTACADO;
+
+  document.querySelectorAll('[data-field="cliente"]').forEach(el => el.textContent = cliente);
+  if (!cliente) document.getElementById("forClient").style.visibility = "hidden";
+
+  const slides = [...document.querySelectorAll(".slide")];
+  const dotsEl = document.getElementById("dots");
+  const ovGrid = document.getElementById("ovGrid");
+  const overview = document.getElementById("overview");
+  const topbar = document.getElementById("topbar");
+  const bottombar = document.getElementById("bottombar");
+  let current = 0;
+
+  slides.forEach((s, i) => {
+    const d = document.createElement("button");
+    d.type = "button"; d.setAttribute("aria-label", s.dataset.title);
+    d.addEventListener("click", () => go(i));
+    dotsEl.appendChild(d);
+    const o = document.createElement("button");
+    o.type = "button";
+    o.innerHTML = `<small>${String(i + 1).padStart(2, "0")}</small>${s.dataset.title}`;
+    o.addEventListener("click", () => { go(i); toggleOverview(false); });
+    ovGrid.appendChild(o);
+  });
+
+  // Gráficos de barras
+  document.querySelectorAll("[data-bars]").forEach(el => {
+    const vals = el.dataset.bars.split(",").map(Number);
+    const max = Number(el.dataset.max) || Math.max(...vals);
+    const suf = el.dataset.suffix || "";
+    el.innerHTML = vals.map((v, i) =>
+      `<div class="bar${i === vals.length - 1 ? " hi" : ""}"><span>${v.toLocaleString("es-AR")}${suf}</span><i data-h="${(v / max) * 100}"></i></div>`
+    ).join("");
+  });
+
+  function animateSlide(s) {
+    s.querySelectorAll(".bar i").forEach((b, i) => setTimeout(() => b.style.height = b.dataset.h + "%", 150 + i * 90));
+    s.querySelectorAll(".track i").forEach((b, i) => setTimeout(() => b.style.width = b.dataset.w + "%", 200 + i * 100));
+    s.querySelectorAll("[data-count]").forEach(el => {
+      const target = parseFloat(el.dataset.count), dec = Number(el.dataset.dec || 0), t0 = performance.now(), dur = 1400;
+      (function tick(t) {
+        const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+        el.textContent = (target * e).toLocaleString("es-AR", { minimumFractionDigits: dec, maximumFractionDigits: dec });
+        if (p < 1) requestAnimationFrame(tick);
+      })(t0);
+    });
+  }
+  function resetSlide(s) {
+    s.querySelectorAll(".bar i").forEach(b => b.style.height = 0);
+    s.querySelectorAll(".track i").forEach(b => b.style.width = 0);
+  }
+
+  function go(i, push = true) {
+    i = Math.max(0, Math.min(slides.length - 1, i));
+    slides.forEach((s, k) => {
+      s.classList.toggle("active", k === i);
+      s.classList.toggle("prev", k < i);
+      if (k !== i) resetSlide(s);
+    });
+    current = i;
+    const s = slides[i];
+    s.scrollTop = 0;
+    animateSlide(s);
+    const dark = s.classList.contains("verde") || s.classList.contains("naranja");
+    document.documentElement.style.setProperty("--bar-bg", getComputedStyle(s).backgroundColor === "rgba(0, 0, 0, 0)" ? "var(--crema)" : getComputedStyle(s).backgroundColor);
+    topbar.classList.toggle("on-dark", dark);
+    bottombar.classList.toggle("on-dark", dark);
+    [...dotsEl.children].forEach((d, k) => d.classList.toggle("on", k === i));
+    [...ovGrid.children].forEach((d, k) => d.classList.toggle("on", k === i));
+    document.getElementById("counter").textContent = `${String(i + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
+    document.getElementById("progress").style.width = ((i + 1) / slides.length) * 100 + "%";
+    if (push) history.replaceState(null, "", location.search + "#" + (i + 1));
+  }
+
+  function toggleOverview(force) {
+    const on = force ?? !overview.classList.contains("on");
+    overview.classList.toggle("on", on);
+    overview.setAttribute("aria-hidden", String(!on));
+  }
+
+  document.getElementById("prev").onclick = () => go(current - 1);
+  document.getElementById("next").onclick = () => go(current + 1);
+  document.querySelectorAll('[data-go="next"]').forEach(b => b.onclick = () => go(current + 1));
+  document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener("click", e => {
+    const n = parseInt(a.getAttribute("href").slice(1), 10);
+    if (n) { e.preventDefault(); go(n - 1); }
+  }));
+
+  // Teclado
+  document.addEventListener("keydown", e => {
+    if (document.body.classList.contains("editing") && e.target.isContentEditable) {
+      if (e.key === "Escape") e.target.blur();
+      return;
+    }
+    const k = e.key;
+    if (["ArrowRight", "PageDown", " "].includes(k)) { e.preventDefault(); go(current + 1); }
+    else if (["ArrowLeft", "PageUp"].includes(k)) { e.preventDefault(); go(current - 1); }
+    else if (k === "Home") go(0);
+    else if (k === "End") go(slides.length - 1);
+    else if (k.toLowerCase() === "o") toggleOverview();
+    else if (k === "Escape") toggleOverview(false);
+    else if (k.toLowerCase() === "f") { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+    else if (k.toLowerCase() === "e") toggleEdit();
+  });
+
+  // Swipe en móvil
+  let x0 = null, y0 = null;
+  document.addEventListener("touchstart", e => { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+  document.addEventListener("touchend", e => {
+    if (x0 === null || document.body.classList.contains("editing")) return;
+    const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) go(current + (dx < 0 ? 1 : -1));
+    x0 = null;
+  }, { passive: true });
+
+  // Pestañas de casos
+  document.querySelectorAll(".tabs").forEach(tabs => {
+    const panels = [...tabs.parentElement.querySelectorAll(".tabpanel")];
+    tabs.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
+      tabs.querySelectorAll("button").forEach(x => x.classList.toggle("on", x === b));
+      panels.forEach((p, i) => p.classList.toggle("on", i === Number(b.dataset.tab)));
+    }));
+  });
+
+  // Testimonios
+  const tItems = [...document.querySelectorAll(".t-item")];
+  let t = 0;
+  const showT = n => { t = (n + tItems.length) % tItems.length; tItems.forEach((el, i) => el.classList.toggle("on", i === t)); };
+  document.getElementById("tPrev").onclick = () => showT(t - 1);
+  document.getElementById("tNext").onclick = () => showT(t + 1);
+  setInterval(() => { if (slides[current].dataset.title === "Testimonios" && !document.body.classList.contains("editing")) showT(t + 1); }, 7000);
+
+  // Roles
+  const roleCards = [...document.querySelectorAll(".role-card")];
+  roleCards.forEach(c => c.addEventListener("click", () => {
+    if (document.body.classList.contains("editing")) return;
+    roleCards.forEach(x => x.classList.toggle("on", x === c));
+  }));
+  const pre = roleCards.find(c => rol && c.dataset.role.toLowerCase().includes(rol.toLowerCase())) || roleCards[0];
+  pre.classList.add("on");
+
+  // Modo edición
+  const editable = () => document.querySelectorAll("[data-edit]");
+  function toggleEdit(force) {
+    const on = force ?? !document.body.classList.contains("editing");
+    document.body.classList.toggle("editing", on);
+    editable().forEach(el => el.contentEditable = on ? "true" : "false");
+    if (on) document.querySelectorAll(".tabpanel").forEach(p => p.style.display = "block");
+    else document.querySelectorAll(".tabpanel").forEach(p => p.style.display = "");
+  }
+  document.getElementById("btnExit").onclick = () => toggleEdit(false);
+  document.getElementById("btnReset").onclick = () => { if (confirm("¿Descartar los cambios no guardados?")) location.reload(); };
+  document.getElementById("btnSave").onclick = () => {
+    toggleEdit(false);
+    const clone = document.documentElement.cloneNode(true);
+    clone.querySelectorAll("[contenteditable]").forEach(el => el.removeAttribute("contenteditable"));
+    clone.querySelectorAll(".bar i, .track i").forEach(el => el.removeAttribute("style"));
+    clone.querySelectorAll(".bars").forEach(el => el.innerHTML = "");
+    clone.querySelectorAll("#dots, #ovGrid").forEach(el => el.innerHTML = "");
+    clone.querySelectorAll(".slide").forEach(el => el.classList.remove("active", "prev"));
+    clone.querySelector("body").classList.remove("editing");
+    const html = "<!doctype html>\n" + clone.outerHTML;
+    const slug = (cliente || "portfolio").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([html], { type: "text/html" }));
+    a.download = `portfolio-${slug}.html`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  };
+
+  window.addEventListener("hashchange", () => { const n = parseInt(location.hash.slice(1), 10); if (n && n - 1 !== current) go(n - 1, false); });
+  const start = parseInt(location.hash.slice(1), 10);
+  go(Number.isFinite(start) ? start - 1 : 0, false);
+})();
+</script>
+</body>
+</html>
