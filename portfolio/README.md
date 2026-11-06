@@ -1,53 +1,44 @@
-# Portfolio interactivo · María Victoria
+# Portfolio · María Victoria
 
-Presentación HTML de 12 diapositivas para enviar a clientes o reclutadores (Marketing Manager · Social Media Manager · Paid Media).
-**Todos los datos son ficticios**: hay que reemplazarlos por casos y métricas reales.
+Portfolio web de una sola página, estilo collage/scrapbook: cielo y pasto, estampillas con borde perforado, estrellas cromadas, cintas, clips, notas de papel, marquesinas y mockups de redes.
+Es **universal** (no está dirigido a ninguna marca) y apunta a roles de Marketing Manager, Social Media Manager y Paid Media.
+**Todos los casos, métricas y testimonios son ficticios**: reemplazalos por los reales.
 
-## Cómo abrirla
-Abrí `index.html` en el navegador. Funciona sin instalar nada.
-
-## Personalizar por cliente (sin tocar código)
-Agregá parámetros a la URL:
-
-```
-index.html?cliente=Acme%20Corp&rol=Paid%20Media
-```
-
-- `cliente` aparece arriba a la derecha, en "Cómo puedo ayudar a…" y en el cierre.
-- `rol` deja abierta esa tarjeta en la diapositiva de roles (`Marketing Manager`, `Social Media Manager` o `Paid Media`).
-
-También podés cambiar los valores por defecto `CLIENTE` y `ROL_DESTACADO` al principio del `<script>`.
+## Estructura
+1. Portada (estampilla con nombre, roles y paleta)
+2. Sobre mí (carpeta con foto, experiencia, herramientas, educación, idiomas)
+3. En números
+4. Índice
+5. 01/ Estrategia & Marketing: caso Aula Nova
+6. 02/ Redes sociales: caso Raíz Café
+7. 03/ Paid Media: caso Bloom Cosmética
+8. Cómo trabajo · Testimonios · Contacto
 
 ## Editar textos sin código
-1. Presioná **E**: los textos editables quedan marcados con línea punteada.
-2. Hacé clic y escribí.
-3. Tocá **Descargar HTML editado**: se guarda `portfolio-<cliente>.html`, listo para enviar.
+1. Abrí `index.html` en el navegador.
+2. Tocá el botón ✎ (abajo a la derecha) o presioná **E**.
+3. Hacé clic en cualquier texto marcado y escribí.
+4. **Descargar HTML** guarda una copia con tus cambios.
 
-## Atajos
-| Tecla | Acción |
-|---|---|
-| ← → / espacio | Navegar |
-| O | Índice de diapositivas |
-| F | Pantalla completa |
-| E | Modo edición |
-| #5 al final de la URL | Abre la diapositiva 5 |
+Las estrellas cromadas se pueden arrastrar (doble clic las devuelve a su lugar).
 
-En móvil se navega deslizando.
+## Foto
+Guardá tu foto como `img/maria-victoria.jpg` y reemplazá el texto `MV` dentro de `.photo-card .ph` por:
+`<img src="img/maria-victoria.jpg" alt="María Victoria">`
 
-## Exportar a PDF
-Ctrl/Cmd + P → "Guardar como PDF". Cada diapositiva sale en una página.
+## Cielo con foto real (opcional)
+El cielo y el pasto están hechos con CSS. Para usar una foto, en la regla `.sky` del `<style>` reemplazá el `background` por `url("img/cielo.jpg") center/cover`.
+
+## Gráficos
+Los valores del gráfico de ROAS se cambian en `data-bars="1.4,2.1,..."` y `data-max`.
 
 ## Tipografías de marca
-Anantason Expand, Garet y Rocking Horse no están en Google Fonts. Si están instaladas en tu computadora se usan solas. Para que se vean en cualquier equipo, copiá los archivos en `fonts/` con estos nombres:
-
+Anantason Expand, Garet y Rocking Horse no están en Google Fonts. Si están instaladas en tu computadora se usan solas; para que se vean en cualquier equipo, copiá los archivos a `fonts/`:
 - `fonts/AnantasonExpand.woff2` (u `.otf`)
 - `fonts/Garet-Book.woff2` y `fonts/Garet-Heavy.woff2`
 - `fonts/RockingHorse.woff2`
 
-Mientras tanto se usan alternativas parecidas: Archivo Expanded, Manrope y Fraunces Italic.
+Mientras tanto se usan: Archivo, Manrope y Fraunces Italic (más Special Elite para la nota de herramientas y Caveat para lo manuscrito).
 
-## Foto
-Guardá tu foto como `img/maria-victoria.jpg` y descomentá la línea `<img …>` dentro de `.photo` en la portada.
-
-## Gráficos
-Los valores de las barras se cambian en el atributo `data-bars` de cada caso, por ejemplo `data-bars="1.4,2.1,2.9"` y `data-max="6"`.
+## Publicarlo
+Es un archivo HTML estático: se puede subir a GitHub Pages, Netlify o Vercel tal cual.
