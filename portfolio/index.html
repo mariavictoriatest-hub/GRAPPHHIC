@@ -1,0 +1,607 @@
+<title>María Victoria Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Manrope:wght@400;500;600;700&family=Shrikhand&display=swap">
+<style>
+/* Tipografías de marca: si están instaladas en el equipo (o se suben a /fonts) se usan;
+   si no, caen a equivalentes de Google Fonts. */
+@font-face { font-family: "MV Display"; src: local("Anantason Expand"), local("AnantasonExpand-Bold"), url("fonts/AnantasonExpand.woff2") format("woff2"); font-display: swap; }
+@font-face { font-family: "MV Body"; src: local("Garet"), local("Garet-Book"), url("fonts/Garet.woff2") format("woff2"); font-display: swap; }
+@font-face { font-family: "MV Script"; src: local("Rocking Horse"), local("RockingHorse"), url("fonts/RockingHorse.woff2") format("woff2"); font-display: swap; }
+
+/* Layout: deck a pantalla completa, una diapositiva a la vez; fondos alternan crema y verde de marca. */
+:root {
+  --verde: #365850;
+  --verde-hondo: #263f39;
+  --naranja: #ff6f38;
+  --crema: #fff5ec;
+  --crema-2: #f6e6d6;
+  --tinta: #1f2f2b;
+  --tinta-suave: #4d625c;
+  --f-display: "MV Display", "Unbounded", "Arial Black", sans-serif;
+  --f-body: "MV Body", "Manrope", "Helvetica Neue", Arial, sans-serif;
+  --f-script: "MV Script", "Shrikhand", Georgia, serif;
+  --gutter: max(16px, env(safe-area-inset-left, 0px));
+  color-scheme: light;
+}
+html, body { height: 100%; }
+body { margin: 0; background: var(--crema); color: var(--tinta); font-family: var(--f-body); font-size: 16px; line-height: 1.55; overflow: hidden; }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+button { font: inherit; color: inherit; cursor: pointer; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--naranja); outline-offset: 3px; border-radius: 4px; }
+
+.deck { position: relative; height: 100%; }
+.slide {
+  position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: clamp(56px, 8vh, 96px) 96px;
+  display: flex; flex-direction: column; justify-content: center;
+  opacity: 0; visibility: hidden; transform: translateX(24px);
+  transition: opacity .5s ease, transform .5s ease, visibility 0s .5s;
+}
+.slide.is-active { opacity: 1; visibility: visible; transform: none; transition: opacity .5s ease, transform .5s ease; }
+.slide.is-prev { transform: translateX(-24px); }
+.slide.dark { background: var(--verde); color: var(--crema); }
+.slide.light { background: var(--crema); color: var(--tinta); }
+.inner { width: 100%; max-width: 1120px; margin-inline: auto; display: flex; flex-direction: column; gap: clamp(20px, 3.5vh, 40px); }
+
+.eyebrow { font-size: .78rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--naranja); }
+h1, h2, h3 { font-family: var(--f-display); margin: 0; text-wrap: balance; font-weight: 800; letter-spacing: -.01em; line-height: 1.05; }
+h2 { font-size: clamp(1.7rem, 4.2vw, 3.2rem); }
+h3 { font-size: clamp(1rem, 1.6vw, 1.2rem); font-weight: 600; line-height: 1.2; }
+.script { font-family: var(--f-script); font-weight: 400; color: var(--naranja); letter-spacing: 0; }
+p { margin: 0; max-width: 62ch; }
+.lead { font-size: clamp(1.02rem, 1.6vw, 1.25rem); color: inherit; opacity: .9; }
+.muted { color: var(--tinta-suave); }
+.dark .muted { color: var(--crema); opacity: .75; }
+
+/* Portada */
+.cover h1 { font-size: clamp(2.6rem, 9.5vw, 7.6rem); line-height: .92; }
+.cover h1 .script { display: block; font-size: .55em; margin-top: .15em; transform: rotate(-3deg); transform-origin: left; }
+.cover-meta { display: flex; flex-wrap: wrap; gap: 10px; }
+.tag { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; border: 1.5px solid currentColor; font-size: .9rem; font-weight: 600; }
+.tag.solid { background: var(--naranja); border-color: var(--naranja); color: var(--verde-hondo); }
+.for-client { font-size: .95rem; padding: 12px 16px; border-left: 4px solid var(--naranja); background: var(--verde-hondo); max-width: 52ch; }
+.for-client strong { color: var(--naranja); }
+.sun { position: absolute; right: -8vw; bottom: -14vw; width: 46vw; max-width: 620px; aspect-ratio: 1; border-radius: 50%; background: var(--naranja); opacity: .95; pointer-events: none; z-index: 0; }
+.sun::after { content: ""; position: absolute; inset: 18%; border-radius: 50%; border: 2px dashed var(--verde); opacity: .5; }
+.cover .inner { position: relative; z-index: 1; }
+
+/* Sobre mí */
+.about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: clamp(24px, 5vw, 64px); align-items: center; }
+.portrait { aspect-ratio: 4/5; max-width: 100%; border-radius: 200px 200px 24px 24px; background: var(--verde); color: var(--crema); display: grid; place-items: center; position: relative; overflow: hidden; }
+.portrait span { font-family: var(--f-display); font-size: clamp(3rem, 9vw, 6.5rem); font-weight: 800; }
+.portrait small { position: absolute; bottom: 14px; font-size: .75rem; opacity: .7; letter-spacing: .1em; text-transform: uppercase; }
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; border-top: 2px solid var(--verde); padding-top: 18px; }
+.fact b { display: block; font-family: var(--f-display); font-size: clamp(1.4rem, 3vw, 2.2rem); color: var(--verde); font-variant-numeric: tabular-nums; }
+.fact span { font-size: .88rem; color: var(--tinta-suave); }
+
+/* Servicios */
+.services { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.svc { text-align: left; background: var(--verde-hondo); border: 1.5px solid transparent; border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 12px; transition: border-color .25s, transform .25s; }
+.svc:hover { transform: translateY(-3px); }
+.svc[aria-expanded="true"] { border-color: var(--naranja); }
+.svc .ico { width: 44px; height: 44px; border-radius: 12px; background: var(--naranja); color: var(--verde-hondo); display: grid; place-items: center; }
+.svc ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: .92rem; }
+.svc li { padding-left: 18px; position: relative; }
+.svc li::before { content: ""; position: absolute; left: 0; top: .6em; width: 8px; height: 8px; border-radius: 50%; background: var(--naranja); }
+.svc .more { font-size: .85rem; font-weight: 700; color: var(--naranja); margin-top: auto; }
+.svc .detail { font-size: .9rem; opacity: .85; }
+.svc.focus { border-color: var(--naranja); }
+.svc .badge { align-self: flex-start; font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; background: var(--crema); color: var(--verde); padding: 3px 8px; border-radius: 6px; }
+
+/* Métricas */
+.metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-block: 2px solid var(--verde); }
+.metric { padding: 26px 18px; display: flex; flex-direction: column; gap: 6px; }
+.metric + .metric { border-left: 1.5px solid var(--crema-2); }
+.metric b { font-family: var(--f-display); font-size: clamp(1.8rem, 4.4vw, 3.4rem); color: var(--verde); line-height: 1; font-variant-numeric: tabular-nums; }
+.metric b em { font-style: normal; color: var(--naranja); }
+.metric span { font-size: .9rem; color: var(--tinta-suave); }
+
+/* Casos */
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.tab { border: 1.5px solid var(--crema); background: transparent; border-radius: 999px; padding: 8px 16px; font-weight: 600; font-size: .92rem; }
+.tab[aria-selected="true"] { background: var(--naranja); border-color: var(--naranja); color: var(--verde-hondo); }
+.case { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(20px, 4vw, 48px); align-items: start; }
+.case dl { margin: 0; display: grid; gap: 14px; }
+.case dt { font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--naranja); }
+.case dd { margin: 4px 0 0; max-width: 56ch; }
+.chart { background: var(--verde-hondo); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+.chart-title { font-size: .85rem; font-weight: 600; opacity: .85; }
+.bars { display: grid; gap: 12px; }
+.bar-row { display: grid; grid-template-columns: 64px minmax(0, 1fr) 72px; align-items: center; gap: 10px; font-size: .85rem; font-variant-numeric: tabular-nums; }
+.bar-track { height: 22px; background: rgba(255, 245, 236, .08); border-radius: 6px; overflow: hidden; }
+.bar-fill { height: 100%; background: var(--crema); border-radius: 6px; width: 0; transition: width 1s cubic-bezier(.2,.8,.2,1); }
+.bar-row.after .bar-fill { background: var(--naranja); }
+.bar-row span:last-child { text-align: right; }
+.kpis { display: flex; flex-wrap: wrap; gap: 8px; }
+.kpi { background: var(--crema); color: var(--verde); border-radius: 10px; padding: 6px 10px; font-weight: 700; font-size: .85rem; }
+
+/* Proceso */
+.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; counter-reset: paso; position: relative; }
+.step { padding-top: 22px; border-top: 3px solid var(--verde); display: flex; flex-direction: column; gap: 8px; }
+.step:nth-child(2) { border-color: var(--naranja); }
+.step .n { font-family: var(--f-display); font-size: .85rem; color: var(--naranja); font-weight: 600; }
+.step p { font-size: .93rem; color: var(--tinta-suave); }
+.step .time { font-size: .78rem; font-weight: 700; color: var(--verde); letter-spacing: .06em; text-transform: uppercase; }
+
+/* Herramientas */
+.tools { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.tools h3 { font-size: .95rem; margin-bottom: 12px; color: var(--naranja); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { padding: 7px 12px; border-radius: 8px; border: 1.5px solid rgba(255, 245, 236, .35); font-size: .88rem; font-weight: 600; }
+
+/* Testimonios */
+.quote { font-family: var(--f-display); font-weight: 600; font-size: clamp(1.15rem, 2.6vw, 2rem); line-height: 1.25; max-width: 30ch; text-wrap: balance; color: var(--verde); }
+.quote::before { content: "“"; font-family: var(--f-script); color: var(--naranja); font-size: 2.2em; line-height: 0; vertical-align: -.45em; margin-right: .08em; }
+.who { display: flex; align-items: center; gap: 12px; }
+.avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--naranja); color: var(--verde-hondo); display: grid; place-items: center; font-weight: 800; font-family: var(--f-display); font-size: .9rem; }
+.who b { display: block; }
+.who span { font-size: .88rem; color: var(--tinta-suave); }
+.t-ctrl { display: flex; gap: 8px; align-items: center; }
+.round { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--verde); background: transparent; display: grid; place-items: center; }
+.round:hover { background: var(--verde); color: var(--crema); }
+.t-count { font-size: .85rem; font-variant-numeric: tabular-nums; color: var(--tinta-suave); margin-left: 6px; }
+
+/* Modalidades */
+.plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.plan { border: 1.5px solid var(--verde); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 12px; background: var(--crema); }
+.plan.featured { background: var(--verde); color: var(--crema); border-color: var(--verde); }
+.plan .price { font-family: var(--f-display); font-size: clamp(1.3rem, 2.4vw, 1.8rem); font-weight: 800; }
+.plan .price small { font-family: var(--f-body); font-size: .85rem; font-weight: 500; opacity: .75; }
+.plan ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: .92rem; }
+.plan .pill { align-self: flex-start; font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; background: var(--naranja); color: var(--verde-hondo); padding: 4px 10px; border-radius: 999px; }
+
+/* Contacto */
+.contact h2 { font-size: clamp(2rem, 6.5vw, 5rem); }
+.links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; max-width: 760px; }
+.link { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 18px; border-radius: 14px; background: var(--verde-hondo); text-decoration: none; font-weight: 600; transition: background .2s; min-width: 0; }
+.link:hover { background: var(--naranja); color: var(--verde-hondo); }
+.link small { display: block; font-weight: 500; opacity: .75; font-size: .82rem; overflow-wrap: anywhere; }
+.copy-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.mail { font-family: var(--f-display); font-size: clamp(1rem, 2.4vw, 1.4rem); user-select: all; overflow-wrap: anywhere; }
+.btn { border: 0; background: var(--naranja); color: var(--verde-hondo); font-weight: 700; padding: 12px 20px; border-radius: 999px; }
+.toast { font-size: .88rem; color: var(--naranja); min-height: 1.3em; }
+
+/* Navegación */
+.nav { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-top: 12px; padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px)); pointer-events: none; }
+.nav > * { pointer-events: auto; }
+.dots { display: flex; gap: 6px; flex-wrap: wrap; }
+.dot { width: 10px; height: 10px; border-radius: 999px; border: 0; padding: 0; background: currentColor; opacity: .3; transition: width .3s, opacity .3s; }
+.dot.on { width: 28px; opacity: 1; background: var(--naranja); }
+.arrows { display: flex; align-items: center; gap: 8px; }
+.arrows .round { border-color: currentColor; background: transparent; color: inherit; }
+.arrows .round:hover { background: var(--naranja); border-color: var(--naranja); color: var(--verde-hondo); }
+.counter { font-size: .82rem; font-variant-numeric: tabular-nums; min-width: 4.5ch; text-align: right; }
+.nav.on-dark { color: var(--crema); }
+.nav.on-light { color: var(--verde); }
+.progress { position: fixed; top: 0; left: 0; height: 4px; background: var(--naranja); z-index: 21; transition: width .4s ease; }
+.brandmark { position: fixed; top: calc(14px + env(safe-area-inset-top, 0px)); left: max(16px, env(safe-area-inset-left, 0px)); z-index: 20; font-family: var(--f-display); font-weight: 800; font-size: .85rem; letter-spacing: .04em; }
+.brandmark.on-dark { color: var(--crema); }
+.brandmark.on-light { color: var(--verde); }
+
+@media (max-width: 860px) {
+  .about, .case { grid-template-columns: minmax(0, 1fr); }
+  .portrait { max-width: 180px; }
+  .nav.on-light { background: linear-gradient(transparent, var(--crema) 40%); }
+  .nav.on-dark { background: linear-gradient(transparent, var(--verde) 40%); }
+  .services, .plans, .tools { grid-template-columns: minmax(0, 1fr); }
+  .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .metric:nth-child(3) { border-left: 0; }
+  .metric:nth-child(n+3) { border-top: 1.5px solid var(--crema-2); }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .slide { justify-content: flex-start; }
+}
+@media (max-width: 480px) {
+  .facts { grid-template-columns: minmax(0, 1fr); }
+  .steps, .links { grid-template-columns: minmax(0, 1fr); }
+  .bar-row { grid-template-columns: 52px minmax(0, 1fr) 60px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .slide, .slide.is-active, .bar-fill, .dot, .svc { transition: none; transform: none; }
+}
+</style>
+
+<div class="progress" id="progress"></div>
+<div class="brandmark" id="brandmark">MV · Digital</div>
+<main class="deck" id="deck" aria-live="polite"></main>
+<nav class="nav" id="nav" aria-label="Navegación de diapositivas">
+  <div class="dots" id="dots"></div>
+  <div class="arrows">
+    <span class="counter" id="counter">1 / 10</span>
+    <button class="round" id="prev" aria-label="Diapositiva anterior"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button class="round" id="next" aria-label="Diapositiva siguiente"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+</nav>
+
+<script>
+/* =====================================================================
+   CONFIGURACIÓN EDITABLE
+   Todo el contenido del portfolio vive acá. Los datos de métricas,
+   casos, testimonios y precios son FICTICIOS: reemplazalos por los reales.
+
+   PERFILES POR CLIENTE: agregá una entrada en PERFILES y abrí el archivo
+   con #clave al final (ej: index.html#cafe-nativo). Cada perfil puede
+   cambiar el destinatario, el mensaje de portada, el servicio destacado
+   y el orden de los casos. Sin #clave se usa "general".
+   ===================================================================== */
+const MARCA = {
+  nombre: "María Victoria",
+  titulo: "Especialista en Marketing Digital",
+  bio: "Ayudo a empresas y emprendedores a ordenar su comunicación digital y convertirla en ventas. Combino estrategia de marca, contenido para redes y campañas pagas con un foco simple: que cada peso invertido tenga un objetivo medible.",
+  ubicacion: "Argentina · Trabajo remoto en LATAM, España y EE. UU.",
+  idiomas: "Español nativo · Inglés profesional",
+  email: "hola@vtestadigital.com", // ficticio
+  linkedin: "https://www.linkedin.com/in/vtesta/",
+  instagram: "https://www.instagram.com/vtestadigital/",
+  canva: "https://www.canva.com/design/DAHLk_ByUO0",
+  datos: [
+    { valor: "7+", texto: "años en marketing digital" },
+    { valor: "45", texto: "marcas acompañadas" },
+    { valor: "4", texto: "países con clientes" }
+  ]
+};
+
+const PERFILES = {
+  general: {
+    destinatario: "",
+    mensaje: "Estrategia, contenido y pauta en un solo equipo de una persona.",
+    destacado: "",
+    casos: ["cafe", "moda", "saas"]
+  },
+  "cafe-nativo": {
+    destinatario: "Café Nativo",
+    mensaje: "Una propuesta para llevar a Café Nativo de seguidores a clientes que vuelven.",
+    destacado: "social",
+    casos: ["cafe", "moda", "saas"]
+  },
+  "nube-saas": {
+    destinatario: "Nube Software (puesto: Paid Media Specialist)",
+    mensaje: "Mi experiencia en adquisición paga para equipos B2B remotos.",
+    destacado: "paid",
+    casos: ["saas", "moda", "cafe"]
+  },
+  "agencia-norte": {
+    destinatario: "Agencia Norte (puesto: Marketing Manager remoto)",
+    mensaje: "Cómo lidero cuentas, equipos y presupuestos de punta a punta.",
+    destacado: "manager",
+    casos: ["moda", "saas", "cafe"]
+  }
+};
+
+const SERVICIOS = [
+  { id: "manager", titulo: "Marketing Manager", resumen: "Plan de marketing, presupuesto y coordinación del equipo.",
+    items: ["Plan trimestral con OKRs", "Gestión de presupuesto y proveedores", "Reportes mensuales para dirección"],
+    detalle: "Tomo la estrategia completa: defino objetivos, priorizo canales y coordino diseño, contenido y pauta para que todo empuje en la misma dirección.",
+    icono: '<path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/>' },
+  { id: "social", titulo: "Social Media Manager", resumen: "Contenido, comunidad y crecimiento orgánico.",
+    items: ["Línea editorial y calendario", "Reels, carruseles y copies", "Community management diario"],
+    detalle: "Construyo una voz de marca reconocible, planifico el contenido mes a mes y respondo a la comunidad para convertir seguidores en clientes.",
+    icono: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/>' },
+  { id: "paid", titulo: "Paid Media", resumen: "Campañas en Meta, Google y TikTok orientadas a resultados.",
+    items: ["Estructura de campañas y audiencias", "Testeo A/B de creatividades", "Optimización de CPA y ROAS"],
+    detalle: "Diseño y optimizo campañas con píxel, eventos de conversión y testeo constante. Cada semana se revisa qué escalar y qué apagar.",
+    icono: '<path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/>' }
+];
+
+const METRICAS = [
+  { valor: 3.8, sufijo: "x", decimales: 1, texto: "ROAS promedio en campañas de e-commerce" },
+  { valor: 1.2, prefijo: "USD ", sufijo: "M", decimales: 1, texto: "en inversión publicitaria gestionada" },
+  { valor: 220, sufijo: "%", decimales: 0, texto: "crecimiento orgánico promedio en 6 meses" },
+  { valor: 38, sufijo: "%", decimales: 0, texto: "baja promedio del costo por lead" }
+];
+
+const CASOS = {
+  cafe: { tab: "Café Nativo", rubro: "Gastronomía · Social Media",
+    desafio: "Cafetería de especialidad con buena reputación local y redes inactivas. Las ventas dependían del paso de gente.",
+    estrategia: "Nueva línea editorial con el detrás de escena del tostado, reels semanales, alianzas con 6 microinfluencers del barrio y una campaña de Meta Ads para pedidos por WhatsApp.",
+    resultado: "En 5 meses la cuenta pasó a ser el principal canal de pedidos para take away.",
+    grafico: { titulo: "Seguidores en Instagram", antes: 2100, despues: 9800, formato: n => n.toLocaleString("es-AR") },
+    kpis: ["+367% seguidores", "+52% pedidos por WhatsApp", "6.4% engagement"] },
+  moda: { tab: "Lúa Indumentaria", rubro: "E-commerce · Paid Media",
+    desafio: "Tienda online de ropa con inversión en anuncios sin estructura y un ROAS que no cubría los costos.",
+    estrategia: "Reestructuré las cuentas en Meta y Google, configuré catálogo dinámico, armé audiencias de remarketing por etapa del embudo y un plan de testeo de 12 creatividades por mes.",
+    resultado: "La marca duplicó la facturación online con el mismo presupuesto mensual.",
+    grafico: { titulo: "ROAS mensual", antes: 1.4, despues: 4.2, formato: n => n.toFixed(1) + "x" },
+    kpis: ["ROAS 4.2x", "-41% costo por compra", "x2 facturación online"] },
+  saas: { tab: "Nube Software", rubro: "B2B · Marketing Manager",
+    desafio: "Startup de software para pymes que necesitaba leads calificados para su equipo comercial.",
+    estrategia: "Plan de marketing trimestral, campañas en LinkedIn y Google Search, webinars mensuales y secuencias de email para nutrir leads. Coordiné a una diseñadora y un redactor freelance.",
+    resultado: "El equipo comercial pasó de perseguir contactos fríos a recibir demos agendadas cada semana.",
+    grafico: { titulo: "Leads calificados por mes", antes: 35, despues: 140, formato: n => Math.round(n).toString() },
+    kpis: ["x4 leads calificados", "-38% costo por lead", "22% tasa de demo"] }
+};
+
+const PROCESO = [
+  { titulo: "Diagnóstico", texto: "Auditoría de redes, anuncios y competencia. Definimos objetivos y métricas.", tiempo: "Semana 1" },
+  { titulo: "Estrategia", texto: "Plan de canales, mensajes, presupuesto y calendario de contenidos.", tiempo: "Semana 2" },
+  { titulo: "Ejecución", texto: "Producción de contenido, lanzamiento de campañas y gestión de comunidad.", tiempo: "Semana 3 en adelante" },
+  { titulo: "Medición", texto: "Reporte mensual claro, reunión de resultados y ajustes para el mes siguiente.", tiempo: "Cada mes" }
+];
+
+const HERRAMIENTAS = [
+  { grupo: "Pauta y analítica", items: ["Meta Ads", "Google Ads", "TikTok Ads", "LinkedIn Ads", "GA4", "Looker Studio"] },
+  { grupo: "Contenido y diseño", items: ["Canva", "CapCut", "Figma", "Lightroom", "ChatGPT", "Notion"] },
+  { grupo: "Gestión y CRM", items: ["Metricool", "Meta Business Suite", "HubSpot", "Mailchimp", "Trello", "Slack"] }
+];
+
+const TESTIMONIOS = [
+  { texto: "Con María Victoria dejamos de publicar por publicar. Hoy cada posteo tiene un objetivo y lo vemos en las ventas.", nombre: "Lucía Fernández", cargo: "Fundadora, Café Nativo" },
+  { texto: "Ordenó nuestras campañas en un mes. El reporte semanal nos dio una claridad que nunca habíamos tenido.", nombre: "Martín Ríos", cargo: "CEO, Lúa Indumentaria" },
+  { texto: "Se integró al equipo remoto desde el primer día y lideró el plan trimestral con mucha autonomía.", nombre: "Sofía Medina", cargo: "Head of Growth, Nube Software" }
+];
+
+const MODALIDADES = [
+  { titulo: "Proyecto puntual", precio: "Desde USD 450", unidad: "por proyecto", items: ["Auditoría de redes y anuncios", "Estrategia de contenidos a 3 meses", "Lanzamiento de una campaña"] },
+  { titulo: "Acompañamiento mensual", precio: "Desde USD 750", unidad: "por mes", destacado: true, items: ["Gestión de redes y pauta", "Calendario y contenidos mensuales", "Reporte y reunión de resultados"] },
+  { titulo: "Puesto remoto", precio: "Part o full-time", unidad: "en relación de dependencia o contractor", items: ["Marketing / Social Media Manager", "Paid Media Specialist", "Disponibilidad en horario LATAM / EU"] }
+];
+
+/* =====================================================================
+   RENDER (no hace falta tocar nada debajo para editar contenido)
+   ===================================================================== */
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const svg = (path, size = 22) => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${path}</svg>`;
+const flecha = svg('<path d="M7 17L17 7M8 7h9v9"/>', 18);
+const iniciales = n => n.split(" ").map(p => p[0]).slice(0, 2).join("");
+
+function perfilActual() {
+  const k = decodeURIComponent((location.hash || "").slice(1));
+  return PERFILES[k] ? PERFILES[k] : PERFILES.general;
+}
+
+function construir(perfil) {
+  const P = perfil;
+  const slides = [];
+
+  slides.push({ tema: "dark", cls: "cover", html: `
+    <div class="sun" aria-hidden="true"></div>
+    <div class="inner">
+      <span class="eyebrow">Portfolio ${new Date().getFullYear()}</span>
+      <h1>${esc(MARCA.nombre)}<span class="script">marketing con propósito</span></h1>
+      <p class="lead">${esc(MARCA.titulo)}. ${esc(P.mensaje)}</p>
+      <div class="cover-meta">
+        <span class="tag solid">Marketing Manager</span><span class="tag">Social Media</span><span class="tag">Paid Media</span>
+      </div>
+      ${P.destinatario ? `<div class="for-client">Propuesta preparada para <strong>${esc(P.destinatario)}</strong></div>` : ""}
+    </div>` });
+
+  slides.push({ tema: "light", html: `
+    <div class="inner"><div class="about">
+      <div class="portrait" role="img" aria-label="Espacio para foto de perfil"><span>MV</span><small>Tu foto acá</small></div>
+      <div class="inner" style="gap:22px">
+        <span class="eyebrow">Sobre mí</span>
+        <h2>Hola, soy <span class="script">María Victoria</span></h2>
+        <p class="lead">${esc(MARCA.bio)}</p>
+        <p class="muted">${esc(MARCA.ubicacion)}<br>${esc(MARCA.idiomas)}</p>
+        <div class="facts">${MARCA.datos.map(d => `<div class="fact"><b>${esc(d.valor)}</b><span>${esc(d.texto)}</span></div>`).join("")}</div>
+      </div>
+    </div></div>` });
+
+  slides.push({ tema: "dark", html: `
+    <div class="inner">
+      <span class="eyebrow">Lo que hago</span>
+      <h2>Tres roles, <span class="script">una estrategia</span></h2>
+      <p class="muted">Tocá cada tarjeta para ver cómo trabajo en ese rol.</p>
+      <div class="services">${SERVICIOS.map(s => `
+        <button class="svc${P.destacado === s.id ? " focus" : ""}" aria-expanded="false" data-svc="${s.id}">
+          <span class="ico">${svg(s.icono)}</span>
+          ${P.destacado === s.id ? `<span class="badge">Lo que buscás</span>` : ""}
+          <h3>${esc(s.titulo)}</h3>
+          <span class="muted">${esc(s.resumen)}</span>
+          <ul>${s.items.map(i => `<li>${esc(i)}</li>`).join("")}</ul>
+          <span class="detail" hidden>${esc(s.detalle)}</span>
+          <span class="more">Ver enfoque +</span>
+        </button>`).join("")}
+      </div>
+    </div>` });
+
+  slides.push({ tema: "light", html: `
+    <div class="inner">
+      <span class="eyebrow">Resultados</span>
+      <h2>Números que <span class="script">hablan solos</span></h2>
+      <div class="metrics">${METRICAS.map((m, i) => `
+        <div class="metric"><b data-count="${i}">${m.prefijo || ""}0<em>${m.sufijo || ""}</em></b><span>${esc(m.texto)}</span></div>`).join("")}
+      </div>
+      <p class="muted">Promedios de cuentas gestionadas entre 2021 y 2026.</p>
+    </div>` });
+
+  slides.push({ tema: "dark", html: `
+    <div class="inner">
+      <span class="eyebrow">Casos de éxito</span>
+      <h2>Del desafío <span class="script">al resultado</span></h2>
+      <div class="tabs" role="tablist">${P.casos.map((k, i) => `<button class="tab" role="tab" aria-selected="${i === 0}" data-caso="${k}">${esc(CASOS[k].tab)}</button>`).join("")}</div>
+      <div class="case" id="case" role="tabpanel"></div>
+    </div>` });
+
+  slides.push({ tema: "light", html: `
+    <div class="inner">
+      <span class="eyebrow">Cómo trabajo</span>
+      <h2>Un proceso claro <span class="script">desde el día uno</span></h2>
+      <div class="steps">${PROCESO.map((s, i) => `
+        <div class="step"><span class="n">Paso ${i + 1}</span><h3>${esc(s.titulo)}</h3><p>${esc(s.texto)}</p><span class="time">${esc(s.tiempo)}</span></div>`).join("")}
+      </div>
+    </div>` });
+
+  slides.push({ tema: "dark", html: `
+    <div class="inner">
+      <span class="eyebrow">Herramientas</span>
+      <h2>Mi <span class="script">caja de trabajo</span></h2>
+      <div class="tools">${HERRAMIENTAS.map(g => `
+        <div><h3>${esc(g.grupo)}</h3><div class="chips">${g.items.map(i => `<span class="chip">${esc(i)}</span>`).join("")}</div></div>`).join("")}
+      </div>
+    </div>` });
+
+  slides.push({ tema: "light", html: `
+    <div class="inner">
+      <span class="eyebrow">Testimonios</span>
+      <p class="quote" id="quote"></p>
+      <div class="who"><span class="avatar" id="avatar"></span><div><b id="qname"></b><span id="qrole"></span></div></div>
+      <div class="t-ctrl">
+        <button class="round" id="tprev" aria-label="Testimonio anterior">${svg('<path d="M15 5l-7 7 7 7"/>', 18)}</button>
+        <button class="round" id="tnext" aria-label="Testimonio siguiente">${svg('<path d="M9 5l7 7-7 7"/>', 18)}</button>
+        <span class="t-count" id="tcount"></span>
+      </div>
+    </div>` });
+
+  slides.push({ tema: "light", html: `
+    <div class="inner">
+      <span class="eyebrow">Formas de trabajar juntos</span>
+      <h2>Elegí el formato <span class="script">que te sirva</span></h2>
+      <div class="plans">${MODALIDADES.map(m => `
+        <div class="plan${m.destacado ? " featured" : ""}">
+          ${m.destacado ? `<span class="pill">El más elegido</span>` : ""}
+          <h3>${esc(m.titulo)}</h3>
+          <div class="price">${esc(m.precio)} <small>${esc(m.unidad)}</small></div>
+          <ul>${m.items.map(i => `<li>${esc(i)}</li>`).join("")}</ul>
+        </div>`).join("")}
+      </div>
+    </div>` });
+
+  slides.push({ tema: "dark", cls: "contact", html: `
+    <div class="inner">
+      <span class="eyebrow">Contacto</span>
+      <h2>¿Hablamos de <span class="script">tu marca?</span></h2>
+      <p class="lead">Respondo en menos de 24 horas hábiles. Primera reunión de diagnóstico sin costo.</p>
+      <div class="copy-row">
+        <span class="mail" id="mail">${esc(MARCA.email)}</span>
+        <button class="btn" id="copy">Copiar email</button>
+        <span class="toast" id="toast" role="status"></span>
+      </div>
+      <div class="links">
+        <a class="link" href="${esc(MARCA.linkedin)}" target="_blank" rel="noopener"><span>LinkedIn<small>linkedin.com/in/vtesta</small></span>${flecha}</a>
+        <a class="link" href="${esc(MARCA.instagram)}" target="_blank" rel="noopener"><span>Instagram<small>@vtestadigital</small></span>${flecha}</a>
+        <a class="link" href="${esc(MARCA.canva)}" target="_blank" rel="noopener"><span>Presentación completa<small>Ver en Canva</small></span>${flecha}</a>
+        <a class="link" href="${esc(MARCA.linkedin)}" target="_blank" rel="noopener"><span>Agendar una llamada<small>Escribime por LinkedIn</small></span>${flecha}</a>
+      </div>
+    </div>` });
+
+  return slides;
+}
+
+/* ---------- Motor del deck ---------- */
+const deck = document.getElementById("deck");
+const dots = document.getElementById("dots");
+const nav = document.getElementById("nav");
+const brand = document.getElementById("brandmark");
+let actual = 0, slides = [], els = [], tIdx = 0, perfil = perfilActual();
+
+function montar() {
+  perfil = perfilActual();
+  slides = construir(perfil);
+  deck.innerHTML = slides.map((s, i) => `<section class="slide ${s.tema} ${s.cls || ""}" aria-label="Diapositiva ${i + 1}">${s.html}</section>`).join("");
+  els = [...deck.querySelectorAll(".slide")];
+  dots.innerHTML = slides.map((_, i) => `<button class="dot" aria-label="Ir a la diapositiva ${i + 1}" data-i="${i}"></button>`).join("");
+  conectar();
+  ir(Math.min(actual, els.length - 1), true);
+}
+
+function ir(i, forzar) {
+  if (i < 0 || i >= els.length || (i === actual && !forzar)) return;
+  els.forEach((el, k) => { el.classList.toggle("is-active", k === i); el.classList.toggle("is-prev", k < i); el.setAttribute("aria-hidden", k !== i); el.inert = k !== i; });
+  actual = i;
+  const tema = slides[i].tema === "dark" ? "on-dark" : "on-light";
+  nav.className = "nav " + tema; brand.className = "brandmark " + tema;
+  [...dots.children].forEach((d, k) => d.classList.toggle("on", k === i));
+  document.getElementById("counter").textContent = `${i + 1} / ${els.length}`;
+  document.getElementById("progress").style.width = `${((i + 1) / els.length) * 100}%`;
+  els[i].scrollTop = 0;
+  if (els[i].querySelector("[data-count]")) contar(els[i]);
+  if (els[i].querySelector("#case")) animarBarras();
+}
+
+function contar(slide) {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  slide.querySelectorAll("[data-count]").forEach(b => {
+    const m = METRICAS[+b.dataset.count];
+    const fin = m.valor, t0 = performance.now(), dur = reduce ? 0 : 1200;
+    const pinta = v => b.innerHTML = `${m.prefijo || ""}${v.toFixed(m.decimales).replace(".", ",")}<em>${m.sufijo || ""}</em>`;
+    const paso = t => { const p = dur ? Math.min(1, (t - t0) / dur) : 1; pinta(fin * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(paso); };
+    requestAnimationFrame(paso);
+  });
+}
+
+function mostrarCaso(k) {
+  const c = CASOS[k], g = c.grafico, max = Math.max(g.antes, g.despues);
+  document.getElementById("case").innerHTML = `
+    <dl>
+      <div><dt>${esc(c.rubro)}</dt></div>
+      <div><dt>Desafío</dt><dd>${esc(c.desafio)}</dd></div>
+      <div><dt>Estrategia</dt><dd>${esc(c.estrategia)}</dd></div>
+      <div><dt>Resultado</dt><dd>${esc(c.resultado)}</dd></div>
+    </dl>
+    <div class="chart">
+      <span class="chart-title">${esc(g.titulo)}</span>
+      <div class="bars">
+        <div class="bar-row"><span>Antes</span><div class="bar-track"><div class="bar-fill" data-w="${(g.antes / max) * 100}"></div></div><span>${g.formato(g.antes)}</span></div>
+        <div class="bar-row after"><span>Después</span><div class="bar-track"><div class="bar-fill" data-w="100"></div></div><span>${g.formato(g.despues)}</span></div>
+      </div>
+      <div class="kpis">${c.kpis.map(x => `<span class="kpi">${esc(x)}</span>`).join("")}</div>
+    </div>`;
+  animarBarras();
+}
+function animarBarras() {
+  requestAnimationFrame(() => requestAnimationFrame(() =>
+    document.querySelectorAll("#case .bar-fill").forEach(b => b.style.width = b.dataset.w + "%")));
+}
+
+function testimonio(i) {
+  tIdx = (i + TESTIMONIOS.length) % TESTIMONIOS.length;
+  const t = TESTIMONIOS[tIdx];
+  document.getElementById("quote").textContent = t.texto;
+  document.getElementById("qname").textContent = t.nombre;
+  document.getElementById("qrole").textContent = t.cargo;
+  document.getElementById("avatar").textContent = iniciales(t.nombre);
+  document.getElementById("tcount").textContent = `${tIdx + 1} / ${TESTIMONIOS.length}`;
+}
+
+function conectar() {
+  deck.querySelectorAll(".svc").forEach(b => b.addEventListener("click", () => {
+    const abierto = b.getAttribute("aria-expanded") === "true";
+    b.setAttribute("aria-expanded", !abierto);
+    b.querySelector(".detail").hidden = abierto;
+    b.querySelector("ul").hidden = !abierto;
+    b.querySelector(".more").textContent = abierto ? "Ver enfoque +" : "Ver tareas −";
+  }));
+  const tabs = [...deck.querySelectorAll(".tab")];
+  tabs.forEach(t => t.addEventListener("click", () => {
+    tabs.forEach(x => x.setAttribute("aria-selected", x === t)); mostrarCaso(t.dataset.caso);
+  }));
+  mostrarCaso(perfil.casos[0]);
+  testimonio(0);
+  document.getElementById("tprev").onclick = () => testimonio(tIdx - 1);
+  document.getElementById("tnext").onclick = () => testimonio(tIdx + 1);
+  document.getElementById("copy").onclick = () => {
+    const toast = document.getElementById("toast");
+    const ok = () => toast.textContent = "Email copiado";
+    const fallback = () => { const r = document.createRange(); r.selectNodeContents(document.getElementById("mail")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast.textContent = "Seleccionado: copialo con Ctrl+C"; };
+    try { navigator.clipboard.writeText(MARCA.email).then(ok, fallback); } catch (e) { fallback(); }
+  };
+}
+
+dots.addEventListener("click", e => { const d = e.target.closest(".dot"); if (d) ir(+d.dataset.i); });
+document.getElementById("prev").onclick = () => ir(actual - 1);
+document.getElementById("next").onclick = () => ir(actual + 1);
+document.addEventListener("keydown", e => {
+  if (["ArrowRight", "PageDown"].includes(e.key) || (e.key === " " && e.target === document.body)) { e.preventDefault(); ir(actual + 1); }
+  if (["ArrowLeft", "PageUp"].includes(e.key)) { e.preventDefault(); ir(actual - 1); }
+  if (e.key === "Home") ir(0);
+  if (e.key === "End") ir(els.length - 1);
+});
+let x0 = null, y0 = null;
+deck.addEventListener("touchstart", e => { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+deck.addEventListener("touchend", e => {
+  if (x0 === null) return;
+  const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) ir(actual + (dx < 0 ? 1 : -1));
+  x0 = null;
+});
+window.addEventListener("hashchange", () => { actual = 0; montar(); });
+montar();
+</script>
