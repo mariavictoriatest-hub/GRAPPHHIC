@@ -8,7 +8,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=Manrope:wght@400;500;700;800&family=Fraunces:ital,opsz,wght@1,9..144,500;1,9..144,700&family=Special+Elite&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=Manrope:wght@400;500;700;800&family=Nothing+You+Could+Do&family=Special+Elite&display=swap" rel="stylesheet">
 
 <style>
 /* ============================================================
@@ -34,9 +34,9 @@
 
   --f-display: "Anantason Expand", "Archivo", system-ui, sans-serif;
   --f-body: "Garet", "Manrope", system-ui, sans-serif;
-  --f-script: "Rocking Horse", "Fraunces", Georgia, serif;
+  --f-script: "Rocking Horse", "Nothing You Could Do", cursive;
   --f-type: "Special Elite", "Courier New", monospace;
-  --f-hand: "Caveat", cursive;
+  --f-hand: "Rocking Horse", "Nothing You Could Do", cursive;
 
   --gutter: clamp(16px, 5vw, 72px);
   --ease: cubic-bezier(.2,.7,.2,1);
@@ -61,9 +61,10 @@ img { max-width: 100%; display: block; }
 
 /* ---------- Tipografía ---------- */
 .display { font-family: var(--f-display); font-weight: 800; font-stretch: 112%; letter-spacing: -.02em; line-height: .95; }
-.script { font-family: var(--f-script); font-style: italic; font-weight: 700; letter-spacing: -.02em; }
+/* Rocking Horse es manuscrita y fina: sin itálica ni negrita sintética; un trazo leve le da cuerpo en títulos */
+.script { font-family: var(--f-script); font-style: normal; font-weight: 400; letter-spacing: 0; line-height: 1.1; -webkit-text-stroke: .025em currentColor; }
 .type { font-family: var(--f-type); }
-.hand { font-family: var(--f-hand); font-weight: 600; }
+.hand { font-family: var(--f-hand); font-weight: 400; }
 .label { font-size: .78rem; color: var(--suave); }
 h3 { font-family: var(--f-display); font-stretch: 105%; font-weight: 700; font-size: 1.25rem; letter-spacing: -.01em; }
 
@@ -75,8 +76,8 @@ h3 { font-family: var(--f-display); font-stretch: 105%; font-weight: 700; font-s
   transition: background .35s, box-shadow .35s, padding .35s;
 }
 .nav.solid { background: rgba(243,239,232,.88); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 1px 0 rgba(0,0,0,.06); padding-top: 10px; padding-bottom: 10px; }
-.logo { font-family: var(--f-script); font-style: italic; font-weight: 700; font-size: clamp(1.6rem, 2.4vw, 2.1rem); text-decoration: none; letter-spacing: -.03em; line-height: 1; }
-.logo b { color: var(--naranja); font-weight: 700; }
+.logo { font-family: var(--f-script); font-weight: 400; font-size: clamp(1.7rem, 2.6vw, 2.3rem); text-decoration: none; line-height: 1; -webkit-text-stroke: .6px currentColor; }
+.logo b { color: var(--naranja); font-weight: 400; }
 .menu { display: flex; gap: clamp(4px, 1.6vw, 26px); }
 .menu a { text-decoration: none; font-weight: 700; font-size: .92rem; padding: 6px 14px; border-radius: 999px; transition: background .3s, color .3s; }
 .menu a.on { background: var(--verde); color: var(--crema); }
@@ -162,7 +163,7 @@ h3 { font-family: var(--f-display); font-stretch: 105%; font-weight: 700; font-s
 .hero-card .stamp { padding: clamp(28px, 5vw, 60px); display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
 .hero-card .top { display: flex; justify-content: space-between; font-size: .95rem; color: var(--suave); grid-column: 1 / -1; }
 .hero h1 { font-size: clamp(2.8rem, 8.4vw, 6.6rem); }
-.hero h1 .script { display: block; color: var(--naranja); font-size: .62em; margin-bottom: .08em; }
+.hero h1 .script { display: block; color: var(--naranja); font-size: .66em; margin-bottom: .12em; }
 .hero .sub { margin-top: 16px; color: var(--suave); max-width: 44ch; }
 .swatches { display: grid; gap: 10px; }
 .swatch { display: grid; gap: 2px; font-size: .55rem; line-height: 1.1; font-weight: 800; letter-spacing: .02em; }
@@ -214,7 +215,7 @@ h3 { font-family: var(--f-display); font-stretch: 105%; font-weight: 700; font-s
 .divider .card { position: relative; width: min(720px, 100%); }
 .divider .stamp { display: grid; grid-template-columns: auto 1fr; gap: 10px 28px; align-items: center; padding: clamp(26px, 4.5vw, 54px); }
 .divider .head { grid-column: 1 / -1; display: flex; justify-content: space-between; font-size: 1.05rem; color: var(--suave); }
-.divider h2 { font-size: clamp(3rem, 9vw, 6.4rem); line-height: .9; }
+.divider h2 { font-size: clamp(3rem, 9vw, 6.6rem); line-height: 1; }
 .divider .tagline { font-size: .9rem; color: var(--suave); margin-top: 8px; }
 .divider .icons { display: flex; gap: 14px; margin-top: 14px; color: var(--tinta); }
 .divider .icons svg { width: 24px; height: 24px; }
@@ -267,7 +268,7 @@ h3 { font-family: var(--f-display); font-stretch: 105%; font-weight: 700; font-s
 .art-verde { background: linear-gradient(160deg, var(--verde), #1f3631); color: var(--crema); }
 .art-naranja { background: var(--naranja); color: var(--crema); }
 .art-t { font-family: var(--f-display); font-weight: 800; line-height: 1; letter-spacing: -.02em; }
-.art-s { font-family: var(--f-script); font-style: italic; }
+.art-s { font-family: var(--f-script); font-size: 1.15em; }
 .cup { width: 64px; height: 70px; border-radius: 0 0 22px 22px; background: #fff; position: relative; margin: 0 auto 10px; box-shadow: inset -8px 0 0 rgba(0,0,0,.06); }
 .cup::after { content: ""; position: absolute; right: -18px; top: 14px; width: 18px; height: 26px; border: 6px solid #fff; border-left: 0; border-radius: 0 14px 14px 0; }
 .cup::before { content: ""; position: absolute; left: 6px; right: 6px; top: 4px; height: 10px; border-radius: 50%; background: #8b5a33; }
@@ -345,7 +346,7 @@ h3 { font-family: var(--f-display); font-stretch: 105%; font-weight: 700; font-s
 /* ---------- Testimonios ---------- */
 .testis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px; margin-top: 46px; }
 .testi { padding: 34px 26px 26px; }
-.testi blockquote { font-family: var(--f-script); font-style: italic; font-size: 1.25rem; line-height: 1.35; }
+.testi blockquote { font-family: var(--f-script); font-size: 1.5rem; line-height: 1.45; }
 .testi .who { margin-top: 16px; font-size: .85rem; }
 .testi .who b { display: block; }
 .testi:nth-child(1) { transform: rotate(-2deg); }
@@ -633,7 +634,7 @@ body.editing .edit-fab { display: none; }
     </div></div>
     <div class="sticker" style="width:100px;height:100px;right:-36px;top:-34px;transform:rotate(18deg)"><svg><use href="#star"/></svg></div>
     <div class="sticker" style="width:88px;height:88px;left:-30px;bottom:-36px;transform:rotate(-12deg)"><svg><use href="#star"/></svg></div>
-    <div class="note grid-paper" style="position:absolute;right:-20px;bottom:-50px;width:150px;padding:12px;transform:rotate(6deg);font-family:var(--f-hand);font-size:1.3rem;line-height:1.1;color:var(--verde)" aria-hidden="true">objetivos<br>→ KPIs<br>→ resultados</div>
+    <div class="note grid-paper" style="position:absolute;right:-24px;bottom:-50px;width:180px;padding:12px;transform:rotate(6deg);font-family:var(--f-hand);font-size:1.3rem;line-height:1.1;color:var(--verde)" aria-hidden="true">objetivos<br>→ KPIs<br>→ resultados</div>
   </div>
 </section>
 

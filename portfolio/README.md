@@ -38,7 +38,7 @@ Anantason Expand, Garet y Rocking Horse no están en Google Fonts. Si están ins
 - `fonts/Garet-Book.woff2` y `fonts/Garet-Heavy.woff2`
 - `fonts/RockingHorse.woff2`
 
-Mientras tanto se usan: Archivo, Manrope y Fraunces Italic (más Special Elite para la nota de herramientas y Caveat para lo manuscrito).
+Mientras tanto se usan: Archivo, Manrope y Nothing You Could Do (manuscrita, la más parecida a Rocking Horse), más Special Elite para la nota de herramientas.
 
 ## Publicarlo
 Es un archivo HTML estático: se puede subir a GitHub Pages, Netlify o Vercel tal cual.
