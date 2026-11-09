@@ -102,15 +102,15 @@ for f in range(int(DUR*FPS)):
             e=backout(p/0.6*0.7); tw=1+0.18*math.sin((t-l['t_in'])*4.5)
             comp(fr,l['img'],l['a'],cx,cy,max(0.01,e*tw),ease(p),rot=(1-ease(p))*90)
         elif k=='book':
-            tb=t-l['t_in']; rise=ease(tb/0.45); bob=4*math.sin((tb-1.9)*1.8) if tb>1.9 else 0
-            dy=330*(1-rise)+bob
+            tb=t-l['t_in']; rise=ease(tb/0.45); bob=4*math.sin((tb-1.7)*1.8) if tb>1.7 else 0
+            dy=bob
             left=[z for z in SECT if z[0]>90]; right=sorted([z for z in SECT if z[0]<90],key=lambda z:z[0])
             items=[]
             for ca,aw in left:
-                e=ease((tb-0.30)/0.6); items.append((0,(180-ca)*0.35*(1-e),aw))
+                e=ease(tb/0.6); items.append((0,(180-ca)*0.35*(1-e),aw))
             nr=len(right)
             for j,(ca,aw) in enumerate(right):
-                st=0.45+j*0.16; q=(tb-st)/0.75
+                st=0.05+j*0.16; q=(tb-st)/0.75
                 e=1-(1-max(0,min(1,q)))**2 if q<1 else 1
                 e=0.5-0.5*math.cos(math.pi*max(0,min(1,q)))  # smooth page turn
                 state=2 if q>=1 else (1 if q<=0 else 3)
@@ -121,7 +121,7 @@ for f in range(int(DUR*FPS)):
                 im=cv2.warpAffine(l['img'],M,(W,H),flags=cv2.INTER_LINEAR,borderValue=0)
                 al=cv2.warpAffine(aw,M,(W,H),flags=cv2.INTER_LINEAR,borderValue=0)
                 al=(al*min(1,tb*4))[...,None]; fr[:]=fr*(1-al)+im*al
-            gv=max(0,math.sin(math.pi*min(1,max(0,(tb-0.4)/2.2))))
+            gv=max(0,math.sin(math.pi*min(1,max(0,tb/2.2))))
             if gv>0.01:
                 gy0=int(BY0+PVY+dy)-260
                 g=np.exp(-(((XG-PVX)/170)**2+((YG-260)/150)**2))*gv*120
