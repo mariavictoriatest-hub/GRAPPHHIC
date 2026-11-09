@@ -33,9 +33,27 @@ GL=[(876,930,1.0,0.0),(907,906,0.5,1.3),(925,956,0.6,2.1),(163,1091,0.8,0.7),(19
 yy,xx=np.mgrid[-60:61,-60:61].astype(np.float32)
 GLK=np.exp(-(xx**2+yy**2)/(2*6**2))+0.9*np.exp(-(np.abs(xx)/2.2+np.abs(yy)/26))+0.9*np.exp(-(np.abs(yy)/2.2+np.abs(xx)/26))
 add(src2,bm,(0,1500,1080,1920),8.3,'book',dur=1.1)
+# book opening: split into angular page sectors around spine pivot
+BY0=1500; PVX,PVY=540.0,1918.0-BY0
+_b=[l for l in L if l['k']=='book'][0]
+bh,bw=_b['a'].shape
+yy_,xx_=np.mgrid[0:bh,0:bw].astype(np.float32)
+ANG=np.degrees(np.arctan2(PVY-yy_,xx_-PVX)); ANG=np.where(ANG<-90,180,np.clip(ANG,0,180))
+SECT=[]; NS=12; RW=0.8
+for side,(a0,a1) in (('L',(90,180)),('R',(0,90))):
+    edges=np.linspace(a0,a1,NS+1)
+    for i in range(NS):
+        lo,hi=edges[i],edges[i+1]
+        w=np.clip((ANG-lo+RW/2)/RW,0,1)*np.clip((hi-ANG+RW/2)/RW,0,1)
+        if side=='L' and i==0: w=np.clip((ANG-lo+RW/2)/RW,0,1)*(ANG<=hi+RW/2)*np.clip((hi-ANG+RW/2)/RW,0,1)
+        aw=_b['a']*w
+        if aw.max()<0.05: continue
+        SECT.append(((lo+hi)/2,aw))
+SECT.sort(key=lambda z:-abs(z[0]-90))  # outer first, inner pages on top
 ease=lambda p: 1-(1-max(0,min(1,p)))**3
 def backout(p):
     p=max(0,min(1,p)); c=1.7; return 1+(c+1)*(p-1)**3+c*(p-1)**2
+YG,XG=np.mgrid[0:400,0:W].astype(np.float32)
 rng=np.random.default_rng(7); N=70
 px=rng.uniform(0,W,N); py=rng.uniform(0,H,N); ps=rng.uniform(1,3.2,N); ph=rng.uniform(0,6.28,N); pv=rng.uniform(8,30,N)
 def comp(fr,img,alpha,cx,cy,scale,op,blur=0,rot=0):
@@ -84,8 +102,22 @@ for f in range(int(DUR*FPS)):
             e=backout(p/0.6*0.7); tw=1+0.18*math.sin((t-l['t_in'])*4.5)
             comp(fr,l['img'],l['a'],cx,cy,max(0.01,e*tw),ease(p),rot=(1-ease(p))*90)
         elif k=='book':
-            e=ease(p); bob=4*math.sin((t-l['t_in'])*1.8) if p>1 else 0
-            comp(fr,l['img'],l['a'],cx,cy+380*(1-e)+bob,1,min(1,p*2))
+            tb=t-l['t_in']; rise=ease(tb/0.45); bob=4*math.sin((tb-1.9)*1.8) if tb>1.9 else 0
+            dy=330*(1-rise)+bob
+            for ca,aw in SECT:
+                dl=0.30+0.35*abs(ca-90)/90
+                e=ease((tb-dl)/1.15)
+                rot=(90-ca)*(1-e)
+                M=cv2.getRotationMatrix2D((PVX,PVY),rot,1.0); M[1,2]+=BY0+dy
+                im=cv2.warpAffine(l['img'],M,(W,H),flags=cv2.INTER_LINEAR,borderValue=0)
+                al=cv2.warpAffine(aw,M,(W,H),flags=cv2.INTER_LINEAR,borderValue=0)
+                al=(al*min(1,tb*4))[...,None]; fr[:]=fr*(1-al)+im*al
+            gv=max(0,math.sin(math.pi*min(1,max(0,(tb-0.35)/1.6))))
+            if gv>0.01:
+                gy0=int(BY0+PVY+dy)-260
+                g=np.exp(-(((XG-PVX)/170)**2+((YG-260)/150)**2))*gv*120
+                y0c=max(0,gy0); y1c=min(H,gy0+400)
+                if y1c>y0c: fr[y0c:y1c]+= (g[y0c-gy0:y1c-gy0,...,None]*np.array([0.75,0.92,1.0],np.float32))
     if t>8.6:
         for gx,gy,sz,phs in GL:
             v=max(0,math.sin((t-8.6)*3.0+phs))**3*min(1,(t-8.6)/0.5)
