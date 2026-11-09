@@ -105,22 +105,21 @@ for f in range(int(DUR*FPS)):
             tb=t-l['t_in']; rise=ease(tb/0.45); bob=4*math.sin((tb-1.7)*1.8) if tb>1.7 else 0
             dy=bob
             left=[z for z in SECT if z[0]>90]; right=sorted([z for z in SECT if z[0]<90],key=lambda z:z[0])
-            items=[]
+            items=[]; CL=150.0
             for ca,aw in left:
-                e=ease(tb/0.6); items.append((0,(180-ca)*0.35*(1-e),aw))
-            nr=len(right)
+                q=(tb-0.15-0.5*(ca-90)/90)/0.9; e=0.5-0.5*math.cos(math.pi*max(0,min(1,q)))
+                items.append((1,(CL-ca)*(1-e),aw))
             for j,(ca,aw) in enumerate(right):
-                st=0.05+j*0.16; q=(tb-st)/0.75
-                e=1-(1-max(0,min(1,q)))**2 if q<1 else 1
-                e=0.5-0.5*math.cos(math.pi*max(0,min(1,q)))  # smooth page turn
-                state=2 if q>=1 else (1 if q<=0 else 3)
-                items.append((state if state!=2 else 0.5+j*1e-3,(180-2*ca)*(1-e),aw))
+                st=0.2+j*0.15; q=(tb-st)/0.8
+                e=0.5-0.5*math.cos(math.pi*max(0,min(1,q)))
+                key=0+j*1e-3 if q>=1 else (2-j*1e-3 if q<=0 else 3+j*1e-3)
+                items.append((key,(CL-ca)*(1-e),aw))
             items.sort(key=lambda z:z[0])
             for _,rot,aw in items:
                 M=cv2.getRotationMatrix2D((PVX,PVY),rot,1.0); M[1,2]+=BY0+dy
                 im=cv2.warpAffine(l['img'],M,(W,H),flags=cv2.INTER_LINEAR,borderValue=0)
                 al=cv2.warpAffine(aw,M,(W,H),flags=cv2.INTER_LINEAR,borderValue=0)
-                al=(al*min(1,tb*4))[...,None]; fr[:]=fr*(1-al)+im*al
+                al=(al*min(1,tb*5))[...,None]; fr[:]=fr*(1-al)+im*al
             gv=max(0,math.sin(math.pi*min(1,max(0,tb/2.2))))
             if gv>0.01:
                 gy0=int(BY0+PVY+dy)-260
