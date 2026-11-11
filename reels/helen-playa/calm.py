@@ -29,7 +29,7 @@ def render_word(txt,st):
     return dict(rgb=C,a=A,w=w,h=h,pad=pad,x0=x0,y0=y0,adv=f.getlength(txt))
 # phrases (start times from the voiceover transcript)
 G=[
- [[('¿Puedes',0.15,'s'),('imaginarte',0.40,'s')],[('cómo',1.08,'s'),('va',1.36,'s'),('a',1.54,'s'),('estar',1.66,'s'),('el',1.74,'s'),('día',2.00,'s')]],
+ [[('¿Podés',0.15,'s'),('imaginarte',0.40,'s')],[('cómo',1.08,'s'),('va',1.36,'s'),('a',1.54,'s'),('estar',1.66,'s'),('el',1.74,'s'),('día',2.00,'s')]],
  [[('viendo',2.40,'s'),('este',3.44,'s')],[('amanecer?',3.66,'b')]],
  [[('Así',4.76,'s'),('son',4.94,'s'),('los',5.18,'s')],[('registros.',5.30,'b')]],
  [[('No',6.52,'s'),('podemos',6.74,'s')],[('imaginarnos',7.06,'m')],[('cómo',7.90,'s'),('van',8.30,'s'),('a',8.50,'s'),('ser.',8.64,'s')]],
