@@ -1,0 +1,48 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #FFF4EC; overflow: hidden; font-family: 'Inter', sans-serif; color: #2B1A12; }
+    #s3-top { position: absolute; left: 80px; right: 80px; top: 70px; display: flex; justify-content: space-between; font-weight: 700; font-size: 24px; letter-spacing: 0.16em; opacity: 0.7; }
+    .s3-kick { position: absolute; left: 80px; font-weight: 800; font-size: 24px; letter-spacing: 0.16em; color: #FF6422; }
+    #s3-k1 { top: 150px; }
+    #s3-prob { position: absolute; left: 80px; right: 80px; top: 196px; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 54px; line-height: 1.12; letter-spacing: -0.02em; }
+    #s3-prob em { font-style: normal; background: linear-gradient(#FFD2BC,#FFD2BC) no-repeat left/0% 100%; padding: 0 8px; border-radius: 6px; }
+    #s3-k2 { top: 462px; }
+    .s3-row { position: absolute; left: 80px; right: 80px; height: 168px; display: flex; align-items: center; gap: 28px; padding: 0 26px 0 22px; border-radius: 26px; background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,.07); }
+    #s3-r1 { top: 506px; } #s3-r2 { top: 690px; } #s3-r3 { top: 874px; }
+    .s3-num { flex: none; width: 70px; height: 70px; border-radius: 50%; background: #FF6422; color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 34px; }
+    .s3-txt { flex: 1; }
+    .s3-txt b { display: block; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 36px; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 8px; }
+    .s3-txt span { display: block; font-size: 26px; line-height: 1.3; opacity: 0.85; }
+    .s3-thumb { flex: none; width: 210px; height: 138px; border-radius: 14px; overflow: hidden; border: 3px solid #FF6422; background: #fff; }
+    .s3-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    #s3-res { position: absolute; left: 80px; right: 80px; top: 1068px; padding: 26px 34px; border-radius: 22px; background: #2B1A12; color: #FFF4EC; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 34px; line-height: 1.2; transform-origin: left center; }
+    #s3-swipe { position: absolute; right: 80px; bottom: 64px; font-size: 30px; font-weight: 600; opacity: 0.8; }
+  </style>
+  <div id="root" data-composition-id="s3" data-width="1080" data-height="1350">
+    <div id="s3-top"><span>PASSION CATERING · LANDING</span><span>03 / 07</span></div>
+    <div class="s3-kick" id="s3-k1">EL PROBLEMA</div>
+    <p id="s3-prob">Quien busca catering para su evento necesita <em>confiar rápido</em> y <em>cotizar sin vueltas.</em></p>
+    <div class="s3-kick" id="s3-k2">LO QUE RESUELVE LA LANDING</div>
+    <div class="s3-row" id="s3-r1"><div class="s3-num">1</div><div class="s3-txt"><b>Una sola acción: pedir presupuesto</b><span>CTA en cada sección y un formulario con fecha, invitados y tipo de evento.</span></div><div class="s3-thumb"><img src="assets/p-form.jpg" alt="" style="object-position:50% 85%" /></div></div>
+    <div class="s3-row" id="s3-r2"><div class="s3-num">2</div><div class="s3-txt"><b>Confianza en segundos</b><span>5.0 en Google con 57 reseñas y marcas como Porsche Uruguay a la vista.</span></div><div class="s3-thumb"><img src="assets/p-form.jpg" alt="" style="object-position:50% 0%" /></div></div>
+    <div class="s3-row" id="s3-r3"><div class="s3-num">3</div><div class="s3-txt"><b>Cero incertidumbre</b><span>Un proceso claro en 3 pasos y propuesta de menú en 24 horas.</span></div><div class="s3-thumb"><img src="assets/p-process.jpg" alt="" style="object-position:50% 40%" /></div></div>
+    <div id="s3-res"><span id="s3-restxt">Resultado: menos idas y vueltas por WhatsApp y consultas listas para presupuestar.</span></div>
+    <div id="s3-swipe">Deslizá →</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#s3-k1", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.1);
+    tl.fromTo("#s3-prob", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.25);
+    tl.fromTo("#s3-prob em", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.5 }, 0.9);
+    tl.fromTo("#s3-k2", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 1.3);
+    ["#s3-r1", "#s3-r2", "#s3-r3"].forEach((r, i) => {
+      const t = 1.6 + i * 1.0;
+      tl.fromTo(r, { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.6, ease: "power4.out" }, t);
+      tl.fromTo(r + " .s3-num", { scale: 0 }, { scale: 1, duration: 0.5, ease: "back.out(2)" }, t + 0.15);
+      tl.fromTo(r + " .s3-thumb img", { scale: 1.25 }, { scale: 1, duration: 1.4, ease: "power2.out" }, t + 0.1);
+    });
+    tl.fromTo("#s3-res", { opacity: 0, scaleX: 0.2 }, { opacity: 1, scaleX: 1, duration: 0.6, ease: "power4.out" }, 4.3);
+    tl.fromTo("#s3-restxt", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 4.6);
+    window.__timelines["s3"] = tl;
+  </script>
+</template>

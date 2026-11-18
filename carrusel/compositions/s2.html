@@ -1,0 +1,55 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #FF6422; overflow: hidden; font-family: 'Inter', sans-serif; color: #fff; }
+    #s2-top { position: absolute; left: 80px; right: 80px; top: 70px; display: flex; justify-content: space-between; font-weight: 700; font-size: 24px; letter-spacing: 0.16em; opacity: 0.85; }
+    #s2-tag { position: absolute; left: 80px; top: 150px; padding: 12px 24px; border-radius: 999px; background: #fff; color: #FF6422; font-weight: 800; font-size: 24px; letter-spacing: 0.12em; }
+    #s2-title { position: absolute; left: 80px; top: 222px; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 80px; line-height: 1; letter-spacing: -0.01em; }
+    #s2-sub { position: absolute; left: 82px; top: 322px; font-size: 32px; font-weight: 500; opacity: 0.95; }
+    #s2-logo { position: absolute; right: 80px; top: 150px; width: 160px; height: 160px; border-radius: 50%; overflow: hidden; box-shadow: 0 16px 40px rgba(110,30,0,.35); }
+    #s2-logo img { width: 100%; height: 100%; display: block; }
+    #s2-laptop { position: absolute; left: 70px; top: 470px; width: 860px; }
+    #s2-bezel { background: #1b1b1d; border-radius: 26px 26px 0 0; padding: 20px 20px 24px; }
+    #s2-screen { width: 820px; height: 512px; overflow: hidden; border-radius: 6px; background: #fff; position: relative; }
+    #s2-shot { position: absolute; left: 0; top: 0; width: 820px; display: block; }
+    #s2-base { height: 26px; margin: 0 -40px; background: #d9d9de; border-radius: 0 0 26px 26px; box-shadow: 0 30px 50px rgba(110,30,0,.4); }
+    #s2-phone { position: absolute; left: 770px; top: 720px; width: 252px; padding: 12px; background: #1b1b1d; border-radius: 44px; box-shadow: 0 30px 60px rgba(110,30,0,.45); }
+    #s2-pscreen { width: 228px; height: 470px; border-radius: 32px; overflow: hidden; position: relative; background: #fff; }
+    #s2-pshot { position: absolute; left: 0; top: 0; width: 228px; display: block; }
+    #s2-url { position: absolute; left: 80px; top: 1170px; display: flex; align-items: center; gap: 16px; padding: 18px 30px; border-radius: 999px; background: #2B1A12; font-size: 32px; font-weight: 700; }
+    #s2-url i { width: 16px; height: 16px; border-radius: 50%; background: #9BF57A; display: inline-block; }
+    #s2-swipe { position: absolute; right: 80px; bottom: 64px; font-size: 30px; font-weight: 600; }
+  </style>
+  <div id="root" data-composition-id="s2" data-width="1080" data-height="1350">
+    <div id="s2-top"><span>PORTFOLIO · MARKETING</span><span>02 / 07</span></div>
+    <div id="s2-tag">01 · LANDING PAGE</div>
+    <h2 id="s2-title">Passion Catering</h2>
+    <p id="s2-sub">Catering boutique de alta cocina</p>
+    <div id="s2-logo"><img src="assets/p-logo.png" alt="Logo Passion Catering" /></div>
+    <div id="s2-laptop">
+      <div id="s2-bezel"><div id="s2-screen"><img id="s2-shot" src="assets/p-desk-full.jpg" alt="" /></div></div>
+      <div id="s2-base"></div>
+    </div>
+    <div id="s2-phone"><div id="s2-pscreen"><img id="s2-pshot" src="assets/p-mob-full.jpg" alt="" /></div></div>
+    <div id="s2-url"><i></i>passioncatering.com.uy</div>
+    <div id="s2-swipe">Deslizá →</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const up = { opacity: 1, y: 0, ease: "power3.out" };
+    tl.fromTo("#s2-tag", { opacity: 0, y: 30 }, { ...up, duration: 0.5 }, 0.1);
+    tl.fromTo("#s2-title", { opacity: 0, y: 50 }, { ...up, duration: 0.6 }, 0.22);
+    tl.fromTo("#s2-sub", { opacity: 0, y: 30 }, { ...up, duration: 0.5 }, 0.4);
+    tl.fromTo("#s2-logo", { opacity: 0, scale: 0.6, rotation: -40 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.8, ease: "back.out(1.6)" }, 0.3);
+    tl.fromTo("#s2-laptop", { opacity: 0, y: 220 }, { opacity: 1, y: 0, duration: 0.9, ease: "power4.out" }, 0.5);
+    tl.fromTo("#s2-phone", { opacity: 0, x: 260, rotation: 10 }, { opacity: 1, x: 0, rotation: -3, duration: 0.9, ease: "power4.out" }, 1.0);
+    tl.fromTo("#s2-url", { opacity: 0, y: 30 }, { ...up, duration: 0.5 }, 1.4);
+    // desktop scroll: hero -> servicios -> proceso
+    tl.fromTo("#s2-shot", { y: 0 }, { y: -1150, duration: 1.4, ease: "power2.inOut" }, 1.9);
+    tl.to("#s2-shot", { y: -2450, duration: 1.4, ease: "power2.inOut" }, 3.7);
+    tl.to("#s2-shot", { y: -3230, duration: 1.2, ease: "power2.inOut" }, 5.4);
+    // phone scroll
+    tl.fromTo("#s2-pshot", { y: 0 }, { y: -1400, duration: 2.0, ease: "power2.inOut" }, 2.2);
+    tl.to("#s2-pshot", { y: -3000, duration: 2.0, ease: "power2.inOut" }, 4.6);
+    window.__timelines["s2"] = tl;
+  </script>
+</template>

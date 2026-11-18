@@ -1,0 +1,82 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #0B5F6B; overflow: hidden; font-family: 'Inter', sans-serif; color: #fff; }
+    #s4-dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.10) 2px, transparent 2px); background-size: 34px 34px; }
+    #s4-top { position: absolute; left: 80px; right: 80px; top: 70px; display: flex; justify-content: space-between; font-weight: 700; font-size: 24px; letter-spacing: 0.16em; opacity: 0.85; }
+    #s4-tag { position: absolute; left: 80px; top: 150px; padding: 12px 24px; border-radius: 999px; background: #9BF57A; color: #0B4F59; font-weight: 800; font-size: 24px; letter-spacing: 0.12em; }
+    #s4-title { position: absolute; left: 80px; top: 218px; font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 100px; line-height: 1; letter-spacing: -0.03em; }
+    #s4-sub { position: absolute; left: 82px; top: 340px; width: 620px; font-size: 30px; line-height: 1.3; font-weight: 500; opacity: 0.95; }
+    #s4-logo { position: absolute; right: 80px; top: 168px; width: 230px; height: 140px; border-radius: 28px; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 16px 40px rgba(0,0,0,.25); }
+    #s4-logo img { width: 170px; display: block; }
+    #s4-nav { position: absolute; left: 80px; right: 80px; top: 470px; height: 64px; display: flex; gap: 12px; }
+    .s4-nav-i { flex: 1; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 24px; color: #CFF7EE; border: 2px solid rgba(255,255,255,.25); }
+    #s4-navhl { position: absolute; left: 0; top: 0; height: 64px; width: 174px; border-radius: 999px; background: #9BF57A; }
+    #s4-navlbl { position: absolute; inset: 0; display: flex; gap: 12px; }
+    #s4-win { position: absolute; left: 80px; top: 566px; width: 920px; border-radius: 22px; overflow: hidden; background: #fff; box-shadow: 0 34px 70px rgba(0,0,0,.4); }
+    #s4-bar { height: 50px; background: #E9F3F2; display: flex; align-items: center; gap: 10px; padding: 0 20px; }
+    .s4-d { width: 14px; height: 14px; border-radius: 50%; }
+    #s4-addr { margin-left: 18px; flex: 1; height: 30px; border-radius: 10px; background: #fff; color: #0B4F59; font-size: 20px; font-weight: 600; display: flex; align-items: center; padding: 0 14px; }
+    #s4-screen { position: relative; width: 920px; height: 560px; overflow: hidden; background: #fff; }
+    .s4-page { position: absolute; left: 0; top: 0; width: 920px; display: block; }
+    #s4-url { position: absolute; left: 80px; top: 1200px; display: flex; align-items: center; gap: 16px; padding: 18px 30px; border-radius: 999px; background: #062F35; font-size: 32px; font-weight: 700; }
+    #s4-url i { width: 16px; height: 16px; border-radius: 50%; background: #9BF57A; display: inline-block; }
+    #s4-swipe { position: absolute; right: 80px; bottom: 76px; font-size: 30px; font-weight: 600; }
+  </style>
+  <div id="root" data-composition-id="s4" data-width="1080" data-height="1350">
+    <div id="s4-dots"></div>
+    <div id="s4-top"><span>PORTFOLIO · MARKETING</span><span>04 / 07</span></div>
+    <div id="s4-tag">02 · SITIO WEB</div>
+    <h2 id="s4-title">Nattes</h2>
+    <p id="s4-sub">Consultora de estrategia comercial y marketing digital</p>
+    <div id="s4-logo"><img src="assets/n-logo.png" alt="Logo Nattes" /></div>
+    <div id="s4-nav">
+      <div id="s4-navhl"></div>
+      <div id="s4-navlbl">
+        <div class="s4-nav-i" id="s4-n1">Inicio</div>
+        <div class="s4-nav-i" id="s4-n2">Servicios</div>
+        <div class="s4-nav-i" id="s4-n3">Proceso</div>
+        <div class="s4-nav-i" id="s4-n4">FAQ</div>
+        <div class="s4-nav-i" id="s4-n5">Blog</div>
+      </div>
+    </div>
+    <div id="s4-win">
+      <div id="s4-bar"><span class="s4-d" style="background:#FF5F57"></span><span class="s4-d" style="background:#FEBC2E"></span><span class="s4-d" style="background:#28C840"></span><div id="s4-addr">nattesuy.com</div></div>
+      <div id="s4-screen">
+        <img class="s4-page" id="s4-p1" src="assets/n-hero.jpg" alt="" />
+        <img class="s4-page" id="s4-p2" src="assets/n-services.jpg" alt="" />
+        <img class="s4-page" id="s4-p3" src="assets/n-process.jpg" alt="" />
+        <img class="s4-page" id="s4-p4" src="assets/n-faq.jpg" alt="" />
+      </div>
+    </div>
+    <div id="s4-url"><i></i>nattesuy.com</div>
+    <div id="s4-swipe">Deslizá →</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const up = { opacity: 1, y: 0, ease: "power3.out" };
+    tl.fromTo("#s4-tag", { opacity: 0, y: 30 }, { ...up, duration: 0.5 }, 0.1);
+    tl.fromTo("#s4-title", { opacity: 0, y: 50 }, { ...up, duration: 0.6 }, 0.22);
+    tl.fromTo("#s4-sub", { opacity: 0, y: 30 }, { ...up, duration: 0.5 }, 0.4);
+    tl.fromTo("#s4-logo", { opacity: 0, scale: 0.6, rotation: 12 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.8, ease: "back.out(1.6)" }, 0.3);
+    tl.fromTo("#s4-nav", { opacity: 0, y: 30 }, { ...up, duration: 0.5 }, 0.6);
+    tl.fromTo("#s4-win", { opacity: 0, y: 200 }, { ...up, duration: 0.9, ease: "power4.out" }, 0.7);
+    tl.fromTo("#s4-url", { opacity: 0, y: 30 }, { ...up, duration: 0.5 }, 1.3);
+    // pages: each slides in from the right as its nav item lights up
+    tl.fromTo(["#s4-p2", "#s4-p3", "#s4-p4"], { xPercent: 100 }, { xPercent: 100, duration: 0.01 }, 0);
+    tl.fromTo("#s4-navhl", { x: 0 }, { x: 0, duration: 0.01 }, 0);
+    tl.fromTo("#s4-n1", { color: "#CFF7EE" }, { color: "#0B4F59", duration: 0.2 }, 0.8);
+    const step = 186.4; // nav item width + gap
+    [[2, 2.3], [3, 3.6], [4, 4.9]].forEach(([n, t]) => {
+      tl.to("#s4-p" + n, { xPercent: 0, duration: 0.6, ease: "power3.inOut" }, t);
+      tl.to("#s4-p" + (n - 1), { xPercent: -30, duration: 0.6, ease: "power3.inOut" }, t);
+      tl.to("#s4-navhl", { x: step * (n - 1), duration: 0.6, ease: "power3.inOut" }, t);
+      tl.to("#s4-n" + (n - 1), { color: "#CFF7EE", duration: 0.3 }, t);
+      tl.to("#s4-n" + n, { color: "#0B4F59", duration: 0.3 }, t + 0.3);
+    });
+    // a little scroll inside each long page
+    tl.fromTo("#s4-p2", { y: 0 }, { y: -300, duration: 1.0, ease: "sine.inOut" }, 2.9);
+    tl.fromTo("#s4-p3", { y: 0 }, { y: -320, duration: 1.0, ease: "sine.inOut" }, 4.2);
+    tl.fromTo("#s4-p4", { y: 0 }, { y: -100, duration: 1.4, ease: "sine.inOut" }, 5.5);
+    window.__timelines["s4"] = tl;
+  </script>
+</template>

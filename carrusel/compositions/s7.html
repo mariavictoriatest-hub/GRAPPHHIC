@@ -1,0 +1,45 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #F4EFE6; overflow: hidden; font-family: 'Inter', sans-serif; color: #121212; }
+    #s7-top { position: absolute; left: 80px; right: 80px; top: 70px; display: flex; justify-content: space-between; font-weight: 700; font-size: 24px; letter-spacing: 0.16em; opacity: 0.6; }
+    #s7-logos { position: absolute; left: 80px; top: 170px; display: flex; gap: 24px; align-items: center; }
+    #s7-l1 { width: 130px; height: 130px; border-radius: 50%; overflow: hidden; }
+    #s7-l1 img { width: 100%; height: 100%; display: block; }
+    #s7-l2 { width: 200px; height: 130px; border-radius: 26px; background: #fff; display: flex; align-items: center; justify-content: center; }
+    #s7-l2 img { width: 150px; display: block; }
+    #s7-plus { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 60px; }
+    #s7-head { position: absolute; left: 80px; right: 80px; top: 360px; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 96px; line-height: 1.02; letter-spacing: -0.035em; }
+    #s7-head .o { color: #E04E0E; } #s7-head .t { color: #0E6B78; }
+    #s7-sub { position: absolute; left: 80px; right: 80px; top: 790px; font-size: 38px; line-height: 1.3; font-weight: 500; }
+    #s7-dm { position: absolute; left: 80px; top: 920px; padding: 26px 44px; border-radius: 999px; background: #121212; color: #F4EFE6; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 40px; }
+    .s7-act { position: absolute; top: 1110px; display: flex; align-items: center; gap: 18px; font-size: 28px; font-weight: 700; }
+    .s7-act svg { width: 52px; height: 52px; }
+    #s7-a1 { left: 80px; } #s7-a2 { left: 520px; }
+  </style>
+  <div id="root" data-composition-id="s7" data-width="1080" data-height="1350">
+    <div id="s7-top"><span>PORTFOLIO · MARKETING</span><span>07 / 07</span></div>
+    <div id="s7-logos">
+      <div id="s7-l1"><img src="assets/p-logo.png" alt="Passion Catering" /></div>
+      <span id="s7-plus">+</span>
+      <div id="s7-l2"><img src="assets/n-logo.png" alt="Nattes" /></div>
+    </div>
+    <h2 id="s7-head">¿Tu negocio necesita una <span class="o">landing</span> o un <span class="t">sitio web?</span></h2>
+    <p id="s7-sub">Escribime y vemos juntos qué problema hay que resolver primero.</p>
+    <div id="s7-dm">Mandame un DM →</div>
+    <div class="s7-act" id="s7-a1"><svg viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2" stroke-linejoin="round"><path d="M6 3h12v18l-6-4.5L6 21z"/></svg>Guardá este post</div>
+    <div class="s7-act" id="s7-a2"><svg viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2" stroke-linejoin="round"><path d="M22 3 11 13"/><path d="M22 3 15 21l-4-8-8-4z"/></svg>Compartilo</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#s7-l1", { opacity: 0, scale: 0.5, rotation: -30 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.7, ease: "back.out(1.7)" }, 0.1);
+    tl.fromTo("#s7-plus", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 0.35);
+    tl.fromTo("#s7-l2", { opacity: 0, scale: 0.5, rotation: 20 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.7, ease: "back.out(1.7)" }, 0.5);
+    tl.fromTo("#s7-head", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.8, ease: "power4.out" }, 0.7);
+    tl.fromTo("#s7-sub", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 1.4);
+    tl.fromTo("#s7-dm", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.8)" }, 1.9);
+    tl.fromTo("#s7-dm", { x: 0 }, { x: 10, duration: 0.4, ease: "sine.inOut", yoyo: true, repeat: 5 }, 2.8);
+    tl.fromTo("#s7-a1", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 2.4);
+    tl.fromTo("#s7-a2", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 2.6);
+    window.__timelines["s7"] = tl;
+  </script>
+</template>

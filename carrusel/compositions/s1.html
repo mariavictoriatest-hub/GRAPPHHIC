@@ -1,0 +1,45 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #121212; overflow: hidden; font-family: 'Inter', sans-serif; color: #F4EFE6; }
+    #s1-top { position: absolute; left: 80px; right: 80px; top: 70px; display: flex; justify-content: space-between; font-weight: 700; font-size: 24px; letter-spacing: 0.16em; color: #F4EFE6; opacity: 0.75; }
+    #s1-head { position: absolute; left: 80px; top: 165px; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 112px; line-height: 1.0; letter-spacing: -0.035em; }
+    #s1-head .ln { display: block; }
+    #s1-head .mark { position: relative; display: inline-block; transform-origin: left center; color: #121212; padding: 0 10px; isolation: isolate; }
+    #s1-hl { position: absolute; left: 0; right: 0; top: 10px; bottom: -4px; background: #9BF57A; z-index: -1; transform-origin: left center; }
+    #s1-head .ln3 { color: #FF6422; }
+    .s1-card { position: absolute; width: 560px; border-radius: 22px; overflow: hidden; box-shadow: 0 30px 70px rgba(0,0,0,.55); border: 6px solid #2a2a2a; background: #2a2a2a; }
+    .s1-card img { display: block; width: 100%; }
+    #s1-c1 { left: 60px; top: 700px; }
+    #s1-c2 { left: 460px; top: 780px; }
+    .s1-tag { position: absolute; padding: 12px 24px; border-radius: 999px; font-weight: 800; font-size: 24px; letter-spacing: 0.12em; }
+    #s1-t1 { left: 90px; top: 652px; background: #FF6422; color: #fff; }
+    #s1-t2 { left: 700px; top: 732px; background: #9BF57A; color: #0B4F59; }
+    #s1-swipe { position: absolute; left: 80px; right: 80px; bottom: 64px; display: flex; justify-content: space-between; align-items: center; font-size: 30px; font-weight: 600; }
+    #s1-arrow { display: inline-block; font-size: 44px; color: #9BF57A; }
+  </style>
+  <div id="root" data-composition-id="s1" data-width="1080" data-height="1350">
+    <div id="s1-top"><span>PORTFOLIO · MARKETING</span><span>01 / 07</span></div>
+    <h1 id="s1-head">
+      <span class="ln" id="s1-l1">1 landing.</span>
+      <span class="ln" id="s1-l2">1 sitio web.</span>
+      <span class="ln ln3" id="s1-l3">2 problemas</span>
+      <span class="ln" id="s1-l4"><span class="mark">resueltos.<span id="s1-hl"></span></span></span>
+    </h1>
+    <div class="s1-card" id="s1-c1"><img src="assets/p-hero.jpg" alt="Landing Passion Catering" /></div>
+    <div class="s1-card" id="s1-c2"><img src="assets/n-hero.jpg" alt="Sitio web Nattes" /></div>
+    <div class="s1-tag" id="s1-t1">LANDING</div>
+    <div class="s1-tag" id="s1-t2">SITIO WEB</div>
+    <div id="s1-swipe"><span>Deslizá y te cuento qué resuelve cada una</span><span id="s1-arrow">→</span></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // frame 0 is the cover: the headline is already readable
+    tl.fromTo("#s1-head .mark", { scale: 1, rotation: 0 }, { scale: 1.06, rotation: -2, duration: 0.5, ease: "back.out(2.5)" }, 0.4);
+    tl.fromTo("#s1-c1", { y: 40, rotation: -7 }, { y: -10, rotation: -5, duration: 5.9, ease: "sine.inOut" }, 0);
+    tl.fromTo("#s1-c2", { y: 60, rotation: 6 }, { y: -20, rotation: 4, duration: 5.9, ease: "sine.inOut" }, 0);
+    tl.fromTo("#s1-t1", { y: 40, rotation: -7 }, { y: -10, rotation: -5, duration: 5.9, ease: "sine.inOut" }, 0);
+    tl.fromTo("#s1-t2", { y: 60, rotation: 6 }, { y: -20, rotation: 4, duration: 5.9, ease: "sine.inOut" }, 0);
+    tl.fromTo("#s1-arrow", { x: 0 }, { x: 18, duration: 0.45, ease: "sine.inOut", yoyo: true, repeat: 9 }, 1.2);
+    window.__timelines["s1"] = tl;
+  </script>
+</template>
