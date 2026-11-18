@@ -1,0 +1,52 @@
+<template>
+  <style>
+    @font-face { font-family: 'Bricolage'; font-weight: 800; src: url('assets/fonts/bricolage-grotesque-latin-800-normal.woff2'); }
+    @font-face { font-family: 'Bricolage'; font-weight: 500; src: url('assets/fonts/bricolage-grotesque-latin-500-normal.woff2'); }
+    #root { position: absolute; inset: 0; overflow: hidden; background-color: #2B45A0;
+      background-image: linear-gradient(#ACD8F2 3px, transparent 3px), linear-gradient(90deg, #ACD8F2 3px, transparent 3px);
+      background-size: 120px 120px; background-position: -40px -20px; font-family: 'Bricolage', sans-serif; }
+    #hk-zoom { position: absolute; inset: 0; }
+    #hk-win { position: absolute; left: 90px; top: 230px; width: 860px; height: 1000px; border-radius: 30px; background: #C8FFF0; box-shadow: 0 24px 0 rgba(20,30,80,.25); }
+    .hk-dot { position: absolute; top: 30px; width: 30px; height: 30px; border-radius: 50%; }
+    #hk-addr { position: absolute; right: 30px; top: 24px; width: 300px; height: 44px; border-radius: 22px; background: #A8DBD0; }
+    #hk-handle { position: absolute; left: 80px; top: 140px; font-weight: 500; font-size: 34px; color: #2B45A0; }
+    #hk-title { position: absolute; left: 80px; right: 60px; top: 205px; font-weight: 800; font-size: 100px; line-height: 1.0; letter-spacing: -0.03em; color: #2B45A0; }
+    #hk-sel { position: relative; display: inline-block; padding: 0 12px; margin-left: -12px; color: #6874B8; isolation: isolate; }
+    #hk-selbox { position: absolute; inset: 4px 0 -6px 0; border: 3px solid #fff; background: rgba(255,255,255,.65); z-index: -1; transform-origin: left center; }
+    .hk-h { position: absolute; width: 18px; height: 18px; background: #fff; border: 3px solid #6874B8; border-radius: 4px; }
+    #hk-pill { position: absolute; left: 440px; top: 1110px; display: flex; align-items: center; gap: 16px; padding: 22px 40px; border-radius: 40px 40px 6px 40px; background: #FFF3EA; color: #2B45A0; font-weight: 500; font-size: 46px; }
+    #hk-pill svg { width: 50px; height: 50px; }
+    #hk-strike { position: absolute; left: 20px; right: 20px; top: 50%; height: 9px; margin-top: -4px; border-radius: 5px; background: #FF6B35; transform-origin: left center; }
+    .hk-star { position: absolute; width: 90px; height: 90px; }
+    #hk-cursor { position: absolute; left: 700px; top: 880px; width: 110px; height: 110px; }
+  </style>
+  <div id="root" data-composition-id="hook" data-width="1080" data-height="1920">
+    <div id="hk-zoom">
+      <svg class="hk-star" id="hk-s1" style="left:60px;top:1290px" viewBox="0 0 100 100"><path d="M50 0C55 35 65 45 100 50C65 55 55 65 50 100C45 65 35 55 0 50C35 45 45 35 50 0Z" fill="#FFF3EA"/></svg>
+      <svg class="hk-star" id="hk-s2" style="left:930px;top:180px" viewBox="0 0 100 100"><path d="M50 0C55 35 65 45 100 50C65 55 55 65 50 100C45 65 35 55 0 50C35 45 45 35 50 0Z" fill="#FFF3EA"/></svg>
+      <div id="hk-win">
+        <span class="hk-dot" style="left:30px;background:#F79ADC"></span><span class="hk-dot" style="left:74px;background:#FFF3EA"></span><span class="hk-dot" style="left:118px;background:#F79ADC"></span>
+        <div id="hk-addr"></div>
+        <div id="hk-handle">¿Qué medís en Instagram?</div>
+        <h1 id="hk-title">Si creés que los likes son tu métrica más importante, estás <span id="hk-sel">midiendo mal<span id="hk-selbox"><span class="hk-h" style="left:-11px;top:-11px"></span><span class="hk-h" style="right:-11px;top:-11px"></span><span class="hk-h" style="left:-11px;bottom:-11px"></span><span class="hk-h" style="right:-11px;bottom:-11px"></span></span></span></h1>
+      </div>
+      <div id="hk-pill"><svg viewBox="0 0 24 24" fill="#FF6B35"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z"/></svg>12.480 likes<div id="hk-strike"></div></div>
+      <svg id="hk-cursor" viewBox="0 0 24 24"><path d="M4 2l15 8-6.5 1.8 4 7.2-3 1.6-4-7.2L4 18z" fill="#2B45A0" stroke="#FFF3EA" stroke-width="1.6" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // frame 0 already shows the full hook line
+    tl.fromTo("#hk-selbox", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power3.inOut" }, 0.35);
+    tl.fromTo("#hk-sel", { color: "#2B45A0" }, { color: "#6874B8", duration: 0.3 }, 0.45);
+    tl.fromTo("#hk-cursor", { x: 220, y: 380 }, { x: 0, y: 0, duration: 0.6, ease: "power3.out" }, 0.1);
+    tl.fromTo("#hk-cursor", { scale: 1 }, { scale: 0.82, duration: 0.1, yoyo: true, repeat: 1 }, 0.75);
+    tl.fromTo("#hk-pill", { opacity: 0, scale: 0.4, rotation: 10 }, { opacity: 1, scale: 1, rotation: -3, duration: 0.5, ease: "back.out(2)" }, 0.9);
+    tl.fromTo("#hk-strike", { scaleX: 0, rotation: -6 }, { scaleX: 1, rotation: -6, duration: 0.3, ease: "power2.out" }, 1.6);
+    tl.fromTo("#hk-pill", { y: 0 }, { y: 14, duration: 0.08, yoyo: true, repeat: 3 }, 1.62);
+    tl.fromTo(["#hk-s1", "#hk-s2"], { rotation: 0, scale: 0.8 }, { rotation: 90, scale: 1.1, duration: 2.6, ease: "sine.inOut" }, 0);
+    // quick 0.3 s zoom-out into the next scene
+    tl.fromTo("#hk-zoom", { scale: 1 }, { scale: 1.25, duration: 0.3, ease: "power2.in" }, 2.4);
+    window.__timelines["hook"] = tl;
+  </script>
+</template>

@@ -1,0 +1,46 @@
+<template>
+  <style>
+    @font-face { font-family: 'Bricolage'; font-weight: 800; src: url('assets/fonts/bricolage-grotesque-latin-800-normal.woff2'); }
+    @font-face { font-family: 'Bricolage'; font-weight: 500; src: url('assets/fonts/bricolage-grotesque-latin-500-normal.woff2'); }
+    #root { position: absolute; inset: 0; overflow: hidden; background-color: #2B45A0;
+      background-image: linear-gradient(#ACD8F2 3px, transparent 3px), linear-gradient(90deg, #ACD8F2 3px, transparent 3px);
+      background-size: 120px 120px; background-position: -40px -20px; font-family: 'Bricolage', sans-serif; color: #2B45A0; }
+    #ct-zoom { position: absolute; inset: 0; }
+    #ct-win { position: absolute; left: 90px; top: 240px; width: 860px; height: 820px; border-radius: 30px; background: #C8FFF0; box-shadow: 0 24px 0 rgba(20,30,80,.25); }
+    .ct-dot { position: absolute; top: 30px; width: 30px; height: 30px; border-radius: 50%; }
+    #ct-addr { position: absolute; right: 30px; top: 24px; width: 300px; height: 44px; border-radius: 22px; background: #A8DBD0; }
+    #ct-bm { position: absolute; left: 80px; top: 130px; width: 150px; height: 150px; }
+    #ct-title { position: absolute; left: 80px; right: 60px; top: 320px; font-weight: 800; font-size: 96px; line-height: 1.0; letter-spacing: -0.03em; }
+    #ct-title em { font-style: normal; color: #E8551F; }
+    #ct-bub { position: absolute; left: 290px; top: 1000px; width: 670px; padding: 36px 44px; border-radius: 44px 44px 8px 44px; background: #FFF3EA; font-weight: 500; font-size: 52px; line-height: 1.15; }
+    #ct-bub b { font-weight: 800; }
+    #ct-cursor { position: absolute; left: 230px; top: 330px; width: 110px; height: 110px; }
+    .ct-star { position: absolute; width: 90px; height: 90px; }
+  </style>
+  <div id="root" data-composition-id="cta" data-width="1080" data-height="1920">
+    <div id="ct-zoom">
+      <svg class="ct-star" id="ct-s1" style="left:930px;top:820px" viewBox="0 0 100 100"><path d="M50 0C55 35 65 45 100 50C65 55 55 65 50 100C45 65 35 55 0 50C35 45 45 35 50 0Z" fill="#FFF3EA"/></svg>
+      <svg class="ct-star" id="ct-s2" style="left:110px;top:1140px" viewBox="0 0 100 100"><path d="M50 0C55 35 65 45 100 50C65 55 55 65 50 100C45 65 35 55 0 50C35 45 45 35 50 0Z" fill="#FFF3EA"/></svg>
+      <div id="ct-win">
+        <span class="ct-dot" style="left:30px;background:#F79ADC"></span><span class="ct-dot" style="left:74px;background:#FFF3EA"></span><span class="ct-dot" style="left:118px;background:#F79ADC"></span>
+        <div id="ct-addr"></div>
+        <svg id="ct-bm" viewBox="0 0 24 24" stroke="#2B45A0" stroke-width="1.6" stroke-linejoin="round"><path id="ct-bmfill" d="M6 3h12v18l-6-4.5L6 21z" fill="#FFF3EA"/></svg>
+        <h2 id="ct-title"><em>Guardalo</em> para tu próxima revisión de métricas</h2>
+      </div>
+      <div id="ct-bub">Y contame: <b>¿cuál de estas estás ignorando?</b></div>
+      <svg id="ct-cursor" viewBox="0 0 24 24"><path d="M4 2l15 8-6.5 1.8 4 7.2-3 1.6-4-7.2L4 18z" fill="#2B45A0" stroke="#FFF3EA" stroke-width="1.6" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#ct-zoom", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power3.out" }, 0);
+    tl.fromTo("#ct-title", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 0.1);
+    tl.fromTo("#ct-cursor", { x: 500, y: 600 }, { x: 0, y: 0, duration: 0.45, ease: "power3.out" }, 0.15);
+    tl.fromTo("#ct-cursor", { scale: 1 }, { scale: 0.8, duration: 0.08, yoyo: true, repeat: 1, immediateRender: false }, 0.62);
+    tl.fromTo("#ct-bmfill", { fill: "#FFF3EA" }, { fill: "#FF6B35", duration: 0.15 }, 0.68);
+    tl.fromTo("#ct-bm", { scale: 1 }, { scale: 1.25, duration: 0.15, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false }, 0.68);
+    tl.fromTo("#ct-bub", { opacity: 0, scale: 0.5, rotation: 6 }, { opacity: 1, scale: 1, rotation: -2, duration: 0.45, ease: "back.out(2)" }, 0.6);
+    tl.fromTo(["#ct-s1", "#ct-s2"], { rotation: 0, scale: 0.6 }, { rotation: 90, scale: 1.1, duration: 2.6, ease: "sine.inOut" }, 0);
+    window.__timelines["cta"] = tl;
+  </script>
+</template>
