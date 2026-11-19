@@ -1,52 +1,55 @@
 <template>
   <style>
-    @font-face { font-family: 'Bricolage'; font-weight: 800; src: url('assets/fonts/bricolage-grotesque-latin-800-normal.woff2'); }
-    @font-face { font-family: 'Caveat'; font-weight: 700; src: url('assets/fonts/caveat-latin-700-normal.woff2'); }
-    #root { position: absolute; inset: 0; overflow: hidden; background-color: #2B45A0;
-      background-image: radial-gradient(rgba(172,216,242,.35) 3px, transparent 3px); background-size: 60px 60px;
-      font-family: 'Bricolage', sans-serif; color: #2B45A0; }
+    @font-face { font-family: 'Gasoek'; src: url('assets/fonts/gasoek-one-latin-400-normal.woff2'); }
+    @font-face { font-family: 'BadScript'; src: url('assets/fonts/bad-script-latin-400-normal.woff2'); }
+    #root { position: absolute; inset: 0; overflow: hidden; background-color: #BEEBEF;
+      background-image: linear-gradient(#E3FAF7 4px, transparent 4px), linear-gradient(90deg, #E3FAF7 4px, transparent 4px);
+      background-size: 120px 120px; background-position: -40px -20px; font-family: 'Gasoek', sans-serif; color: #2B45A0; }
     #mt-zoom { position: absolute; inset: 0; }
-    #mt-head { position: absolute; left: 80px; top: 262px; font-family: 'Caveat', cursive; font-weight: 700; font-size: 92px; color: #FFF3EA; }
-    #mt-hl { position: absolute; left: 80px; top: 378px; width: 470px; height: 8px; border-radius: 4px; background: #FF6B35; transform-origin: left center; }
-    .mt-row { position: absolute; left: 70px; width: 880px; height: 190px; border-radius: 40px; background: #FFF3EA; display: flex; align-items: center; gap: 34px; padding: 0 36px; box-shadow: 0 12px 0 rgba(10,20,70,.3); }
-    .mt-ic { flex: none; width: 140px; height: 140px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-    .mt-ic svg { width: 80px; height: 80px; }
-    .mt-txt b { display: block; font-weight: 800; font-size: 54px; line-height: 1; letter-spacing: -0.02em; }
-    .mt-txt span { display: block; font-family: 'Caveat', cursive; font-weight: 700; font-size: 66px; line-height: 1.1; margin-top: 6px; }
-    .mt-txt i { font-style: normal; color: #E8551F; }
+    #mt-head { position: absolute; left: 80px; top: 250px; line-height: 1.1; font-family: 'BadScript', cursive; font-size: 74px; }
+    #mt-hl { position: absolute; left: 80px; top: 350px; width: 560px; height: 8px; border-radius: 4px; background: #FF6B35; transform-origin: left center; }
+    .mt-row { position: absolute; left: 70px; width: 880px; height: 190px; border-radius: 40px; background: #FFF4EC; display: flex; align-items: center; gap: 30px; padding: 0 36px; }
+    .mt-ic { flex: none; width: 130px; height: 130px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .mt-ic svg { width: 76px; height: 76px; }
+    .mt-txt b { display: block; font-weight: 400; font-size: 50px; line-height: 1; }
+    .mt-txt span { display: block; font-family: 'BadScript', cursive; font-size: 54px; line-height: 1.2; margin-top: 10px; }
+    .mt-txt i { font-style: normal; color: #D9480F; }
     #mt-sel { position: absolute; left: 56px; top: 406px; width: 908px; height: 218px; border-radius: 50px; border: 6px solid #FF6B35; }
-    #mt-coin { position: absolute; left: 860px; top: 1000px; width: 120px; height: 120px; border-radius: 50%; background: #FF6B35; border: 6px solid #FFF3EA; color: #FFF3EA; font-weight: 800; font-size: 76px; display: flex; align-items: center; justify-content: center; }
+    #mt-coin { position: absolute; left: 860px; top: 1000px; width: 120px; height: 120px; border-radius: 50%; background: #FF6B35; border: 6px solid #FFF4EC; color: #FFF4EC; font-size: 66px; display: flex; align-items: center; justify-content: center; }
     #mt-cursor { position: absolute; left: 860px; top: 530px; width: 100px; height: 100px; }
+    .mt-star { position: absolute; width: 110px; height: 110px; }
   </style>
   <div id="root" data-composition-id="metrics" data-width="1080" data-height="1920">
     <div id="mt-zoom">
+      <svg class="mt-star" id="mt-s1" style="left:880px;top:200px" viewBox="0 0 100 100"><polygon points="50.0,0.0 58.4,29.7 85.4,14.6 70.3,41.6 100.0,50.0 70.3,58.4 85.4,85.4 58.4,70.3 50.0,100.0 41.6,70.3 14.6,85.4 29.7,58.4 0.0,50.0 29.7,41.6 14.6,14.6 41.6,29.7" fill="#FF6B35"/></svg>
       <p id="mt-head">Así se traduce cada métrica</p>
       <div id="mt-hl"></div>
       <div id="mt-sel"></div>
       <div class="mt-row" id="mt-r1" style="top:420px">
-        <div class="mt-ic" style="background:#C8FFF0"><svg viewBox="0 0 24 24" fill="none" stroke="#2B45A0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-6-4.5L6 21z" fill="#FFF3EA"/></svg></div>
+        <div class="mt-ic" style="background:#A9D5EE"><svg viewBox="0 0 24 24" fill="none" stroke="#2B45A0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-6-4.5L6 21z" fill="#FFF4EC"/></svg></div>
         <div class="mt-txt"><b>TASA DE GUARDADOS</b><span><i>=</i> te quieren volver a ver</span></div>
       </div>
       <div class="mt-row" id="mt-r2" style="top:630px">
-        <div class="mt-ic" style="background:#EFAA6C"><svg viewBox="0 0 24 24" fill="none" stroke="#2B45A0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3 11 13"/><path d="M22 3 15 21l-4-8-8-4z" fill="#FFF3EA"/></svg></div>
+        <div class="mt-ic" style="background:#F8D2EE"><svg viewBox="0 0 24 24" fill="none" stroke="#2B45A0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3 11 13"/><path d="M22 3 15 21l-4-8-8-4z" fill="#FFF4EC"/></svg></div>
         <div class="mt-txt"><b>COMPARTIDOS</b><span><i>=</i> te recomiendan</span></div>
       </div>
       <div class="mt-row" id="mt-r3" style="top:840px">
-        <div class="mt-ic" style="background:#ACD8F2"><svg viewBox="0 0 24 24" fill="none" stroke="#2B45A0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></div>
+        <div class="mt-ic" style="background:#C8FFF0"><svg viewBox="0 0 24 24" fill="none" stroke="#2B45A0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></div>
         <div class="mt-txt"><b>CLICS EN LINK</b><span><i>=</i> quieren saber más</span></div>
       </div>
       <div class="mt-row" id="mt-r4" style="top:1050px">
-        <div class="mt-ic" style="background:#F79ADC"><svg viewBox="0 0 24 24" fill="none" stroke="#2B45A0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.4A8 8 0 1 1 21 12z" fill="#FFF3EA"/></svg></div>
+        <div class="mt-ic" style="background:#D8CCC0"><svg viewBox="0 0 24 24" fill="none" stroke="#2B45A0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.4A8 8 0 1 1 21 12z" fill="#FFF4EC"/></svg></div>
         <div class="mt-txt"><b>MENSAJES DIRECTOS</b><span><i>=</i> listos para actuar</span></div>
       </div>
       <div id="mt-coin">$</div>
-      <svg id="mt-cursor" viewBox="0 0 24 24"><path d="M4 2l15 8-6.5 1.8 4 7.2-3 1.6-4-7.2L4 18z" fill="#2B45A0" stroke="#FFF3EA" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      <svg id="mt-cursor" viewBox="0 0 24 24"><path d="M4 2l15 8-6.5 1.8 4 7.2-3 1.6-4-7.2L4 18z" fill="#2B45A0" stroke="#FFF4EC" stroke-width="1.6" stroke-linejoin="round"/></svg>
     </div>
   </div>
   <script>
     const tl = gsap.timeline({ paused: true });
     tl.fromTo("#mt-zoom", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power3.out" }, 0);
     tl.fromTo("#mt-hl", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power3.inOut" }, 0.2);
+    tl.fromTo("#mt-s1", { rotation: 0 }, { rotation: 180, duration: 5.3, ease: "none" }, 0);
     const T = [0.15, 1.35, 2.55, 3.75], TOP = [420, 630, 840, 1050];
     tl.fromTo("#mt-sel", { opacity: 0, y: 0 }, { opacity: 1, y: 0, duration: 0.2 }, 0.3);
     tl.fromTo("#mt-cursor", { opacity: 0, y: 0 }, { opacity: 1, y: 0, duration: 0.2 }, 0.3);

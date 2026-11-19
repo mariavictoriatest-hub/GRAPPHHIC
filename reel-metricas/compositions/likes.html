@@ -1,24 +1,26 @@
 <template>
   <style>
-    @font-face { font-family: 'Bricolage'; font-weight: 800; src: url('assets/fonts/bricolage-grotesque-latin-800-normal.woff2'); }
-    @font-face { font-family: 'Caveat'; font-weight: 700; src: url('assets/fonts/caveat-latin-700-normal.woff2'); }
-    #root { position: absolute; inset: 0; overflow: hidden; background: #A8DBD0; font-family: 'Bricolage', sans-serif; color: #2B45A0; }
+    @font-face { font-family: 'Gasoek'; src: url('assets/fonts/gasoek-one-latin-400-normal.woff2'); }
+    @font-face { font-family: 'BadScript'; src: url('assets/fonts/bad-script-latin-400-normal.woff2'); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #2B45A0; font-family: 'Gasoek', sans-serif; color: #FFF4EC; }
     #lk-blobs { position: absolute; inset: 0; width: 1080px; height: 1920px; }
     #lk-zoom { position: absolute; inset: 0; }
-    #lk-thumb { position: absolute; left: 380px; top: 330px; width: 320px; height: 320px; border-radius: 50%; background: #FFF3EA; display: flex; align-items: center; justify-content: center; box-shadow: 0 14px 0 rgba(43,69,160,.18); }
+    #lk-thumb { position: absolute; left: 380px; top: 320px; width: 320px; height: 320px; border-radius: 50%; background: #FFF4EC; display: flex; align-items: center; justify-content: center; }
     #lk-thumb svg { width: 190px; height: 190px; }
-    #lk-title { position: absolute; left: 0; right: 0; top: 720px; text-align: center; font-weight: 800; font-size: 150px; line-height: 0.95; letter-spacing: -0.04em; }
-    #lk-sub { position: absolute; left: 0; right: 0; top: 1050px; text-align: center; font-family: 'Caveat', cursive; font-weight: 700; font-size: 84px; }
-    .lk-pill { position: absolute; padding: 20px 38px; border-radius: 40px; background: #FFF3EA; font-weight: 800; font-size: 40px; }
-    #lk-p1 { left: 90px; top: 1190px; } #lk-p2 { left: 500px; top: 1150px; }
+    #lk-title { position: absolute; left: 0; right: 0; top: 710px; text-align: center; font-weight: 400; font-size: 132px; line-height: 1.0; }
+    #lk-sub { position: absolute; left: 0; right: 0; top: 1010px; text-align: center; font-family: 'BadScript', cursive; font-size: 66px; color: #BEEBEF; }
+    .lk-pill { position: absolute; padding: 22px 40px; border-radius: 40px; background: #FFF4EC; color: #2B45A0; font-size: 36px; }
+    #lk-p1 { left: 70px; top: 1170px; } #lk-p2 { left: 560px; top: 1140px; }
+    .lk-star { position: absolute; width: 110px; height: 110px; }
   </style>
   <div id="root" data-composition-id="likes" data-width="1080" data-height="1920">
     <svg id="lk-blobs" viewBox="0 0 1080 1920" preserveAspectRatio="none">
-      <path d="M-60 300C200 160 700 120 980 220C1180 300 1060 470 760 520C460 570 120 560-60 520Z" fill="#9CCFC3"/>
-      <path d="M1140 860C860 740 360 760 120 840C-80 910 40 1060 340 1090C640 1120 980 1110 1140 1060Z" fill="#9CCFC3"/>
-      <path d="M-60 1480C220 1380 760 1360 1000 1440C1180 1510 1060 1660 760 1700C460 1740 120 1720-60 1680Z" fill="#9CCFC3"/>
+      <path d="M-60 300C200 160 700 120 980 220C1180 300 1060 470 760 520C460 570 120 560-60 520Z" fill="#3651B0"/>
+      <path d="M1140 860C860 740 360 760 120 840C-80 910 40 1060 340 1090C640 1120 980 1110 1140 1060Z" fill="#3651B0"/>
+      <path d="M-60 1480C220 1380 760 1360 1000 1440C1180 1510 1060 1660 760 1700C460 1740 120 1720-60 1680Z" fill="#3651B0"/>
     </svg>
     <div id="lk-zoom">
+      <svg class="lk-star" id="lk-s1" style="left:760px;top:300px" viewBox="0 0 100 100"><polygon points="50.0,0.0 58.4,29.7 85.4,14.6 70.3,41.6 100.0,50.0 70.3,58.4 85.4,85.4 58.4,70.3 50.0,100.0 41.6,70.3 14.6,85.4 29.7,58.4 0.0,50.0 29.7,41.6 14.6,14.6 41.6,29.7" fill="#FF6B35"/></svg>
       <div id="lk-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="#2B45A0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.7a2 2 0 0 0-2 1.7l-1.4 9A2 2 0 0 0 4.3 15z" fill="#FF6B35"/><path d="M17 2h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-3"/></svg></div>
       <h2 id="lk-title">Los likes<br />mienten</h2>
       <p id="lk-sub">Así se traduce cada métrica ↓</p>
@@ -30,6 +32,7 @@
     const tl = gsap.timeline({ paused: true });
     tl.fromTo("#lk-zoom", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power3.out" }, 0);
     tl.fromTo("#lk-thumb", { rotation: 0, y: -60 }, { rotation: -14, y: 0, duration: 0.5, ease: "back.out(3)" }, 0.05);
+    tl.fromTo("#lk-s1", { rotation: 0, scale: 0 }, { rotation: 120, scale: 1, duration: 1.2, ease: "back.out(2)" }, 0.15);
     tl.fromTo("#lk-sub", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 0.35);
     tl.fromTo("#lk-p1", { opacity: 0, scale: 0.5, rotation: -10 }, { opacity: 1, scale: 1, rotation: -5, duration: 0.35, ease: "back.out(2)" }, 0.45);
     tl.fromTo("#lk-p2", { opacity: 0, scale: 0.5, rotation: 10 }, { opacity: 1, scale: 1, rotation: 4, duration: 0.35, ease: "back.out(2)" }, 0.6);

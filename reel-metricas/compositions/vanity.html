@@ -1,28 +1,29 @@
 <template>
   <style>
-    @font-face { font-family: 'Bricolage'; font-weight: 800; src: url('assets/fonts/bricolage-grotesque-latin-800-normal.woff2'); }
-    @font-face { font-family: 'Bricolage'; font-weight: 500; src: url('assets/fonts/bricolage-grotesque-latin-500-normal.woff2'); }
-    @font-face { font-family: 'Caveat'; font-weight: 700; src: url('assets/fonts/caveat-latin-700-normal.woff2'); }
-    #root { position: absolute; inset: 0; overflow: hidden; background: #FF6B35; font-family: 'Bricolage', sans-serif; color: #2B45A0; }
+    @font-face { font-family: 'Gasoek'; src: url('assets/fonts/gasoek-one-latin-400-normal.woff2'); }
+    @font-face { font-family: 'BadScript'; src: url('assets/fonts/bad-script-latin-400-normal.woff2'); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #2B45A0; font-family: 'Gasoek', sans-serif; color: #2B45A0; }
     #vn-zoom { position: absolute; inset: 0; }
-    #vn-hand { position: absolute; left: 395px; top: 200px; width: 290px; height: 290px; border-radius: 50%; background: #FFF3EA; display: flex; align-items: center; justify-content: center; box-shadow: 0 14px 0 rgba(120,30,0,.25); }
+    #vn-hand { position: absolute; left: 395px; top: 200px; width: 290px; height: 290px; border-radius: 50%; background: #FFF4EC; display: flex; align-items: center; justify-content: center; }
     #vn-hand svg { width: 190px; height: 190px; }
-    #vn-title { position: absolute; left: 80px; right: 80px; top: 520px; text-align: center; font-weight: 800; font-size: 92px; line-height: 1.0; letter-spacing: -0.035em; color: #1E2F73; }
-    #vn-title span { background: #FFF3EA; padding: 0 14px; border-radius: 14px; }
-    #vn-card { position: absolute; left: 90px; top: 830px; width: 900px; height: 440px; border-radius: 36px; background: #FFF3EA; }
+    #vn-title { position: absolute; left: 70px; right: 70px; top: 530px; text-align: center; font-weight: 400; font-size: 70px; line-height: 1.12; color: #FFF4EC; }
+    #vn-title span { background: #F8D2EE; color: #6B5BB5; padding: 0 16px; border-left: 4px solid #E58FD0; border-right: 4px solid #E58FD0; }
+    #vn-card { position: absolute; left: 90px; top: 850px; width: 900px; height: 440px; border-radius: 36px; background: #FFF4EC; }
     #vn-gauge { position: absolute; left: 250px; top: 40px; width: 400px; height: 220px; }
-    .vn-lbl { position: absolute; top: 210px; font-family: 'Caveat', cursive; font-weight: 700; font-size: 50px; }
-    #vn-l1 { left: 150px; color: #8A8A8A; } #vn-l2 { left: 660px; color: #E8551F; }
-    #vn-txt { position: absolute; left: 50px; right: 50px; top: 290px; text-align: center; font-weight: 800; font-size: 54px; line-height: 1.05; letter-spacing: -0.02em; }
+    .vn-lbl { position: absolute; top: 205px; font-family: 'BadScript', cursive; font-size: 46px; }
+    #vn-l1 { left: 140px; color: #6B5BB5; } #vn-l2 { left: 660px; color: #E8551F; }
+    #vn-txt { position: absolute; left: 40px; right: 40px; top: 290px; text-align: center; font-weight: 400; font-size: 46px; line-height: 1.15; }
+    .vn-star { position: absolute; width: 120px; height: 120px; }
   </style>
   <div id="root" data-composition-id="vanity" data-width="1080" data-height="1920">
     <div id="vn-zoom">
+      <svg class="vn-star" id="vn-s1" style="left:720px;top:180px" viewBox="0 0 100 100"><polygon points="50.0,0.0 58.4,29.7 85.4,14.6 70.3,41.6 100.0,50.0 70.3,58.4 85.4,85.4 58.4,70.3 50.0,100.0 41.6,70.3 14.6,85.4 29.7,58.4 0.0,50.0 29.7,41.6 14.6,14.6 41.6,29.7" fill="#FF6B35"/></svg>
       <div id="vn-hand"><svg viewBox="0 0 24 24" fill="none" stroke="#2B45A0" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0v5"/><path d="M14 10V4a2 2 0 0 0-4 0v6"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-6-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg></div>
       <h2 id="vn-title">Dejá de obsesionarte con los números de <span>vanidad</span></h2>
       <div id="vn-card">
         <svg id="vn-gauge" viewBox="0 0 400 220">
           <path d="M30 200A170 170 0 0 1 115 53" stroke="#D8CCC0" stroke-width="34" fill="none"/>
-          <path d="M115 53A170 170 0 0 1 285 53" stroke="#EFAA6C" stroke-width="34" fill="none"/>
+          <path d="M115 53A170 170 0 0 1 285 53" stroke="#A9D5EE" stroke-width="34" fill="none"/>
           <path d="M285 53A170 170 0 0 1 370 200" stroke="#2B45A0" stroke-width="34" fill="none"/>
           <g id="vn-needle"><path d="M196 200L200 52L204 200Z" fill="#FF6B35" stroke="#FF6B35" stroke-width="6" stroke-linejoin="round"/></g>
           <circle cx="200" cy="200" r="18" fill="#2B45A0"/>
@@ -37,6 +38,7 @@
     tl.fromTo("#vn-zoom", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power3.out" }, 0);
     tl.fromTo("#vn-hand", { scale: 0.3, rotation: -20 }, { scale: 1, rotation: 0, duration: 0.45, ease: "back.out(3)" }, 0.05);
     tl.fromTo("#vn-hand", { x: 0 }, { x: 14, duration: 0.06, yoyo: true, repeat: 5, immediateRender: false }, 0.5);
+    tl.fromTo("#vn-s1", { rotation: 0, scale: 0 }, { rotation: 150, scale: 1, duration: 1.4, ease: "back.out(2)" }, 0.2);
     tl.fromTo("#vn-title", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 0.15);
     tl.fromTo("#vn-card", { opacity: 0, y: 120 }, { opacity: 1, y: 0, duration: 0.4, ease: "power4.out" }, 0.5);
     tl.fromTo("#vn-needle", { rotation: -80, svgOrigin: "200 200" }, { rotation: -60, svgOrigin: "200 200", duration: 0.3, ease: "power1.out" }, 0.6);
